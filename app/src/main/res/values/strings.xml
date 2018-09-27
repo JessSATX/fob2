@@ -2,4 +2,14 @@
     <string name="app_name">Fiesta Oyster Bake Companion</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="test_drop_down">Test Drop Down</string>
+    <string name="text_expanded">Expanded</string>
+    <string name="text_collapsed">Collapsed</string>
+
+    <string-array name="test_array_1">
+        <item>My first line of text</item>
+        <item>My second line of text</item>
+        <item>How will this item treat my really long line of text? Will it auto wrap my text? What if I hit enter?
+        Now i have added a new line character. Will it honor my new line character</item>
+    </string-array>
 </resources>
