@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alpha="0.5"
+    android:background="@drawable/shuckie"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context=".MainActivity$HomeTab">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha=""
+        android:text="Welcome to the 2019 Fiesta Oyster Bake hosted by St. Mary's University!!!"
+        android:textAlignment="center"
+        android:textColor="#7CDDD7"
+        android:textSize="25sp"
+        android:layout_weight="0.2"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha=""
+        android:text="The Map tab has the map of the festival grounds with markers indicating booth type and booth status."
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:layout_weight="0.1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha=""
+        android:text="The Showtimes tab has information for the various concerts taking place during the festival."
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:layout_weight="0.1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha=""
+        android:text="The FAQ tab has information about questions frequently asked about Fiesta Oyster Bake."
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:layout_weight="0.1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha=""
+        android:text="The About tab has information about the development team for the Fiesta Oyster Bake Companion."
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:layout_weight="0.1"/>
+</LinearLayout>
