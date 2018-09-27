@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:alpha="0.5"
+    android:id="@+id/LinearLayout"
     android:background="@drawable/shuckie"
     android:orientation="vertical"
     android:padding="8dp"
@@ -12,7 +13,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:alpha=""
+        android:alpha="1.0"
         android:text="Welcome to the 2019 Fiesta Oyster Bake hosted by St. Mary's University!!!"
         android:textAlignment="center"
         android:textColor="#7CDDD7"
@@ -22,7 +23,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:alpha=""
+        android:alpha="1.0"
         android:text="The Map tab has the map of the festival grounds with markers indicating booth type and booth status."
         android:textColor="#000000"
         android:textSize="16sp"
@@ -31,7 +32,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:alpha=""
+        android:alpha="1.0"
         android:text="The Showtimes tab has information for the various concerts taking place during the festival."
         android:textColor="#000000"
         android:textSize="16sp"
@@ -40,7 +41,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:alpha=""
+        android:alpha="1.0"
         android:text="The FAQ tab has information about questions frequently asked about Fiesta Oyster Bake."
         android:textColor="#000000"
         android:textSize="16sp"
@@ -49,7 +50,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:alpha=""
+        android:alpha="1.0"
         android:text="The About tab has information about the development team for the Fiesta Oyster Bake Companion."
         android:textColor="#000000"
         android:textSize="16sp"
