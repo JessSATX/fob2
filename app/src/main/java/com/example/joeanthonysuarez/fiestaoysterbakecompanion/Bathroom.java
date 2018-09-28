@@ -1,6 +1,6 @@
 package com.example.joeanthonysuarez.fiestaoysterbakecompanion;
 
-public class Bathroom extends GroundsMap
+public class Bathroom extends FOBService
 {
 	Bathroom()
 	{

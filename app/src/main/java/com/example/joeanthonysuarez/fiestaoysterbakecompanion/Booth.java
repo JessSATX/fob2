@@ -2,7 +2,7 @@ package com.example.joeanthonysuarez.fiestaoysterbakecompanion;
 
 import java.util.Date;
 
-public class Booth extends GroundsMap
+public class Booth extends PointOfInterest
 {
 	protected String name;
 	protected String type;

@@ -1,8 +1,8 @@
 package com.example.joeanthonysuarez.fiestaoysterbakecompanion;
 
-public class Coordinator extends Booth
+public class FOBService extends PointOfInterest
 {
-	Coordinator()
+	FOBService()
 	{
 		;
 	}

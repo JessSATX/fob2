@@ -1,6 +1,6 @@
 package com.example.joeanthonysuarez.fiestaoysterbakecompanion;
 
-public class Ride extends GroundsMap
+public class Ride extends PointOfInterest
 {
 	Ride()
 	{

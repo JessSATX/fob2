@@ -1,8 +1,8 @@
 package com.example.joeanthonysuarez.fiestaoysterbakecompanion;
 
-public class CouponStand extends FOBService
+public class ATM extends FOBService
 {
-	CouponStand()
+	ATM()
 	{
 		;
 	}
