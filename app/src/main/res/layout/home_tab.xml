@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="8dp"
+    android:background="#E2E3DD"
     tools:context=".MainActivity$HomeTab">
 
     <ImageView
@@ -26,7 +27,7 @@
         android:layout_below="@id/shuckie_pic"
         android:layout_centerHorizontal="true"
         android:textAlignment="center"
-        android:textColor="#7CDDD7"
+        android:textColor="#920D06"
         android:textSize="30sp" />
 
     <TextView
