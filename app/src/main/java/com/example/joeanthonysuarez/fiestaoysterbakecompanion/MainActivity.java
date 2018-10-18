@@ -55,26 +55,22 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.container, HomeTab.newInstance(position + 1))
                             .commit();
-                }
-                else if (position == 1) // Map content
+                } else if (position == 1) // Map content
                 {
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.container, MapTab.newInstance(position + 1))
                             .commit();
-                }
-                else if (position == 2) // Showtimes content
+                } else if (position == 2) // Showtimes content
                 {
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.container, ShowtimesTab.newInstance(position + 1))
                             .commit();
-                }
-                else if (position == 3) // About content
+                } else if (position == 3) // About content
                 {
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.container, AboutTab.newInstance(position + 1))
                             .commit();
-                }
-                else if (position == 4) // FAQ content
+                } else if (position == 4) // FAQ content
                 {
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.container, FAQTab.newInstance(position + 1))
