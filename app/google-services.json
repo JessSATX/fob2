@@ -1,0 +1,115 @@
+{
+  "project_info": {
+    "project_number": "552858719515",
+    "firebase_url": "https://oyster-bake-companion.firebaseio.com",
+    "project_id": "oyster-bake-companion",
+    "storage_bucket": "oyster-bake-companion.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552858719515:android:caca678a1e9caf3e",
+        "android_client_info": {
+          "package_name": "com.example.joeanthonysuarez.fiestaoysterbakecompanion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "552858719515-7or3bhnkivplu8182h8iuq3qakhll7m7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.joeanthonysuarez.fiestaoysterbakecompanion",
+            "certificate_hash": "04e70ed3a5f43aab206765c4a02c4bf435eb460e"
+          }
+        },
+        {
+          "client_id": "552858719515-oin7tmqjm10u081vg8q1m5bbeh8gbh0o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.joeanthonysuarez.fiestaoysterbakecompanion",
+            "certificate_hash": "8fc1a456596e1ccaede0522f437ff42a4bef5159"
+          }
+        },
+        {
+          "client_id": "552858719515-57ueh0ifnsj11qioq42saucbkpnad1hk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.joeanthonysuarez.fiestaoysterbakecompanion",
+            "certificate_hash": "d37825f5d287e77444bcf7c81dfd47f27a2e7bee"
+          }
+        },
+        {
+          "client_id": "552858719515-h5eihnpcbitjb736jsfo7ansudm18cet.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCXoWQKLBchqAlxu1NyN26q2Xa5U5Omoo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "552858719515-h5eihnpcbitjb736jsfo7ansudm18cet.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552858719515:android:83fcdf497beb4756",
+        "android_client_info": {
+          "package_name": "com.example.josespc.oysterbakecompanion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "552858719515-j5pf83p7u24o5guqmiljg5ah14j9l6na.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.josespc.oysterbakecompanion",
+            "certificate_hash": "8fc1a456596e1ccaede0522f437ff42a4bef5159"
+          }
+        },
+        {
+          "client_id": "552858719515-h5eihnpcbitjb736jsfo7ansudm18cet.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCXoWQKLBchqAlxu1NyN26q2Xa5U5Omoo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "552858719515-h5eihnpcbitjb736jsfo7ansudm18cet.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
