@@ -1,13 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ShowtimesLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E2E3DD"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="8dp"
+    tools:context=".MainActivity$ShowtimesTab">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Showtimes go here." />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <Button
+            android:id="@+id/Stage1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stage 1" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/Stage2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stage 2" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/Stage3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stage 3" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/Stage4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stage 4" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/Stage5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stage 5" />
+    </RelativeLayout>
 </LinearLayout>
