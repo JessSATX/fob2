@@ -2,4 +2,13 @@
     <string name="app_name">Fiesta Oyster Bake Companion</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="test_drop_down">Test Drop Down</string>
+    <string name="text_expanded">Expanded</string>
+    <string name="text_collapsed">Collapsed</string>
+
+    <string-array name="test_array_1">
+        <item>Line one of text</item>
+        <item>Line two of text</item>
+        <item>A line that is so long that, depending on how the app runs, may or may not wrap this line of text around to the next line on the screen of the device that this app is currently running on.</item>
+    </string-array>
 </resources>
