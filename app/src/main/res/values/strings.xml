@@ -7,9 +7,8 @@
     <string name="text_collapsed">Collapsed</string>
 
     <string-array name="test_array_1">
-        <item>My first line of text</item>
-        <item>My second line of text</item>
-        <item>How will this item treat my really long line of text? Will it auto wrap my text? What if I hit enter?
-        Now i have added a new line character. Will it honor my new line character</item>
+        <item>Line one of text</item>
+        <item>Line two of text</item>
+        <item>A line that is so long that, depending on how the app runs, may or may not wrap this line of text around to the next line on the screen of the device that this app is currently running on.</item>
     </string-array>
 </resources>
