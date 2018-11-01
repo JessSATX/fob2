@@ -19,9 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ScheduleList" />
         <activity
-            android:name="com.example.joeanthonysuarez.fiestaoysterbakecompanion.Information"
-            android:exported="true"></activity>
+            android:name=".SelectedArtist"
+            android:parentActivityName=".ScheduleList" />
     </application>
 
 </manifest>
