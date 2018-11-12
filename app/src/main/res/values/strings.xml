@@ -12,4 +12,5 @@
         <item>How will this item treat my really long line of text? Will it auto wrap my text? What if I hit enter?
         Now i have added a new line character. Will it honor my new line character</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
 </resources>
