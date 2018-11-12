@@ -245,9 +245,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.map_tab, container, false);
+            View mapView = inflater.inflate(R.layout.activity_maps, container, false);
 
-            return rootView;
+
+            return mapView;
         }
     }
 
