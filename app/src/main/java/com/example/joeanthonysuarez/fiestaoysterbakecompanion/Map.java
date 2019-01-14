@@ -26,7 +26,7 @@ public class Map extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // initialize the view and the gesture detector
-        mImageView = findViewById(R.id.imageView);
+      //  mImageView = findViewById(R.id.map);
         mScaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
     }
 
