@@ -5,6 +5,7 @@
     <string name="test_drop_down">Test Drop Down</string>
     <string name="text_expanded">Expanded</string>
     <string name="text_collapsed">Collapsed</string>
+    <string name="google_maps_api_key">AIzaSyDvHx8qTFDh_9l3zrBtwX_kltjplycEWPI</string>
 
     <string-array name="test_array_1">
         <item>My first line of text</item>
