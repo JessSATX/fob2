@@ -1,6 +1,9 @@
 package com.example.joeanthonysuarez.fiestaoysterbakecompanion;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -157,12 +160,17 @@ public class MainActivity extends AppCompatActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class HomeTab extends Fragment {
+    public static class HomeTab extends Fragment implements View.OnClickListener {
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+
+        public Button buyTicketsButton;
+        public Button followOnTwitterButton;
+        public Button followOnInstagramButton;
+        public Button likeOnFacebookButton;
 
         public HomeTab() {
         }
@@ -183,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-            // currentYear = 3005;   // Play around with different year values.
+            // currentYear = 2097;   // Play around with different year values.
 
             String welcomeTextString = "Welcome to the ";
             welcomeTextString = welcomeTextString + Integer.toString(currentYear);
@@ -193,12 +201,36 @@ public class MainActivity extends AppCompatActivity {
             String yearCountTextString = "The Fiesta Oyster Bake is celebrating its " + Integer.toString(currentYear - 1916);
             switch (yearOnesDigit) {
                 case 1:
+                case 21:
+                case 31:
+                case 41:
+                case 51:
+                case 61:
+                case 71:
+                case 81:
+                case 91:
                     yearCountTextString = yearCountTextString + "st ";
                     break;
                 case 2:
+                case 22:
+                case 32:
+                case 42:
+                case 52:
+                case 62:
+                case 72:
+                case 82:
+                case 92:
                     yearCountTextString = yearCountTextString + "nd ";
                     break;
                 case 3:
+                case 23:
+                case 33:
+                case 43:
+                case 53:
+                case 63:
+                case 73:
+                case 83:
+                case 93:
                     yearCountTextString = yearCountTextString + "rd ";
                     break;
                 default:
@@ -210,10 +242,53 @@ public class MainActivity extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.home_tab, container, false);
             TextView welcomeText = (TextView) rootView.findViewById(R.id.welcome_text);
             TextView yearCountText = (TextView) rootView.findViewById(R.id.year_count_text);
+            buyTicketsButton = (Button) rootView.findViewById(R.id.buy_tickets_button);
+            followOnTwitterButton = (Button) rootView.findViewById(R.id.twitter_button);
+            followOnInstagramButton = (Button) rootView.findViewById(R.id.instagram_button);
+            likeOnFacebookButton = (Button) rootView.findViewById(R.id.facebook_button);
+
             welcomeText.setText(welcomeTextString);
             yearCountText.setText(yearCountTextString);
+            buyTicketsButton.setOnClickListener(this);
+            followOnTwitterButton.setOnClickListener(this);
+            followOnInstagramButton.setOnClickListener(this);
+            likeOnFacebookButton.setOnClickListener(this);
 
             return rootView;
+        }
+
+        @Override
+        public void onClick(View view) {
+            Uri webpage = null;
+            Intent buttonIntent;
+            PackageManager packageManager;
+            List<ResolveInfo> buttonActivities;
+            boolean isIntentSafe;
+
+            switch (view.getId()) {
+                case R.id.buy_tickets_button:
+                    webpage = Uri.parse("http://oysterbake.com/tickets-2/");
+                    break;
+                case R.id.twitter_button:
+                    webpage = Uri.parse("https://twitter.com/Oyster_Bake");
+                    break;
+                case R.id.instagram_button:
+                    webpage = Uri.parse("https://www.instagram.com/oysterbake/");
+                    break;
+                case R.id.facebook_button:
+                    webpage = Uri.parse("https://www.facebook.com/FiestaOysterBake/");
+                    break;
+                default:
+                    Toast.makeText(view.getContext(), "Could not complete action", Toast.LENGTH_SHORT).show();
+            }
+
+            buttonIntent = new Intent(Intent.ACTION_VIEW, webpage);
+            packageManager = view.getContext().getPackageManager();
+            buttonActivities = packageManager.queryIntentActivities(buttonIntent, PackageManager.MATCH_DEFAULT_ONLY);
+            isIntentSafe = (buttonActivities.size() > 0);
+            if (isIntentSafe) {
+                startActivity(buttonIntent);
+            }
         }
     }
 
