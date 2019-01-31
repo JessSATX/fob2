@@ -27,9 +27,7 @@ import android.content.res.Resources.Theme;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -454,8 +452,6 @@ public class MainActivity extends AppCompatActivity {
 
         private ExpandableListView expandableListView;
         private ExpandableListViewAdapter expandableListViewAdapter;
-        private List<String> listDataGroup;
-        private HashMap<String, List<String>> listDataChild;
 
         public FAQTab() {
         }
@@ -477,82 +473,12 @@ public class MainActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.faq_tab, container, false);
 
-            // Initialize views.
-            initViews(rootView);
+            expandableListView = (ExpandableListView) rootView.findViewById(R.id.expandableListView);
+            expandableListViewAdapter = new ExpandableListViewAdapter(this.getContext());
 
-            // Initialize listeners.
-            initListeners(rootView);
-
-            // Initialize objects.
-            initObjects();
-
-            // Prepare list data.
-            initListData();
+            expandableListView.setAdapter(expandableListViewAdapter);
 
             return rootView;
-        }
-
-        private void initViews(View view) {
-            expandableListView = view.findViewById(R.id.expandableListView);
-        }
-
-        private void initListeners(final View view) {
-            expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-                @Override
-                public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                    Toast.makeText(view.getContext(), listDataGroup.get(groupPosition) + " : " + listDataChild.get(listDataGroup.get(groupPosition)).get(childPosition), Toast.LENGTH_SHORT).show();
-
-                    return false;
-                }
-            });
-
-            expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-                @Override
-                public void onGroupExpand(int groupPosition) {
-                    Toast.makeText(view.getContext(), listDataGroup.get(groupPosition) + " " + getString(R.string.text_expanded), Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-                @Override
-                public void onGroupCollapse(int groupPosition) {
-                    Toast.makeText(view.getContext(), listDataGroup.get(groupPosition) + " " + getString(R.string.text_collapsed), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-
-        private void initObjects() {
-            // Initialize list of groups.
-            listDataGroup = new ArrayList<>();
-
-            // Initialize list of child.
-            listDataChild = new HashMap<>();
-
-            // Initialize adapter object.
-            expandableListViewAdapter = new ExpandableListViewAdapter(this.getContext(), listDataGroup, listDataChild);
-
-            // Set the adapter to the expandable list view.
-            expandableListView.setAdapter(expandableListViewAdapter);
-        }
-
-        // Dummy data prepared.
-        private void initListData() {
-            // Add group data.
-            listDataGroup.add(getString(R.string.test_drop_down));
-
-            String[] strings;
-
-            // Test the drop down.
-            List<String> alcoholList = new ArrayList<>();
-            strings = getResources().getStringArray(R.array.test_array_1);
-            for (String string : strings) {
-                alcoholList.add(string);
-            }
-
-            // Add child data.
-            listDataChild.put(listDataGroup.get(0), alcoholList);
-
-            expandableListViewAdapter.notifyDataSetChanged();
         }
     }
 }
