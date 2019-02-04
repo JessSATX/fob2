@@ -74,9 +74,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         @Override
         public void onMapReady(GoogleMap googleMap) {
             mMap = googleMap;
+            mMap.setInfoWindowAdapter(new newinfoAdapter(MapsActivity.this));
             mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             LatLng stmu = new LatLng(29.45249260178782, -98.56478047528071);
-            mMap.addMarker(new MarkerOptions().position(stmu).title("Fiesta Oyster Bake"));
+            mMap.addMarker(new MarkerOptions()
+                    .position(stmu)
+                    .title("Fiesta Oyster Bake")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.food))
+                    .snippet("Example Booth\n" +
+                             "Product: Chicken on a stick\n" +
+                             "Price: 6 tickets\n" +
+                             "Status: Open"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(stmu));
             mMap.getUiSettings().setZoomControlsEnabled(true);
             // Move the camera instantly to stmu with a zoom of 15.
