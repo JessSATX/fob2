@@ -41,22 +41,56 @@
         android:textColor="#7B8D93"
         android:textSize="24sp" />
 
+    <View
+        android:id="@+id/text_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/year_count_text"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary" />
+
+    <Button
+        android:id="@+id/about_oyster_bake_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_divider"
+        android:layout_alignParentRight="true"
+        android:text="About Oyster Bake" />
+
     <Button
         android:id="@+id/buy_tickets_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/year_count_text"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@id/text_divider"
+        android:layout_alignParentLeft="true"
         android:text="Purchase Tickets" />
+
+    <View
+        android:id="@+id/social_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/buy_tickets_button"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/connect_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/social_divider"
+        android:text="Connect with Oyster Bake!"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/twitter_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buy_tickets_button"
+        android:layout_below="@id/connect_label"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:background="#00ACED"
+        android:backgroundTint="#00ACED"
         android:text="Follow on Twitter!"
         android:textColor="@android:color/white" />
 
@@ -66,8 +100,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/twitter_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:background="#C32AA3"
+        android:backgroundTint="#C32AA3"
         android:text="Follow on Instagram!"
         android:textColor="@android:color/white" />
 
@@ -77,8 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/instagram_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:background="#3B5998"
+        android:backgroundTint="#3B5998"
         android:text="Like on Facebook!"
         android:textColor="@android:color/white" />
 </RelativeLayout>

@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                         "Home",
                         "Map",
                         "Showtimes",
-                        "About",
+                        "About the Devs",
                         "FAQ"
                 }));
 
@@ -166,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         public Button buyTicketsButton;
+        public Button aboutOysterBakeButton;
         public Button followOnTwitterButton;
         public Button followOnInstagramButton;
         public Button likeOnFacebookButton;
@@ -241,6 +242,7 @@ public class MainActivity extends AppCompatActivity {
             TextView welcomeText = (TextView) rootView.findViewById(R.id.welcome_text);
             TextView yearCountText = (TextView) rootView.findViewById(R.id.year_count_text);
             buyTicketsButton = (Button) rootView.findViewById(R.id.buy_tickets_button);
+            aboutOysterBakeButton = (Button) rootView.findViewById(R.id.about_oyster_bake_button);
             followOnTwitterButton = (Button) rootView.findViewById(R.id.twitter_button);
             followOnInstagramButton = (Button) rootView.findViewById(R.id.instagram_button);
             likeOnFacebookButton = (Button) rootView.findViewById(R.id.facebook_button);
@@ -248,6 +250,7 @@ public class MainActivity extends AppCompatActivity {
             welcomeText.setText(welcomeTextString);
             yearCountText.setText(yearCountTextString);
             buyTicketsButton.setOnClickListener(this);
+            aboutOysterBakeButton.setOnClickListener(this);
             followOnTwitterButton.setOnClickListener(this);
             followOnInstagramButton.setOnClickListener(this);
             likeOnFacebookButton.setOnClickListener(this);
@@ -263,28 +266,34 @@ public class MainActivity extends AppCompatActivity {
             List<ResolveInfo> buttonActivities;
             boolean isIntentSafe;
 
-            switch (view.getId()) {
-                case R.id.buy_tickets_button:
-                    webpage = Uri.parse("http://oysterbake.com/tickets-2/");
-                    break;
-                case R.id.twitter_button:
-                    webpage = Uri.parse("https://twitter.com/Oyster_Bake");
-                    break;
-                case R.id.instagram_button:
-                    webpage = Uri.parse("https://www.instagram.com/oysterbake/");
-                    break;
-                case R.id.facebook_button:
-                    webpage = Uri.parse("https://www.facebook.com/FiestaOysterBake/");
-                    break;
-                default:
-                    Toast.makeText(view.getContext(), "Could not complete action", Toast.LENGTH_SHORT).show();
-            }
+            if ((view.getId()) != (R.id.about_oyster_bake_button)) {
+                switch (view.getId()) {
+                    case R.id.buy_tickets_button:
+                        webpage = Uri.parse("http://oysterbake.com/tickets-2/");
+                        break;
+                    case R.id.twitter_button:
+                        webpage = Uri.parse("https://twitter.com/Oyster_Bake");
+                        break;
+                    case R.id.instagram_button:
+                        webpage = Uri.parse("https://www.instagram.com/oysterbake/");
+                        break;
+                    case R.id.facebook_button:
+                        webpage = Uri.parse("https://www.facebook.com/FiestaOysterBake/");
+                        break;
+                    default:
+                        Toast.makeText(view.getContext(), "Could not complete action", Toast.LENGTH_SHORT).show();
+                }
 
-            buttonIntent = new Intent(Intent.ACTION_VIEW, webpage);
-            packageManager = view.getContext().getPackageManager();
-            buttonActivities = packageManager.queryIntentActivities(buttonIntent, PackageManager.MATCH_DEFAULT_ONLY);
-            isIntentSafe = (buttonActivities.size() > 0);
-            if (isIntentSafe) {
+                buttonIntent = new Intent(Intent.ACTION_VIEW, webpage);
+                packageManager = view.getContext().getPackageManager();
+                buttonActivities = packageManager.queryIntentActivities(buttonIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                isIntentSafe = (buttonActivities.size() > 0);
+                if (isIntentSafe) {
+                    startActivity(buttonIntent);
+                }
+            } else {
+                buttonIntent = new Intent(getActivity(), AboutOysterBake.class);
+
                 startActivity(buttonIntent);
             }
         }
