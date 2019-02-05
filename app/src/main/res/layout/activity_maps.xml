@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ShowtimesLinearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E2E3DD"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context=".MainActivity$ShowtimesTab">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/fridayMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Friday Map" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/saturdayMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Saturday Map" />
+    </RelativeLayout>
+</LinearLayout>
