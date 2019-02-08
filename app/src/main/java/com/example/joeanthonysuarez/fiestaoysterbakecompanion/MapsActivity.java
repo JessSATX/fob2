@@ -76,6 +76,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mMap = googleMap;
             mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             LatLng stmu = new LatLng(29.45249260178782, -98.56478047528071);
+            mMap.setInfoWindowAdapter(new newinfoAdapter(MapsActivity.this));
             mMap.addMarker(new MarkerOptions()
                     .position(stmu)
                     .title("Fiesta Oyster Bake")
