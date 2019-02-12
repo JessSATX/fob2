@@ -7,8 +7,18 @@
 
     <fragment
         android:id="@+id/map"
+        class="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="550dp" />
+
+    <Button
+        android:id="@+id/button3"
         android:layout_width="wrap_content"
-        android:layout_height="500dp"
-        class="com.google.android.gms.maps.SupportMapFragment" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/map"
+        android:layout_alignBaseline="@+id/map"
+        android:layout_alignParentTop="false"
+        android:layout_centerInParent="true"
+        android:text="Refresh Booth Information" />
 
 </RelativeLayout>
