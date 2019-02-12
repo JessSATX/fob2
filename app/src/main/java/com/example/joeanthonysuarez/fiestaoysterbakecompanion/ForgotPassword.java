@@ -34,8 +34,7 @@ public class ForgotPassword extends AppCompatActivity {
             public void onClick(View v) {
                 String e_mail = email.getText().toString();
 
-                if (!email.equals(""))
-                {
+                if (!email.equals("")) {
                     auth.sendPasswordResetEmail(e_mail).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -51,9 +50,7 @@ public class ForgotPassword extends AppCompatActivity {
 
                         }
                     });
-                }
-                else
-                {
+                } else {
                     Toast.makeText(ForgotPassword.this, "Please enter an e-mail.", Toast.LENGTH_SHORT).show();
                 }
             }

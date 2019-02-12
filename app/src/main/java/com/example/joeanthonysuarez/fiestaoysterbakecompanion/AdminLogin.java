@@ -55,23 +55,19 @@ public class AdminLogin extends AppCompatActivity {
                 String e_mail = email.getText().toString().trim();
                 String pass_word = password.getText().toString().trim();
 
-                if (!e_mail.equals("") && !pass_word.equals(""))
-                {
+                if (!e_mail.equals("") && !pass_word.equals("")) {
                     auth.signInWithEmailAndPassword(e_mail, pass_word).addOnCompleteListener(AdminLogin.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             final FirebaseUser user = auth.getCurrentUser();
 
-                            if (task.isSuccessful() && user.isEmailVerified())
-                            {
+                            if (task.isSuccessful() && user.isEmailVerified()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Toast.makeText(AdminLogin.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                                 //Intent goToHome = new Intent(AdminLogin.this, MainActivity.class);
                                 //startActivity(goToHome);
                                 finish();
-                            }
-                            else if (!user.isEmailVerified())
-                            {
+                            } else if (!user.isEmailVerified()) {
                                 verify_msg.setText("Your e-mail is not verified. Please check your inbox for a verification e-mail" +
                                         " Click here to send a new verification e-mail.");
                                 verify_msg.setOnClickListener(new View.OnClickListener() {
@@ -82,16 +78,13 @@ public class AdminLogin extends AppCompatActivity {
                                         Toast.makeText(AdminLogin.this, "A new verification email has been sent.", Toast.LENGTH_SHORT).show();
                                     }
                                 });
-                            }
-                            else // !task.isSuccessful()
+                            } else // !task.isSuccessful()
                             {
                                 Toast.makeText(AdminLogin.this, "Password and email combination did not match.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-                }
-                else
-                {
+                } else {
                     Toast.makeText(AdminLogin.this, "Please fill in both fields.", Toast.LENGTH_SHORT).show();
                 }
             }

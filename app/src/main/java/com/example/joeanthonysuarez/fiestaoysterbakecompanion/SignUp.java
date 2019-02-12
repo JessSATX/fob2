@@ -25,14 +25,12 @@ import java.util.ArrayList;
 
 public class SignUp extends AppCompatActivity {
 
-    public EditText Email, Password, PassConfirm;
-    public Button signUp;
-
-    private FirebaseAuth auth;
-    private DatabaseReference rbRef;
-
     // array list used to store all verified emails on database
     final ArrayList<String> emailList = new ArrayList<String>();
+    public EditText Email, Password, PassConfirm;
+    public Button signUp;
+    private FirebaseAuth auth;
+    private DatabaseReference rbRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +49,7 @@ public class SignUp extends AppCompatActivity {
         rbRef.child("UserEmails").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren())
-                {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     emailList.add(ds.getValue().toString());
                 }
             }
@@ -71,12 +68,11 @@ public class SignUp extends AppCompatActivity {
                 String cpass = PassConfirm.getText().toString().trim();
                 boolean ver = VerifyEmail(e_mail);
 
-                if ( !e_mail.equals("") && !password.equals("") && !cpass.equals("") && ver == true && password.length()>6 ){
+                if (!e_mail.equals("") && !password.equals("") && !cpass.equals("") && ver == true && password.length() > 6) {
 
-                    if(!cpass.equals(password)){
+                    if (!cpass.equals(password)) {
                         Toast.makeText(SignUp.this, "Passwords do not match. Please verify.", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
+                    } else {
                         auth.createUserWithEmailAndPassword(e_mail, password)
                                 .addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
                                     @Override
@@ -89,13 +85,12 @@ public class SignUp extends AppCompatActivity {
                                             //Intent home = new Intent(SignUp.this, AdminLogin.class);
                                             //SignUp.this.startActivity(home);
                                             finish();
-                                        } else
-                                        {
-                                            try{
+                                        } else {
+                                            try {
                                                 throw task.getException();
                                             }
                                             // check if the e-mail entered is an active one
-                                            catch (FirebaseAuthUserCollisionException existEmail){
+                                            catch (FirebaseAuthUserCollisionException existEmail) {
                                                 Toast.makeText(SignUp.this, "The e-mail you entered is already an existing one.", Toast.LENGTH_SHORT).show();
                                             } catch (Exception e) {
                                                 Toast.makeText(SignUp.this, "Could not register. Please try again.", Toast.LENGTH_SHORT).show();
@@ -103,35 +98,29 @@ public class SignUp extends AppCompatActivity {
                                         }
 
                                     }
-                                }); }
-                }
-                else {
+                                });
+                    }
+                } else {
 
-                    if (ver == false){
+                    if (ver == false) {
                         Toast.makeText(SignUp.this, "The E-mail you have entered does not match any in our records.", Toast.LENGTH_SHORT).show();
-                    }
-                    else if (password.length()<=6){
+                    } else if (password.length() <= 6) {
                         Toast.makeText(SignUp.this, "Please select a password that is over 6 characters long.", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
+                    } else {
                         Toast.makeText(SignUp.this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
                     }
                 }
 
-        }
+            }
         });
     }
 
-    public boolean VerifyEmail(String email)
-    {
+    public boolean VerifyEmail(String email) {
         final String em = email;
 
-        if (emailList.contains(em))
-        {
+        if (emailList.contains(em)) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
