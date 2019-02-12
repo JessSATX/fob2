@@ -97,5 +97,13 @@ public class AdminLogin extends AppCompatActivity {
                 startActivity(goToForgotPass);
             }
         });
+
+        bexport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToExport = new Intent (AdminLogin.this, Export.class);
+                startActivity(goToExport);
+            }
+        });
     }
 }
