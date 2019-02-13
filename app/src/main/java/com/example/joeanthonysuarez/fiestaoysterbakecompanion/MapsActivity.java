@@ -26,7 +26,10 @@ import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.ClusterManager;
+import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,6 +39,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -46,6 +50,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         public static String day;
         private GoogleMap mMap;
+        private ClusterManager<MyItem> mCM;
 
         //ArrayList of Marker class, for collecting the references to marker objects. -- Lynntonio
         List<Marker> markers = new ArrayList<Marker>();
@@ -70,7 +75,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 day = (String) bundle.get("day");
             }
 
-            ImageButton fbutton = findViewById(R.id.filterButton);
+            ImageButton fbutton = findViewById(R.id.filterbutton);
             // This is the basis to the whole Filter System. ITEMS WILL NOT BE FILTERED IF THEY ARE NOT TAGGED
             // PROPERLY AND IF THEY ARE NOT STORED IN THE LIST "markers"! -- Lynntonio
             fbutton.setOnClickListener(new View.OnClickListener() {
@@ -178,6 +183,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.food))
                     .snippet("Testing Filter: Tag = 'Seafood'")));
             markers.get(3).setTag("Seafood");
+
             // end test/example -- Lynntonio
             // Note: Most likely won't be an issue, however Tags need to be released by setting them to NULL, in order to prevent memory leaks.
             // Deleting the marker does not release the tag and instead loses the reference to the tag. Should't see negative consequences
@@ -186,6 +192,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             //A statement like this will work to hide markers in the[]:  markers.get(0).setVisible(false);
             // get tag will also work
             mMap.moveCamera(CameraUpdateFactory.newLatLng(stmu));
+
+            //setup for the Cluster Manager
+            mCM = new ClusterManager<>(MapsActivity.this, mMap);
+            // Points the maps listeners at the listeners implemented by the cluster manager
+            mMap.setOnCameraIdleListener(mCM);
+            mMap.setOnMarkerClickListener(mCM); //Never this.
+            // add cluster items (markers) to the cluster manager.
+            addItems();
+
             mMap.getUiSettings().setZoomControlsEnabled(true);
             // Move the camera instantly to stmu with a zoom of 15.
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(stmu, 15));
@@ -212,4 +227,37 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 }
+
+        private void addItems()
+        {
+            //starting coordinates I guess...
+            double lat = 29.45449260178782;
+            double lng = -98.56678047528071;
+
+            //Add ten cluster Items in close proximity, for now...
+            for(int i = 0; i < 10; i++)
+            {
+                double offset = i / 60000d;
+                lat = lat + offset;
+                lng = lng + offset;
+                MyItem offsetItem = new MyItem(lat, lng);
+                mCM.addItem(offsetItem);
+            }
+
+        }
     }
+
+    /*class OwnIconRendered  extends DefaultClusterRenderer<MyItem>
+    {
+        public OwnIconRendered(Context context, GoogleMap map, ClusterManager<MyItem> clusterManager)
+        {
+            super(context, map, clusterManager);
+        }
+
+        @Override
+        protected void onBeforeClusterItemRendered(MyItem item, MarkerOptions markerOptions)
+        {
+            markerOptions.icon(item.getIcon)
+        }
+    }*/ //Was just testing some stuff.
+

@@ -13,7 +13,7 @@
         class="com.google.android.gms.maps.SupportMapFragment" />
 
     <ImageButton
-        android:id="@+id/filterButton"
+        android:id="@+id/filterbutton"
         android:layout_width="56dp"
         android:layout_height="57dp"
         android:layout_alignParentTop="true"
