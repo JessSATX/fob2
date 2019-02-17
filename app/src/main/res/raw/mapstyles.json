@@ -1,5 +1,12 @@
 [
   {
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
     "elementType": "geometry",
     "stylers": [
       {
@@ -77,6 +84,14 @@
   },
   {
     "featureType": "administrative.neighborhood",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.man_made",
     "stylers": [
       {
         "visibility": "off"

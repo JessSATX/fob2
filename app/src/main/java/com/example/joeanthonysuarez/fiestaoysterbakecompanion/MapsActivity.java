@@ -258,8 +258,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 //this is all shaky and the map is retarded...fix it
                 GroundOverlayOptions fridayMap = new GroundOverlayOptions()
                         .image(BitmapDescriptorFactory.fromResource(R.drawable.fobcafri))
-                        .position(stmu, 650f, 625f)
-                        .bearing(7);
+                        .position(stmu, 650f, 625f);
 
             // Add an overlay to the map, retaining a handle to the GroundOverlay object.
             GroundOverlay imageOverlay = mMap.addGroundOverlay(fridayMap);
