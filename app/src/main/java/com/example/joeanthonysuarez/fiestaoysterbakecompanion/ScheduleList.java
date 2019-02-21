@@ -66,11 +66,10 @@ public class ScheduleList extends AppCompatActivity {
                     String name = ds.child("NAME").getValue().toString();
                     String startTime = ds.child("START_TIME").getValue().toString();
                     String endTime = ds.child("END_TIME").getValue().toString();
-                    String bio = ds.child("BIO").getValue().toString();
+
 
                     arrayList.add(name + "\t\t\t\t" + startTime + " - " + endTime);
                     artistsNamesList.add(name);
-                    artistBioList.add(bio);
 
                     adapter.notifyDataSetChanged();
                 }
@@ -88,13 +87,11 @@ public class ScheduleList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get the name and the bio of the selected artist.
                 String name = artistsNamesList.get(position);
-                String bio = artistBioList.get(position);
 
                 // Send the name and bio strings of the selected artist to SelectedArtist.java activity
                 Intent artistSelectIntent = new Intent(ScheduleList.this, SelectedArtist.class);
 
                 artistSelectIntent.putExtra("NAME", name);
-                artistSelectIntent.putExtra("BIO", bio);
 
                 startActivity(artistSelectIntent);
             }
