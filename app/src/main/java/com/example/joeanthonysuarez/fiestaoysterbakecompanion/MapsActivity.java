@@ -39,6 +39,7 @@ import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Layout;
 import android.text.format.DateFormat;
 import android.text.format.Time;
 import android.util.Log;
@@ -159,8 +160,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             @Override
             public void onClick(View arg0) {
-                //Do things in here if you want to utilize that sick refresh byuton
-                System.out.println("Map Refresh Button Tapped");
+                //Do
             }
         });
     }
@@ -195,37 +195,48 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             // Most of this is for testing and example purposes, This should be commented out for the final build. -- Lynntonio
             LatLng stmu = new LatLng(29.45249260178782, -98.56478047528071);
-            LatLng c1 = new LatLng(29.45149260178782, -98.56478047528071);
-            LatLng c2 = new LatLng(29.45249260178782, -98.56278047528071);
-            LatLng c3 = new LatLng(29.45349260178782, -98.56278047528071);
+            LatLng c1 = new LatLng(29.45088651549366, -98.56610764311034);
+            LatLng c2 = new LatLng(29.450446486121635, -98.56594992974414);
+            LatLng c3 = new LatLng(29.450868764791878, -98.56581152815187);
+            LatLng c4 = new LatLng(29.45087717295755, -98.56593812861382);
             Marker test1 = mMap.addMarker(new MarkerOptions()
                     .position(stmu)
                     .title("Fiesta Oyster Bake")
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.food))
-                    .snippet("Example Booth\n" +
-                            "Product: Chicken on a stick\n" +
-                            "Price: 6 tickets\n" +
+                    .snippet("Green Section\n" +
+                            "Product: N/A\n" +
+                            "Price: N/A\n" +
                             "Status: Open"));
-            test1.setTag("Chicken");
+            test1.setTag("Other");
             markers.add(test1); // this is one way to store marker references, but requires you to manually initiallize the process. Don't do this.
             markers.add(mMap.addMarker(new MarkerOptions() // thi is probably the most Ideal way to store markers.
                     .position(c1)
-                    .title("Test1")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.food))
-                    .snippet("Testing Filter: Tag = 'Beef'")));
-            markers.get(1).setTag("Beef");
+                    .title("Green Section")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.sec1_green_flag))
+                    .snippet("This section is located below the carnival and hosts the Rock Stage.")));
+            markers.get(1).setTag("Other");
             markers.add(mMap.addMarker(new MarkerOptions()
                     .position(c2)
-                    .title("Test2")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.food))
-                    .snippet("Testing Filter: Tag = 'Seafood'")));
-            markers.get(2).setTag("Seafood");
+                    .title("Alcohol")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.drink_section1_multi_booth))
+                    .snippet("Alcohol Booth\n" +
+                            "Product: Alcohol\n" +
+                            "Price: 16 tickets\n" +
+                            "Status: Open")));
+            markers.get(2).setTag("Alcoholic Beverages");
             markers.add(mMap.addMarker(new MarkerOptions()
                     .position(c3)
-                    .title("Test2")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.food))
-                    .snippet("Testing Filter: Tag = 'Seafood'")));
-            markers.get(3).setTag("Seafood");
+                    .title("ATM")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.atm))
+                    .snippet("ATM - Green Section")));
+            markers.get(3).setTag("Other");
+            markers.add(mMap.addMarker(new MarkerOptions()
+                    .position(c4)
+                    .title("Coupon Booth")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.coupon_booth))
+                    .snippet("Here you can purchase coupons to use at booths in Oyster Bake." +
+                            "Price: 50 cents per ticket\n")));
+            markers.get(4).setTag("Other");
 
             mMap.moveCamera(CameraUpdateFactory.newLatLng(stmu));
             mMap.getUiSettings().setZoomControlsEnabled(true);
