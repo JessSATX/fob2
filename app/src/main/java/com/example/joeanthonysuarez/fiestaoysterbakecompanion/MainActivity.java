@@ -70,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
                         "Map",
                         "Showtimes",
                         "About the Devs",
-                        "FAQ"
+                        "FAQ",
+                        "Merchandise"
                 }));
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -102,6 +103,12 @@ public class MainActivity extends AppCompatActivity {
                 {
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.container, FAQTab.newInstance(position + 1))
+                            .commit();
+                }
+                else if (position == 5) // Merch content
+                {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.container, MerchTab.newInstance(position + 1))
                             .commit();
                 }
             }
@@ -654,6 +661,45 @@ public class MainActivity extends AppCompatActivity {
             expandableListViewAdapter = new ExpandableListViewAdapter(this.getContext());
 
             expandableListView.setAdapter(expandableListViewAdapter);
+
+            return rootView;
+        }
+    }
+
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+    public static class MerchTab extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+
+        private ExpandableListView expandableListView;
+        private ExpandableListViewAdapter expandableListViewAdapter;
+        private List<String> listDataGroup;
+        private HashMap<String, List<String>> listDataChild;
+
+        public MerchTab() {
+        }
+
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static MerchTab newInstance(int sectionNumber) {
+            MerchTab fragment = new MerchTab();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.merch_tab, container, false);
 
             return rootView;
         }

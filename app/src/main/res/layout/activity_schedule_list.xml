@@ -13,14 +13,19 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textAllCaps="true"
-        android:textColor="#FF007F"
+        android:textColor="@color/colorAccent"
         android:textSize="20sp" />
 
     <ListView
         android:id="@+id/Artists_List"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F007FF">
+        android:layout_margin="5dp"
+        android:background="#FFFF"
+        android:divider="@color/colorAccent"
+        android:dividerHeight="2dp"
+        android:padding="5dp"
+        android:theme="@style/Base.CardView">
 
     </ListView>
 </LinearLayout>
