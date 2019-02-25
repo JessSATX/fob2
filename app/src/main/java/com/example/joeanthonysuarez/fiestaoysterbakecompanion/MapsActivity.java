@@ -24,8 +24,11 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.Cluster;
+import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
@@ -35,8 +38,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -46,16 +52,20 @@ import java.util.List;
  * This shows how to create a simple activity with a raw MapView and add a marker to it. This
  * requires forwarding all the important lifecycle methods onto MapView.
  */
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,
+                                                                ClusterManager.OnClusterClickListener<MyItem>,
+                                                                ClusterManager.OnClusterItemClickListener<MyItem>,
+                                                                ClusterManager.OnClusterInfoWindowClickListener<MyItem>{
 
         public static String day;
         private GoogleMap mMap;
         private ClusterManager<MyItem> mCM;
+        private MyItem clickedItem;
 
-        //ArrayList of Marker class, for collecting the references to marker objects. -- Lynntonio
-        List<Marker> markers = new ArrayList<Marker>();
-
-
+        //ArrayList of MiItem class, for collecting the references to marker objects. -- Lynntonio
+        List<MyItem> markers = new ArrayList<MyItem>();
+        //used in filtering purposes.
+        List<MyItem> removedMarkers = new ArrayList<>();
 
 
 
@@ -109,10 +119,34 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 {
                                     if (markers.get(i).getTag() == filterArray[x])
                                     {
-                                            markers.get(i).setVisible(filterB[x]);
+                                            if (filterB[x] == false)
+                                            {
+                                                removedMarkers.add(markers.get(i));
+                                                mCM.removeItem(markers.get(i));
+                                            }
+                                    }
+                                }
+
+
+                            }
+
+                            for (int i = 0; i < removedMarkers.size(); i++)
+                            {
+                                for (int x = 0; x < filterArray.length; x++)
+                                {
+                                    if (markers.get(i).getTag() == filterArray[x])
+                                    {
+                                        if (filterB[x] == true)
+                                        {
+                                            mCM.addItem(markers.get(i));
+                                            removedMarkers.remove(markers.get(i));
+
+                                        }
                                     }
                                 }
                             }
+
+                            mCM.cluster();
                         }
                     });
 
@@ -135,6 +169,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 
+
+
         /**
          * Manipulates the map once available.
          * This callback is triggered when the map is ready to be used.
@@ -150,7 +186,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             mMap.setInfoWindowAdapter(new newinfoAdapter(MapsActivity.this));
 
-            // Most of this is for testing and example purposes, This should be commented out for the final build. -- Lynntonio
+            /* Most of this is for testing and example purposes, This should be commented/deleted out for the final build. -- Lynntonio
+            || Also everything here is deprecated don't expect to be able to use it as an example.
             LatLng stmu = new LatLng(29.45249260178782, -98.56478047528071);
             LatLng c1 = new LatLng(29.45149260178782, -98.56478047528071);
             LatLng c2 = new LatLng(29.45249260178782, -98.56278047528071);
@@ -183,6 +220,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.food))
                     .snippet("Testing Filter: Tag = 'Seafood'")));
             markers.get(3).setTag("Seafood");
+            */
 
             // end test/example -- Lynntonio
             // Note: Most likely won't be an issue, however Tags need to be released by setting them to NULL, in order to prevent memory leaks.
@@ -191,14 +229,49 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             //A statement like this will work to hide markers in the[]:  markers.get(0).setVisible(false);
             // get tag will also work
+            LatLng stmu = new LatLng(29.45249260178782, -98.56478047528071);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(stmu));
 
-            //setup for the Cluster Manager
+            //setup for the Cluster Manager -- Lynntonio
             mCM = new ClusterManager<>(MapsActivity.this, mMap);
+            MyMarkerRender renderer = new MyMarkerRender(MapsActivity.this, mMap, mCM);
+            mCM.setRenderer(renderer);
             // Points the maps listeners at the listeners implemented by the cluster manager
             mMap.setOnCameraIdleListener(mCM);
-            mMap.setOnMarkerClickListener(mCM); //Never this.
-            // add cluster items (markers) to the cluster manager.
+            mMap.setOnMarkerClickListener(mCM);
+            mMap.setInfoWindowAdapter(mCM.getMarkerManager());
+            mMap.setOnInfoWindowClickListener(mCM);
+
+            mCM.setOnClusterClickListener(MapsActivity.this);
+            mCM.setOnClusterItemClickListener(MapsActivity.this);
+            mCM.setOnClusterInfoWindowClickListener(MapsActivity.this);
+
+            //sets info window adapter.
+            mCM.getMarkerCollection().setOnInfoWindowAdapter(new GoogleMap.InfoWindowAdapter()
+            {
+                @Override
+                public View getInfoWindow(Marker marker)
+                {
+                    LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                    final View view = inflater.inflate(R.layout.newinfo, null);
+
+                    TextView titleTV = (TextView) view.findViewById(R.id.title);
+                    TextView snippetTV = (TextView) view.findViewById((R.id.snippet));
+
+                    titleTV.setText(clickedItem.getTitle());
+                    snippetTV.setText(clickedItem.getSnippet());
+
+                    return view;
+                }
+
+                @Override
+                public View getInfoContents (Marker marker)
+                {
+                    return null;
+                }
+            });
+            //Example method of how to add cluster items (markers) to the cluster manager.
             addItems();
 
             mMap.getUiSettings().setZoomControlsEnabled(true);
@@ -227,10 +300,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 }
-
+        //This method is used for testing and example purposes. This method shows the general way
+        // to add markers in the form of MyItems and hoow to add them to the marker array for filtering. -- Lynntonio
         private void addItems()
         {
-            //starting coordinates I guess...
+            //starting coordinates for now...
             double lat = 29.45449260178782;
             double lng = -98.56678047528071;
 
@@ -240,12 +314,72 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 double offset = i / 60000d;
                 lat = lat + offset;
                 lng = lng + offset;
-                MyItem offsetItem = new MyItem(lat, lng);
-                mCM.addItem(offsetItem);
+
+                if ( i % 2 == 0)
+                {
+                    // MyItems should consist of (lat, ,lng, String title, String tag, BitmapDescriptor bmd)
+                    MyItem offsetItem = new MyItem(lat, lng, "Booth #" + i,
+                            "Example Booth #" + i + "\n" +
+                                    "Product: Chicken on a stick\n" +
+                                    "Price: 6 tickets\n" +
+                                    "Status: Open(tag: Seafood)",
+                            "Seafood",
+                            BitmapDescriptorFactory.fromResource(R.drawable.food));
+                    //always add to ClusterManager mCM
+                    mCM.addItem(offsetItem);
+                    // always add to arralist markers.
+                    markers.add(offsetItem);
+                }
+                else
+                    {
+                    MyItem offsetItem = new MyItem(lat, lng, "Booth #" + i,
+                            "Example Booth #" + i + "\n" +
+                                    "Product: Chicken on a stick\n" +
+                                    "Price: 6 tickets\n" +
+                                    "Status: Open (tag: Beef)",
+                            "Beef",
+                            BitmapDescriptorFactory.fromResource(R.drawable.food));
+                        mCM.addItem(offsetItem);
+                        markers.add(offsetItem);
+                    }
             }
 
         }
+
+    @Override
+    public boolean onClusterClick(Cluster<MyItem> cluster)
+    {
+        LatLngBounds.Builder builder = LatLngBounds.builder();
+        Collection<MyItem> myItemMarker= cluster.getItems();
+
+        for (ClusterItem item: myItemMarker)
+        {
+            LatLng itemPosition = item.getPosition();
+            builder.include(itemPosition);
+        }
+
+        final LatLngBounds bounds = builder.build();
+
+        try { mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));}
+        catch (Exception error)
+        {
+
+        }
+
+        return true;
     }
+
+    @Override
+    public void onClusterInfoWindowClick(Cluster<MyItem> cluster) {
+
+    }
+
+    @Override
+    public boolean onClusterItemClick(MyItem myItem) {
+            clickedItem = myItem;
+        return false;
+    }
+}
 
     /*class OwnIconRendered  extends DefaultClusterRenderer<MyItem>
     {
