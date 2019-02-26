@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.joeanthonysuarez.fiestaoysterbakecompanion.AdminStageList">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtStagetitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/holo_purple"
+            android:textSize="15sp"
+            android:textStyle="italic" />
+
+        <Button
+            android:id="@+id/bStage1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stage 1" />
+
+        <Button
+            android:id="@+id/bStage2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stage 2" />
+
+        <Button
+            android:id="@+id/bStage3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stage 3" />
+
+        <Button
+            android:id="@+id/bStage4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stage 4" />
+
+        <Button
+            android:id="@+id/bStage5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stage 5" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

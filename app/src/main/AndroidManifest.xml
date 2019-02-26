@@ -72,7 +72,8 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".AdminHomePage" />
-        <activity android:name=".DateSelect"></activity>
+        <activity android:name=".DateSelect" />
+        <activity android:name=".AdminStageList"></activity>
     </application>
 
 </manifest>
