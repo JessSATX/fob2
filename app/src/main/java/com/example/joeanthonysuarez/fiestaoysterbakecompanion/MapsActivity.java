@@ -227,7 +227,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             markers.add(mMap.addMarker(new MarkerOptions()
                     .position(c3)
                     .title("ATM")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.atm))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.chicken_on_a_stick_all_sec))
                     .snippet("ATM - Green Section")));
             markers.get(3).setTag("Other");
             markers.add(mMap.addMarker(new MarkerOptions()
