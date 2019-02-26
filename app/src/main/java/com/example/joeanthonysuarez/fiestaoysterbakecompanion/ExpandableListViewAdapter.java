@@ -9,11 +9,13 @@ import android.widget.TextView;
 public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     private Context context;
-    private String[] headerNames = {"Oyster Bake Hours", "Parking", "Park & Ride", "Family Friendly Event"};
+    private String[] headerNames = {"Oyster Bake Hours", "Parking", "Park & Ride", "Family Friendly Event","Safety at Oyster Bake","Allowed & Prohibited Items", "Security & Entry","Exit & Re-entry","Payment Types","Rain Or Shine?","Refund & Policy","Contact Us"};
     private String[][] childNames = {{"Friday April 12: 5:00-11:00 PM (Fireworks start at 10:30 PM", "Saturday April 13: 12:00-11:00 PM"},
             {"We appreciate the patience of our neighbors each year as we conduct the Oyster Bake. Because we are located in a residential area, parking is somewhat congested around the event. We offer limited on-campus parking for $20."},
             {"We highly encourage everyone to take the VIA Park and Ride located at Crossroads. Each passenger will be charged a $5 roundtrip fee and will receive a coupon for a free soda, water or Red Bull at the Oyster Bake."},
-            {"The Oyster Bake is a family friendly event. We encourage families to attend Friday evening as we feature entertainment for families and the Integrity Roofing and Siding Fireworks Spectacular at the end of the night. On both days, kids and kids at heart can visit our carnival area known as Shuckie Street, named for our Oyster Bake mascot. We offer rides and games for children of all ages. Also, children 12 years old and younger, receive FREE admission to Oyster Bake."}};
+            {"The Oyster Bake is a family friendly event. We encourage families to attend Friday evening as we feature entertainment for families and the Integrity Roofing and Siding Fireworks Spectacular at the end of the night. On both days, kids and kids at heart can visit our carnival area known as Shuckie Street, named for our Oyster Bake mascot. We offer rides and games for children of all ages. Also, children 12 years old and younger, receive FREE admission to Oyster Bake."},
+            {"Your safety is our NUMBER ONE priority. IF YOU SEE SOMETHING, SAY SOMETHING. The Oyster Bake works closely with local, state, and federal authorities to make sure it is a safe and fun time for everyone. For the safety of everyone at the Bake, ALL patrons are subject to a full and complete search prior to entry. Screening  "}
+    };
 
     public ExpandableListViewAdapter(Context context) {
         this.context = context;
