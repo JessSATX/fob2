@@ -64,7 +64,7 @@ public class AdminLogin extends AppCompatActivity {
                             if (task.isSuccessful() && user.isEmailVerified()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Toast.makeText(AdminLogin.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                                Intent goToHome = new Intent(AdminLogin.this, AdminHome.class);
+                                Intent goToHome = new Intent(AdminLogin.this, AdminHomePage.class);
                                 startActivity(goToHome);
                                // finish();
                             } else if (!user.isEmailVerified()) {
