@@ -67,5 +67,11 @@
             android:paddingTop="10dp"
             android:text="Thank you for supporting student scholarships and university programs, and viva Oyster Bake!"
             android:textSize="18sp" />
+
+        <fragment
+            android:id="@+id/map"
+            class="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
     </LinearLayout>
 </ScrollView>
