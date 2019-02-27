@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class CreateShowtime extends AppCompatActivity  {
+public class CreateShowtime extends AppCompatActivity implements AdapterView.OnItemSelectedListener  {
 
     public static String stage;
 

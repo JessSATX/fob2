@@ -64,9 +64,9 @@ public class AdminLogin extends AppCompatActivity {
                             if (task.isSuccessful() && user.isEmailVerified()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Toast.makeText(AdminLogin.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                                //Intent goToHome = new Intent(AdminLogin.this, MainActivity.class);
-                                //startActivity(goToHome);
-                                finish();
+                                Intent goToHome = new Intent(AdminLogin.this, AdminHome.class);
+                                startActivity(goToHome);
+                               // finish();
                             } else if (!user.isEmailVerified()) {
                                 verify_msg.setText("Your e-mail is not verified. Please check your inbox for a verification e-mail" +
                                         " Click here to send a new verification e-mail.");

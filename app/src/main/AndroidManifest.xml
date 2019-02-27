@@ -75,7 +75,8 @@
         <activity android:name=".DateSelect" />
         <activity android:name=".AdminStageList" />
         <activity android:name=".AdminSchedule" />
-        <activity android:name=".CreateShowtime"></activity>
+        <activity android:name=".CreateShowtime" />
+        <activity android:name=".EditShowtime"></activity>
     </application>
 
 </manifest>
