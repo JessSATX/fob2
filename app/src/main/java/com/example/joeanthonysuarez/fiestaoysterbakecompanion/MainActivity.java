@@ -339,7 +339,7 @@ public class MainActivity extends AppCompatActivity {
             welcomeTextString = welcomeTextString + " Fiesta Oyster Bake!!!";
 
             int yearOnesDigit = (currentYear - 1916) % 100;
-            String yearCountTextString = "The Fiesta Oyster Bake is celebrating its " + Integer.toString(currentYear - 1916);
+            String yearCountTextString = "The heartbeat of Fiesta beats again for the " + Integer.toString(currentYear - 1916);
             switch (yearOnesDigit) {
                 case 1:
                 case 21:
@@ -378,7 +378,7 @@ public class MainActivity extends AppCompatActivity {
                     yearCountTextString = yearCountTextString + "th ";
                     break;
             }
-            yearCountTextString = yearCountTextString + "year. The party's just begun at the heartbeat of Fiesta.";
+            yearCountTextString = yearCountTextString + "time. 35+ bands. 100,000 oysters. 2 days. 1 good time.";
 
             View rootView = inflater.inflate(R.layout.home_tab, container, false);
             TextView welcomeText = (TextView) rootView.findViewById(R.id.welcome_text);
@@ -411,7 +411,7 @@ public class MainActivity extends AppCompatActivity {
             if ((view.getId()) != (R.id.about_oyster_bake_button)) {
                 switch (view.getId()) {
                     case R.id.buy_tickets_button:
-                        webpage = Uri.parse("http://oysterbake.com/tickets-2/");
+                        webpage = Uri.parse("http://oysterbake.com/tickets/");
                         break;
                     case R.id.twitter_button:
                         webpage = Uri.parse("https://twitter.com/Oyster_Bake");
