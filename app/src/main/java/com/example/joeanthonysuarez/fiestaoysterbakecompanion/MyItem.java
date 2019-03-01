@@ -15,17 +15,17 @@ public class MyItem implements ClusterItem {
     private final String mTag;
     private final BitmapDescriptor mIcon;
 
-    public MyItem(double lat, double lng) {
-        mPosition = new LatLng(lat, lng);
+    public MyItem(LatLng position) {
+        mPosition = position;
         mTitle = "";
         mSnippet = "";
         mTag = "";
         mIcon = BitmapDescriptorFactory.fromResource(R.drawable.food);
     }
 
-    public MyItem(double lat, double lng, String title, String snippet, String tag, BitmapDescriptor bitmap)
+    public MyItem(LatLng position, String title, String snippet, String tag, BitmapDescriptor bitmap)
     {
-        mPosition = new LatLng(lat, lng);
+        mPosition = position;
         mTitle = title;
         mSnippet = snippet;
         mTag = tag;

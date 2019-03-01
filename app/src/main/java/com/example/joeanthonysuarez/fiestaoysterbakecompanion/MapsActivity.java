@@ -217,6 +217,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             } catch (Resources.NotFoundException e) {
                 Log.e(TAG, "Can't find style. Error: ", e);
             }
+            mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng latLng) {
+                    MyItem newMarker = new MyItem(latLng, "Booth #",
+                            "Example Booth #"  + "\n" +
+                                    "Product: Chicken on a stick\n" +
+                                    "Price: 6 tickets\n" +
+                                    "Status: Open(tag: Seafood)",
+                            "Seafood",
+                            BitmapDescriptorFactory.fromResource(R.drawable.food));
+                    //always add to ClusterManager mCM
+                    mCM.addItem(newMarker);
+                    // always add to arralist markers.
+                    markers.add(newMarker);
+                }
+            });
             mMap.setInfoWindowAdapter(new newinfoAdapter(MapsActivity.this));
 
             /* Most of this is for testing and example purposes, This should be commented/deleted out for the final build. -- Lynntonio
@@ -359,7 +375,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 lat = lat + offset;
                 lng = lng + offset;
 
-                if ( i % 2 == 0)
+               /* if ( i % 2 == 0)
                 {
                     // MyItems should consist of (lat, ,lng, String title, String tag, BitmapDescriptor bmd)
                     MyItem offsetItem = new MyItem(lat, lng, "Booth #" + i,
@@ -385,7 +401,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             BitmapDescriptorFactory.fromResource(R.drawable.food));
                         mCM.addItem(offsetItem);
                         markers.add(offsetItem);
-                    }
+                    }*/
             }
 
         }
