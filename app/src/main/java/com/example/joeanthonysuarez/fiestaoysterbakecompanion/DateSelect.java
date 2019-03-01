@@ -60,7 +60,7 @@ public class DateSelect extends AppCompatActivity {
             bfri.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent gotoMap = new Intent (DateSelect.this, MapsActivity.class);
+                    Intent gotoMap = new Intent (DateSelect.this, EditMapsActivity.class);
                     gotoMap.putExtra("day", "1");
                     startActivity(gotoMap);
                 }
@@ -69,7 +69,7 @@ public class DateSelect extends AppCompatActivity {
             bsat.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent gotoMap = new Intent (DateSelect.this, MapsActivity.class);
+                    Intent gotoMap = new Intent (DateSelect.this, EditMapsActivity.class);
                     gotoMap.putExtra("day", "2");
                     startActivity(gotoMap);
                 }

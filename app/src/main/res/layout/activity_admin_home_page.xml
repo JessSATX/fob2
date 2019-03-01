@@ -16,13 +16,13 @@
             android:id="@+id/bMaps"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="View Maps" />
+            android:text="Edit Maps" />
 
         <Button
             android:id="@+id/bShowtimes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="View Showtimes" />
+            android:text="Edit Showtimes" />
     </LinearLayout>
 
 

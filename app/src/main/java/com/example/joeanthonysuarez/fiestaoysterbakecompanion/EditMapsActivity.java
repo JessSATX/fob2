@@ -1,0 +1,349 @@
+package com.example.joeanthonysuarez.fiestaoysterbakecompanion;
+
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.GroundOverlay;
+import com.google.android.gms.maps.model.GroundOverlayOptions;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.Cluster;
+import com.google.maps.android.clustering.ClusterItem;
+import com.google.maps.android.clustering.ClusterManager;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+public class EditMapsActivity extends FragmentActivity implements OnMapReadyCallback,
+                                                                    ClusterManager.OnClusterClickListener<MyItem>,
+                                                                    ClusterManager.OnClusterItemClickListener<MyItem>,
+                                                                    ClusterManager.OnClusterInfoWindowClickListener<MyItem> {
+    Button refreshButton;
+    public static String day;
+    private ClusterManager<MyItem> mCM;
+    private static final String TAG = MapsActivity.class.getSimpleName();
+    private GoogleMap mMap;
+
+    List<MyItem> markers = new ArrayList<MyItem>();
+    private MyItem clickedItem;
+
+    List<MyItem> removedMarkers = new ArrayList<>();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_edit_maps);
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        addListenerOnButton();
+
+        if (bundle != null) {
+            day = (String) bundle.get("day");
+        }
+
+
+        ImageButton fbutton = findViewById(R.id.filterbutton);
+        // This is the basis to the whole Filter System. ITEMS WILL NOT BE FILTERED IF THEY ARE NOT TAGGED
+        // PROPERLY AND IF THEY ARE NOT STORED IN THE LIST "markers"! -- Lynntonio
+        fbutton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertFilter = new AlertDialog.Builder(EditMapsActivity.this);
+
+                //String array for Alert Dialogue multichoice items. MARKER TAGS MUST MATCH ONE OF THE CONTENTS OF THE ARRAY! -- Lynntonio
+                final String[]  filterArray = new String[] {"Chicken", "Beef", "Seafood", "Veggies", "Sweets", "Beverages", "Alcoholic Beverages", "Other"};
+                //Boolean Array for selected items. Index contents are meant to correspond with those "filterArray". -- Lynntonio
+                final boolean[] filterB = new boolean[]    {     true,   true,      true,     true,     true,        true,                  true,     true};
+
+                alertFilter.setTitle("Select Categories to Filter");
+                alertFilter.setMultiChoiceItems(filterArray, filterB, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        filterB[which] = isChecked;
+                    }
+                });
+
+                //set positive/Ok button click listener
+                alertFilter.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // this will check every marker in the markers list and set their visibility
+                        // to match the corresponding filterB's value based on whether the marker's tag
+                        // matches filterArray's current index location. -- Lynntonio
+                        for (int i = 0; i < markers.size(); i++)
+                        {
+                            for (int x = 0; x < filterArray.length; x++)
+                            {
+                                if (markers.get(i).getTag() == filterArray[x])
+                                {
+                                    if (filterB[x] == false)
+                                    {
+                                        removedMarkers.add(markers.get(i));
+                                        mCM.removeItem(markers.get(i));
+                                    }
+                                }
+                            }
+
+
+                        }
+
+                        for (int i = 0; i < removedMarkers.size(); i++)
+                        {
+                            for (int x = 0; x < filterArray.length; x++)
+                            {
+                                if (markers.get(i).getTag() == filterArray[x])
+                                {
+                                    if (filterB[x] == true)
+                                    {
+                                        mCM.addItem(markers.get(i));
+                                        removedMarkers.remove(markers.get(i));
+
+                                    }
+                                }
+                            }
+                        }
+
+                        mCM.cluster();
+                    }
+                });
+
+                // Set neutral/Cancel button click listener
+                alertFilter.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                AlertDialog dialog = alertFilter.create();
+                //show dialog
+                dialog.show();
+
+
+            }
+        });
+    }
+
+    private void addListenerOnButton() {
+        refreshButton = (Button) findViewById(R.id.button3);
+
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                //Do
+            }
+        });
+    }
+
+
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        try {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            boolean success = googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.mapstyles));
+
+            if (!success) {
+                Log.e(TAG, "Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e(TAG, "Can't find style. Error: ", e);
+        }
+        mMap.setInfoWindowAdapter(new newinfoAdapter(EditMapsActivity.this));
+
+        LatLng stmu = new LatLng(29.45249260178782, -98.56478047528071);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(stmu));
+
+        //setup for the Cluster Manager -- Lynntonio
+        mCM = new ClusterManager<>(EditMapsActivity.this, mMap);
+        MyMarkerRender renderer = new MyMarkerRender(EditMapsActivity.this, mMap, mCM);
+        mCM.setRenderer(renderer);
+        // Points the maps listeners at the listeners implemented by the cluster manager
+        mMap.setOnCameraIdleListener(mCM);
+        mMap.setOnMarkerClickListener(mCM);
+        mMap.setInfoWindowAdapter(mCM.getMarkerManager());
+        mMap.setOnInfoWindowClickListener(mCM);
+
+        mCM.setOnClusterClickListener(EditMapsActivity.this);
+        mCM.setOnClusterItemClickListener(EditMapsActivity.this);
+        mCM.setOnClusterInfoWindowClickListener(EditMapsActivity.this);
+
+        //sets info window adapter.
+        mCM.getMarkerCollection().setOnInfoWindowAdapter(new GoogleMap.InfoWindowAdapter()
+        {
+            @Override
+            public View getInfoWindow(Marker marker)
+            {
+                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                final View view = inflater.inflate(R.layout.newinfo, null);
+
+                TextView titleTV = (TextView) view.findViewById(R.id.title);
+                TextView snippetTV = (TextView) view.findViewById((R.id.snippet));
+
+                titleTV.setText(clickedItem.getTitle());
+                snippetTV.setText(clickedItem.getSnippet());
+
+                return view;
+            }
+
+            @Override
+            public View getInfoContents (Marker marker)
+            {
+                return null;
+            }
+        });
+        //Example method of how to add cluster items (markers) to the cluster manager.
+        addItems();
+
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        // Move the camera instantly to stmu with a zoom of 15.
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(stmu, 15));
+        if(day.equals("1")) {
+            //this is all shaky and the map is retarded...fix it
+            GroundOverlayOptions fridayMap = new GroundOverlayOptions()
+                    .image(BitmapDescriptorFactory.fromResource(R.drawable.fobcafri))
+                    .position(stmu, 650f, 625f);
+
+            // Add an overlay to the map, retaining a handle to the GroundOverlay object.
+            GroundOverlay imageOverlay = mMap.addGroundOverlay(fridayMap);
+
+            mMap.setMinZoomPreference(16);
+            // Create a LatLngBounds that includes STMU.
+            LatLngBounds STMU = new LatLngBounds(
+                    new LatLng(29.449547605603758, -98.5687959744298), new LatLng(29.454892949715997, -98.56029317457967));
+            // Constrain the camera target to STMU
+            mMap.setLatLngBoundsForCameraTarget(STMU);
+
+        } else {
+            GroundOverlayOptions satMap = new GroundOverlayOptions()
+                    .image(BitmapDescriptorFactory.fromResource(R.drawable.fobcasatur))
+                    .position(stmu, 725f, 700f);
+            // Add an overlay to the map, retaining a handle to the GroundOverlay object.
+            GroundOverlay imageOverlay = mMap.addGroundOverlay(satMap);
+        }
+        mMap.setMinZoomPreference(16);
+        // Create a LatLngBounds that includes STMU
+        LatLngBounds STMU = new LatLngBounds(
+                new LatLng(29.449547605603758, -98.5687959744298), new LatLng(29.454892949715997, -98.56029317457967));
+        // Constrain the camera target to STMU
+        mMap.setLatLngBoundsForCameraTarget(STMU);
+    }
+
+    private void addItems() {
+        //starting coordinates for now...
+        double lat = 29.45449260178782;
+        double lng = -98.56678047528071;
+
+        //Add ten cluster Items in close proximity, for now...
+        for(int i = 0; i < 10; i++)
+        {
+            double offset = i / 60000d;
+            lat = lat + offset;
+            lng = lng + offset;
+
+            if ( i % 2 == 0)
+            {
+                // MyItems should consist of (lat, ,lng, String title, String tag, BitmapDescriptor bmd)
+                MyItem offsetItem = new MyItem(lat, lng, "Booth #" + i,
+                        "Example Booth #" + i + "\n" +
+                                "Product: Chicken on a stick\n" +
+                                "Price: 6 tickets\n" +
+                                "Status: Open(tag: Seafood)",
+                        "Seafood",
+                        BitmapDescriptorFactory.fromResource(R.drawable.food));
+                //always add to ClusterManager mCM
+                mCM.addItem(offsetItem);
+                // always add to arralist markers.
+                markers.add(offsetItem);
+            }
+            else
+            {
+                MyItem offsetItem = new MyItem(lat, lng, "Booth #" + i,
+                        "Example Booth #" + i + "\n" +
+                                "Product: Chicken on a stick\n" +
+                                "Price: 6 tickets\n" +
+                                "Status: Open (tag: Beef)",
+                        "Beef",
+                        BitmapDescriptorFactory.fromResource(R.drawable.food));
+                mCM.addItem(offsetItem);
+                markers.add(offsetItem);
+            }
+        }
+    }
+
+
+
+    @Override
+    public boolean onClusterClick(Cluster<MyItem> cluster) {
+        LatLngBounds.Builder builder = LatLngBounds.builder();
+        Collection<MyItem> myItemMarker= cluster.getItems();
+
+        for (ClusterItem item: myItemMarker)
+        {
+            LatLng itemPosition = item.getPosition();
+            builder.include(itemPosition);
+        }
+
+        final LatLngBounds bounds = builder.build();
+
+        try { mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));}
+        catch (Exception error)
+        {
+
+        }
+
+        return true;
+    }
+
+    @Override
+    public void onClusterInfoWindowClick(Cluster<MyItem> cluster) {
+
+    }
+
+    @Override
+    public boolean onClusterItemClick(MyItem myItem) {
+        clickedItem = myItem;
+        return false;
+    }
+}
