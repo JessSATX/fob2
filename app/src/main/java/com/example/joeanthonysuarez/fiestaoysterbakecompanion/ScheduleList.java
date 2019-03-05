@@ -63,16 +63,31 @@ public class ScheduleList extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String name = ds.child("NAME").getValue().toString();
-                    String startTime = ds.child("START_TIME").getValue().toString();
-                    String endTime = ds.child("END_TIME").getValue().toString();
+                    try {
+                        String name = ds.child("NAME").getValue().toString();
+                        String startTime = ds.child("START_TIME").getValue().toString();
+                        String endTime = ds.child("END_TIME").getValue().toString();
 
 
-                    arrayList.add(name + "\t\t\t\t" + startTime + " - " + endTime);
-                    artistsNamesList.add(name);
+                        arrayList.add(name + "\t\t\t\t" + startTime + " - " + endTime);
+                        artistsNamesList.add(name);
 
-                    adapter.notifyDataSetChanged();
+                        throw new Exception();
+
+                        //adapter.notifyDataSetChanged();
+                    }catch(Exception e)
+                    {
+                        /*
+                        if (Friday)
+                        {
+                            Intent intent = new Intent(
+                         */
+                        Intent intent = new Intent(ScheduleList.this, FridayBackupMap.class);
+                        startActivity(intent);
+
+                    }
                 }
+
             }
 
             @Override
