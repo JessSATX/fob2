@@ -1,7 +1,5 @@
 package com.example.joeanthonysuarez.fiestaoysterbakecompanion;
 
-import android.graphics.Bitmap;
-
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -14,6 +12,7 @@ public class MyItem implements ClusterItem {
     private final String mSnippet;
     private final String mTag;
     private final BitmapDescriptor mIcon;
+    private boolean visibility = true;
 
     public MyItem(double lat, double lng) {
         mPosition = new LatLng(lat, lng);
@@ -47,6 +46,10 @@ public class MyItem implements ClusterItem {
     public String getSnippet() {
         return mSnippet;
     }
+
+    public boolean isVisible() {return this.visibility;}
+
+    public void setVisibility(boolean v) { this.visibility = v;}
 
     public String getTag() {return mTag;}
 

@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
+import com.google.maps.android.clustering.algo.GridBasedAlgorithm;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
 import android.content.Context;
@@ -55,6 +56,7 @@ import java.util.List;
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,
                                                                 ClusterManager.OnClusterClickListener<MyItem>,
                                                                 ClusterManager.OnClusterItemClickListener<MyItem>,
+                                                                ClusterManager.OnClusterItemInfoWindowClickListener<MyItem>,
                                                                 ClusterManager.OnClusterInfoWindowClickListener<MyItem>{
 
         public static String day;
@@ -62,10 +64,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         private ClusterManager<MyItem> mCM;
         private MyItem clickedItem;
 
+    MyMarkerRender renderer;
+
         //ArrayList of MiItem class, for collecting the references to marker objects. -- Lynntonio
         List<MyItem> markers = new ArrayList<MyItem>();
-        //used in filtering purposes.
-        List<MyItem> removedMarkers = new ArrayList<>();
+
 
 
 
@@ -113,40 +116,32 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             // this will check every marker in the markers list and set their visibility
                             // to match the corresponding filterB's value based on whether the marker's tag
                             // matches filterArray's current index location. -- Lynntonio
+
+                            mCM.clearItems();
+                            mCM.getAlgorithm().clearItems();
                             for (int i = 0; i < markers.size(); i++)
                             {
                                 for (int x = 0; x < filterArray.length; x++)
                                 {
                                     if (markers.get(i).getTag() == filterArray[x])
                                     {
-                                            if (filterB[x] == false)
-                                            {
-                                                removedMarkers.add(markers.get(i));
-                                                mCM.removeItem(markers.get(i));
-                                            }
+                                            markers.get(i).setVisibility(filterB[x]);
                                     }
-                                }
 
-
-                            }
-
-                            for (int i = 0; i < removedMarkers.size(); i++)
-                            {
-                                for (int x = 0; x < filterArray.length; x++)
-                                {
-                                    if (markers.get(i).getTag() == filterArray[x])
+                                    if (markers.get(i).isVisible())
                                     {
-                                        if (filterB[x] == true)
-                                        {
-                                            mCM.addItem(markers.get(i));
-                                            removedMarkers.remove(markers.get(i));
-
-                                        }
+                                               mCM.addItem(markers.get(i));
                                     }
+                                    else
+                                    {
+                                        mCM.removeItem(markers.get(i));
+                                    }
+
                                 }
                             }
 
                             mCM.cluster();
+
                         }
                     });
 
@@ -234,7 +229,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             //setup for the Cluster Manager -- Lynntonio
             mCM = new ClusterManager<>(MapsActivity.this, mMap);
-            MyMarkerRender renderer = new MyMarkerRender(MapsActivity.this, mMap, mCM);
+            renderer = new MyMarkerRender(MapsActivity.this, mMap, mCM);
             mCM.setRenderer(renderer);
             // Points the maps listeners at the listeners implemented by the cluster manager
             mMap.setOnCameraIdleListener(mCM);
@@ -245,6 +240,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mCM.setOnClusterClickListener(MapsActivity.this);
             mCM.setOnClusterItemClickListener(MapsActivity.this);
             mCM.setOnClusterInfoWindowClickListener(MapsActivity.this);
+            mCM.setOnClusterItemInfoWindowClickListener(MapsActivity.this);
 
             //sets info window adapter.
             mCM.getMarkerCollection().setOnInfoWindowAdapter(new GoogleMap.InfoWindowAdapter()
@@ -270,7 +266,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 {
                     return null;
                 }
+
+
+
             });
+
             //Example method of how to add cluster items (markers) to the cluster manager.
             addItems();
 
@@ -378,6 +378,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public boolean onClusterItemClick(MyItem myItem) {
             clickedItem = myItem;
         return false;
+    }
+
+    @Override
+    public void onClusterItemInfoWindowClick(final MyItem myItem)
+    {
+        renderer.getMarker(myItem).hideInfoWindow();
     }
 }
 

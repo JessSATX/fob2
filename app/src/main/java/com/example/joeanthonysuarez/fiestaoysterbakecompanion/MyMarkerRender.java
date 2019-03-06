@@ -4,7 +4,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
@@ -22,4 +24,11 @@ public class MyMarkerRender extends DefaultClusterRenderer<MyItem> {
     {
         markerOptions.icon(item.getIcon());
     }
+
+    @Override
+    protected void onClusterItemRendered(MyItem item, Marker marker)
+    {
+        marker.setVisible(item.isVisible());
+    }
+
 }
