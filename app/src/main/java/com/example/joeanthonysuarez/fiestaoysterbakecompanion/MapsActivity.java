@@ -20,6 +20,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.GroundOverlayOptions;
@@ -27,6 +28,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
@@ -36,6 +42,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -63,7 +70,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         public static String day;
         private GoogleMap mMap;
         private ClusterManager<MyItem> mCM;
-    private static final String TAG = MapsActivity.class.getSimpleName();
+        private static final String TAG = MapsActivity.class.getSimpleName();
+        private List<MyItem> markerLocations = new ArrayList<MyItem>();
+        private MyItem currentItem;
+
+        private DatabaseReference firebaseReference;
 
         //ArrayList of Marker class, for collecting the references to marker objects. -- Lynntonio
         List<MyItem> markers = new ArrayList<MyItem>();
@@ -71,6 +82,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //used in filtering purposes.
         List<MyItem> removedMarkers = new ArrayList<>();
+
+        //This is used to save the variables in that we use for the markers
+        LatLng   markerPosition       =  new LatLng(0,0);
+        String   markerTitle          = "intitial";
+        String   markerDescription    = "snippet";
+        //String   markerPlaceHolderLatLang[];
+        Double  markerLat            = 0.0;
+        Double  markerLang           = 0.0;
+        String   markerTags           = "defaultTag";
+        Integer  imageTag             = 1;
 
 
 
@@ -203,6 +224,38 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
+            // set up connection to firebase
+
+
+            firebaseReference = FirebaseDatabase.getInstance().getReference();
+
+            firebaseReference.child("MarkersFriday").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    for (DataSnapshot markersFromFB : dataSnapshot.getChildren()) {
+
+                        String markerPlaceHolderLatLang[]    = markersFromFB.child("Position").getValue().toString().split(",");
+                        markerLat = Double.parseDouble(markerPlaceHolderLatLang[0]);
+                        markerLang = Double.parseDouble(markerPlaceHolderLatLang[1]);
+                        System.out.println(markerLat + "," + markerLang);
+                        markerTitle          = markersFromFB.child("Title").getValue().toString();
+                        imageTag             = Integer.parseInt(markersFromFB.child("Image").getValue().toString());
+                        currentItem = addAttributesToItem(markerLat,markerLang,markerTitle,"hello","Beef",getImageFromTag(imageTag));
+                        markers.add(currentItem);
+                        mCM.addItem(currentItem);
+                        //go another level for the descriptions and the tags
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    System.out.println("something went wrong.");
+
+                }
+            });
+
             mMap = googleMap;
             try {
                 // Customise the styling of the base map using a JSON object defined
@@ -304,8 +357,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     return null;
                 }
             });
-            //Example method of how to add cluster items (markers) to the cluster manager.
-            addItems();
+            //Example method of how to add cluster items (markers) to the cluster managers
 
             mMap.getUiSettings().setZoomControlsEnabled(true);
             // Move the camera instantly to stmu with a zoom of 15.
@@ -346,49 +398,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //This method is used for testing and example purposes. This method shows the general way
         // to add markers in the form of MyItems and hoow to add them to the marker array for filtering. -- Lynntonio
 
-        private void addItems()
-        {
-            //starting coordinates for now...
-            double lat = 29.45449260178782;
-            double lng = -98.56678047528071;
-
-            //Add ten cluster Items in close proximity, for now...
-            for(int i = 0; i < 10; i++)
-            {
-                double offset = i / 60000d;
-                lat = lat + offset;
-                lng = lng + offset;
-
-                if ( i % 2 == 0)
-                {
-                    // MyItems should consist of (lat, ,lng, String title, String tag, BitmapDescriptor bmd)
-                    MyItem offsetItem = new MyItem(lat, lng, "Booth #" + i,
-                            "Example Booth #" + i + "\n" +
-                                    "Product: Chicken on a stick\n" +
-                                    "Price: 6 tickets\n" +
-                                    "Status: Open(tag: Seafood)",
-                            "Seafood",
-                            BitmapDescriptorFactory.fromResource(R.drawable.food));
-                    //always add to ClusterManager mCM
-                    mCM.addItem(offsetItem);
-                    // always add to arralist markers.
-                    markers.add(offsetItem);
-                }
-                else
-                    {
-                    MyItem offsetItem = new MyItem(lat, lng, "Booth #" + i,
-                            "Example Booth #" + i + "\n" +
-                                    "Product: Chicken on a stick\n" +
-                                    "Price: 6 tickets\n" +
-                                    "Status: Open (tag: Beef)",
-                            "Beef",
-                            BitmapDescriptorFactory.fromResource(R.drawable.food));
-                        mCM.addItem(offsetItem);
-                        markers.add(offsetItem);
-                    }
-            }
-
-        }
 
     @Override
     public boolean onClusterClick(Cluster<MyItem> cluster)
@@ -422,6 +431,126 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public boolean onClusterItemClick(MyItem myItem) {
             clickedItem = myItem;
         return false;
+    }
+
+    public BitmapDescriptor getImageFromTag(int imageTag)
+    {
+        BitmapDescriptor  bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ambulance_all_sec);
+
+        switch(imageTag)
+        {
+            case 1:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ambulance_all_sec);
+                break;
+            case 2:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.atm);
+                break;
+            case 3:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.beer_all);
+                break;
+            case 4:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.cans_recycle);
+                break;
+            case 5:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.chicken_on_a_stick_all_sec);
+                break;
+            case 6:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.coupon_booth);
+                break;
+            case 7:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.drink_section1_multi_booth);
+                break;
+            case 8:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.drink_section3);
+                break;
+            case 9:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.first_aid);
+                break;
+            case 10:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.first_aid_sec1);
+                break;
+            case 11:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.food_sec1);
+                break;
+            case 12:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.food_sec3);
+                break;
+            case 13:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.food_sec3_small);
+                break;
+            case 14:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.food_sec3_small2);
+                break;
+            case 15:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.gate_icon);
+                break;
+            case 16:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.lostnfound);
+                break;
+            case 17:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.oysters);
+                break;
+            case 18:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.port_a_john_handicap);
+                break;
+            case 19:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.port_a_john_sec1);
+                break;
+            case 20:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.red_bull_sec2);
+                break;
+            case 21:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.sec1_green_flag);
+                break;
+            case 22:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.sec2_flag);
+                break;
+            case 23:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.sec2_food_booth);
+                break;
+            case 24:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.sec3_flag);
+                break;
+            case 25:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.sec4_yelllowflag);
+                break;
+            case 26:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.sec5_food_long);
+                break;
+            case 27:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.sec5_food_small);
+                break;
+            case 28:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.sec5_purple_flag);
+                break;
+            case 29:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.soda_pin_all);
+                break;
+            case 30:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.souvin_sec2);
+                break;
+            case 31:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.sweepstakes_sec3);
+                break;
+            case 32:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.v_i_p);
+                break;
+            case 33:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.vol_app_area);
+                break;
+            case 34:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.water_sec1);
+                break;
+            default:
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.sec1_green_flag);
+        }
+
+        return bitmap;
+    }
+
+    public MyItem addAttributesToItem(double lat, double lng, String title, String snippet, String tag, BitmapDescriptor bitmap){
+            MyItem markerToAdd = new MyItem(lat,lng,title,snippet,tag,bitmap);
+            return markerToAdd;
     }
 }
 
