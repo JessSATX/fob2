@@ -68,7 +68,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private static final String TAG = MapsActivity.class.getSimpleName();
     public static String day;
-    Button refreshButton;
+    //Button refreshButton;
     //ArrayList of Marker class, for collecting the references to marker objects. -- Lynntonio
     List<MyItem> markers = new ArrayList<MyItem>();
     //used in filtering purposes.
@@ -90,7 +90,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
-        addListenerOnButton();
+        //addListenerOnButton();
 
         if (bundle != null) {
             day = (String) bundle.get("day");
@@ -170,7 +170,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
-
+    /*
     public void addListenerOnButton() {
 
         refreshButton = (Button) findViewById(R.id.button3);
@@ -183,7 +183,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
     }
-
+    */
 
     /**
      * Manipulates the map once available.
@@ -222,7 +222,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         BitmapDescriptorFactory.fromResource(R.drawable.food));
                 //always add to ClusterManager mCM
                 mCM.addItem(newMarker);
-                // always add to arralist markers.
+                // always add to arraylist markers.
                 markers.add(newMarker);
                 mCM.cluster();
             }
@@ -285,6 +285,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setOnMarkerClickListener(mCM);
         mMap.setInfoWindowAdapter(mCM.getMarkerManager());
         mMap.setOnInfoWindowClickListener(mCM);
+        /*
         mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override
             public void onMarkerDragStart(Marker marker) {
@@ -311,6 +312,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Toast.makeText(MapsActivity.this, "New Coordinates: " + Double.toString(lat) + ", " + Double.toString(lng), Toast.LENGTH_SHORT).show();
             }
         });
+        */
 
         mCM.setOnClusterClickListener(MapsActivity.this);
         mCM.setOnClusterItemClickListener(MapsActivity.this);
@@ -449,6 +451,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public boolean onClusterItemClick(MyItem myItem) {
+        /*
         clickedItem = myItem;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
@@ -456,10 +459,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         String myItemTitle = clickedItem.getTitle();
         String myItemSnippet = clickedItem.getSnippet();
-        String myItemTag = clickedItem.getTag();
+        //String myItemTag = clickedItem.getTag();
         final EditText myTitleTV = new EditText(MapsActivity.this);
         final EditText mySnippetTV = new EditText(MapsActivity.this);
-        EditText myTagTV = new EditText(MapsActivity.this);
+        //EditText myTagTV = new EditText(MapsActivity.this);
         final Spinner myTagSpinner = new Spinner(MapsActivity.this);
         String[] tags = new String[]{"", "Chicken", "Beef", "Seafood", "Veggies", "Sweets", "Beverages", "Alcoholic Beverages", "Other"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(MapsActivity.this, android.R.layout.simple_selectable_list_item, tags);
@@ -475,24 +478,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mySnippetTV.setText(myItemSnippet);
         mySnippetTV.setHint("Booth Description");
 
-        myTagTV.setText(myItemTag);
-        myTagTV.setHint("Booth Tag");
-
         myTagSpinner.setAdapter(adapter);
         myTagSpinner.setGravity(Gravity.CENTER);
-        /*
-        myTagSpinner.setSelection();
-        for (String tag : tags)
-        {
-            if (myItemTag.equals(myTagSpinner.getSelectedItem().toString()))
-            {
-            }
-        }
-        */
 
         layout.addView(myTitleTV);
         layout.addView(mySnippetTV);
-        layout.addView(myTagTV);
+        //layout.addView(myTagTV);
         layout.addView(myTagSpinner);
 
         builder.setTitle("Edit Booth");
@@ -517,7 +508,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         AlertDialog alert = builder.create();
         alert.show();
-
+        */
         return false;
     }
 }

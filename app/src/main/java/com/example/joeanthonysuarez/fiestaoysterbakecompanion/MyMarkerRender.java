@@ -12,21 +12,18 @@ public class MyMarkerRender extends DefaultClusterRenderer<MyItem> {
     private final Context mContext;
     private boolean isDraggable;
 
-    public MyMarkerRender(Context context, GoogleMap map, ClusterManager<MyItem> clusterManager)
-    {
+    public MyMarkerRender(Context context, GoogleMap map, ClusterManager<MyItem> clusterManager) {
         super(context, map, clusterManager);
         mContext = context;
     }
 
     @Override
-    protected void onBeforeClusterItemRendered(MyItem item, MarkerOptions markerOptions)
-    {
+    protected void onBeforeClusterItemRendered(MyItem item, MarkerOptions markerOptions) {
         markerOptions.icon(item.getIcon());
         markerOptions.draggable(isDraggable);  // THIS IS UNIVERSAL!!!
     }
 
-    public void setDraggable (boolean bool)
-    {
+    public void setDraggable(boolean bool) {
         isDraggable = bool;
     }
 }

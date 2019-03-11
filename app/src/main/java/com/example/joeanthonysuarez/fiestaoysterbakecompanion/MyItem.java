@@ -22,7 +22,6 @@ public class MyItem implements ClusterItem {
         mSnippet = "";
         mTag = "";
         mIcon = BitmapDescriptorFactory.fromResource(R.drawable.food);
-        //isDraggable = true;
     }
 
     public MyItem(LatLng position, String title, String snippet, String tag, BitmapDescriptor bitmap) {
@@ -31,7 +30,6 @@ public class MyItem implements ClusterItem {
         mSnippet = snippet;
         mTag = tag;
         mIcon = bitmap;
-        //isDraggable = true;
     }
 
     @Override
