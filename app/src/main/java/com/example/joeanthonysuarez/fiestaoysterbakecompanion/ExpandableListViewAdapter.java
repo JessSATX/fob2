@@ -33,7 +33,8 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
             {"YES! Oyster Bake will still go on rain or shine."},
             {"There will be NO REFUNDS. The Oyster Bake is rain or shine and all bands are subject to change."},
             {"Fiesta Oyster Bake             " +
-                    "                                                St. Mary's University Alumni Association        "+
+                    "     St. Mary's University Alumni Association        "+
+                    "                                       St. Mary's University Alumni Association        "+
                     "                One Camino Santa Maria   " +
                     "       San Antonio, TX  78228    "+
                 "         210-436-3324     "+
