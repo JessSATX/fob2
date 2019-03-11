@@ -60,6 +60,11 @@ public class MyItem implements ClusterItem {
         mTag.add(tag);
     }
 
+    public void removeTag(int index)
+    {
+        mTag.remove(index);
+    }
+
     public BitmapDescriptor getIcon() {return mIcon;}
 
 
