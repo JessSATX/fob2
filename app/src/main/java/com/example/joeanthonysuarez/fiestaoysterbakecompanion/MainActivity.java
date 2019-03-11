@@ -635,7 +635,7 @@ public class MainActivity extends AppCompatActivity {
         private ExpandableListView expandableListView;
         private ExpandableListViewAdapter expandableListViewAdapter;
         private List<String> listDataGroup;
-        private HashMap<String, List<String>> listDataChild;
+        private HashMap<String, List<String>>listDataChild;
 
         public FAQTab() {
         }
