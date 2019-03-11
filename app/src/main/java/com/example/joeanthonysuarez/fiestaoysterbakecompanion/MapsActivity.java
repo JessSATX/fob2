@@ -42,9 +42,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.health.SystemHealthManager;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.EventLogTags;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,7 +58,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static com.example.joeanthonysuarez.fiestaoysterbakecompanion.SelectedArtist.name;
 
 /**
  * This shows how to create a simple activity with a raw MapView and add a marker to it. This
@@ -64,35 +71,36 @@ import java.util.List;
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,
                                                                 ClusterManager.OnClusterClickListener<MyItem>,
                                                                 ClusterManager.OnClusterItemClickListener<MyItem>,
-                                                                ClusterManager.OnClusterInfoWindowClickListener<MyItem>{
+                                                                ClusterManager.OnClusterInfoWindowClickListener<MyItem> {
 
-        Button refreshButton;
-        public static String day;
-        private GoogleMap mMap;
-        private ClusterManager<MyItem> mCM;
-        private static final String TAG = MapsActivity.class.getSimpleName();
-        private List<MyItem> markerLocations = new ArrayList<MyItem>();
-        private MyItem currentItem;
+    Button refreshButton;
+    public static String day;
+    private GoogleMap mMap;
+    private ClusterManager<MyItem> mCM;
+    private static final String TAG = MapsActivity.class.getSimpleName();
+    private List<MyItem> markerLocations = new ArrayList<MyItem>();
+    private MyItem currentItem;
+    StringBuilder DescriptionOfBooth = new StringBuilder();
+    private DatabaseReference firebaseReference;
+    HashMap<Integer, String> allDescriptions = new HashMap<>();
+    List<Integer> boothNumbers = new ArrayList<>();
 
-        private DatabaseReference firebaseReference;
+    //ArrayList of Marker class, for collecting the references to marker objects. -- Lynntonio
+    List<MyItem> markers = new ArrayList<MyItem>();
+    private MyItem clickedItem;
 
-        //ArrayList of Marker class, for collecting the references to marker objects. -- Lynntonio
-        List<MyItem> markers = new ArrayList<MyItem>();
-        private MyItem clickedItem;
+    //used in filtering purposes.
+    List<MyItem> removedMarkers = new ArrayList<>();
 
-        //used in filtering purposes.
-        List<MyItem> removedMarkers = new ArrayList<>();
-
-        //This is used to save the variables in that we use for the markers
-        LatLng   markerPosition       =  new LatLng(0,0);
-        String   markerTitle          = "intitial";
-        String   markerDescription    = "snippet";
-        //String   markerPlaceHolderLatLang[];
-        Double  markerLat            = 0.0;
-        Double  markerLang           = 0.0;
-        String   markerTags           = "defaultTag";
-        Integer  imageTag             = 1;
-
+    //This is used to save the variables in that we use for the markers
+    LatLng markerPosition = new LatLng(0, 0);
+    String markerTitle = "intitial";
+    String markerDescription = "snippet";
+    //String   markerPlaceHolderLatLang[];
+    Double markerLat = 0.0;
+    Double markerLang = 0.0;
+    String markerTags = "defaultTag";
+    Integer imageTag = 1;
 
 
     @Override
@@ -114,87 +122,79 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
 
-            ImageButton fbutton = findViewById(R.id.filterbutton);
-            // This is the basis to the whole Filter System. ITEMS WILL NOT BE FILTERED IF THEY ARE NOT TAGGED
-            // PROPERLY AND IF THEY ARE NOT STORED IN THE LIST "markers"! -- Lynntonio
-            fbutton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AlertDialog.Builder alertFilter = new AlertDialog.Builder(MapsActivity.this);
+        ImageButton fbutton = findViewById(R.id.filterbutton);
+        // This is the basis to the whole Filter System. ITEMS WILL NOT BE FILTERED IF THEY ARE NOT TAGGED
+        // PROPERLY AND IF THEY ARE NOT STORED IN THE LIST "markers"! -- Lynntonio
+        fbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertFilter = new AlertDialog.Builder(MapsActivity.this);
 
-                    //String array for Alert Dialogue multichoice items. MARKER TAGS MUST MATCH ONE OF THE CONTENTS OF THE ARRAY! -- Lynntonio
-                    final String[]  filterArray = new String[] {"Chicken", "Beef", "Seafood", "Veggies", "Sweets", "Beverages", "Alcoholic Beverages", "Other"};
-                    //Boolean Array for selected items. Index contents are meant to correspond with those "filterArray". -- Lynntonio
-                    final boolean[] filterB = new boolean[]    {     true,   true,      true,     true,     true,        true,                  true,     true};
+                //String array for Alert Dialogue multichoice items. MARKER TAGS MUST MATCH ONE OF THE CONTENTS OF THE ARRAY! -- Lynntonio
+                final String[] filterArray = new String[]{"Chicken", "Beef", "Seafood", "Veggies", "Sweets", "Beverages", "Alcoholic Beverages", "Other"};
+                //Boolean Array for selected items. Index contents are meant to correspond with those "filterArray". -- Lynntonio
+                final boolean[] filterB = new boolean[]{true, true, true, true, true, true, true, true};
 
-                    alertFilter.setTitle("Select Categories to Filter");
-                    alertFilter.setMultiChoiceItems(filterArray, filterB, new DialogInterface.OnMultiChoiceClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                            filterB[which] = isChecked;
-                        }
-                    });
+                alertFilter.setTitle("Select Categories to Filter");
+                alertFilter.setMultiChoiceItems(filterArray, filterB, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        filterB[which] = isChecked;
+                    }
+                });
 
-                    //set positive/Ok button click listener
-                    alertFilter.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // this will check every marker in the markers list and set their visibility
-                            // to match the corresponding filterB's value based on whether the marker's tag
-                            // matches filterArray's current index location. -- Lynntonio
-                            for (int i = 0; i < markers.size(); i++)
-                            {
-                                for (int x = 0; x < filterArray.length; x++)
-                                {
-                                    if (markers.get(i).getTag() == filterArray[x])
-                                    {
-                                            if (filterB[x] == false)
-                                            {
-                                                removedMarkers.add(markers.get(i));
-                                                mCM.removeItem(markers.get(i));
-                                            }
-                                    }
-                                }
-
-
-                            }
-
-                            for (int i = 0; i < removedMarkers.size(); i++)
-                            {
-                                for (int x = 0; x < filterArray.length; x++)
-                                {
-                                    if (markers.get(i).getTag() == filterArray[x])
-                                    {
-                                        if (filterB[x] == true)
-                                        {
-                                            mCM.addItem(markers.get(i));
-                                            removedMarkers.remove(markers.get(i));
-
-                                        }
+                //set positive/Ok button click listener
+                alertFilter.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // this will check every marker in the markers list and set their visibility
+                        // to match the corresponding filterB's value based on whether the marker's tag
+                        // matches filterArray's current index location. -- Lynntonio
+                        for (int i = 0; i < markers.size(); i++) {
+                            for (int x = 0; x < filterArray.length; x++) {
+                                if (markers.get(i).getTag() == filterArray[x]) {
+                                    if (filterB[x] == false) {
+                                        removedMarkers.add(markers.get(i));
+                                        mCM.removeItem(markers.get(i));
                                     }
                                 }
                             }
 
-                            mCM.cluster();
-                        }
-                    });
-
-                    // Set neutral/Cancel button click listener
-                    alertFilter.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
 
                         }
-                    });
 
-                    AlertDialog dialog = alertFilter.create();
-                    //show dialog
-                    dialog.show();
+                        for (int i = 0; i < removedMarkers.size(); i++) {
+                            for (int x = 0; x < filterArray.length; x++) {
+                                if (markers.get(i).getTag() == filterArray[x]) {
+                                    if (filterB[x] == true) {
+                                        mCM.addItem(markers.get(i));
+                                        removedMarkers.remove(markers.get(i));
+
+                                    }
+                                }
+                            }
+                        }
+
+                        mCM.cluster();
+                    }
+                });
+
+                // Set neutral/Cancel button click listener
+                alertFilter.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                AlertDialog dialog = alertFilter.create();
+                //show dialog
+                dialog.show();
 
 
-                }
-            });
-        }
+            }
+        });
+    }
 
 
     public void addListenerOnButton() {
@@ -211,66 +211,50 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        // set up connection to firebase
 
+        firebaseReference = FirebaseDatabase.getInstance().getReference();
 
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera. In this case,
-         * we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to install
-         * it inside the SupportMapFragment. This method will only be triggered once the user has
-         * installed Google Play services and returned to the app.
-         */
-        @Override
-        public void onMapReady(GoogleMap googleMap) {
-            // set up connection to firebase
-
-
-            firebaseReference = FirebaseDatabase.getInstance().getReference();
-
-            firebaseReference.child("MarkersFriday").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    for (DataSnapshot markersFromFB : dataSnapshot.getChildren()) {
-
-                        String markerPlaceHolderLatLang[]    = markersFromFB.child("Position").getValue().toString().split(",");
-                        markerLat = Double.parseDouble(markerPlaceHolderLatLang[0]);
-                        markerLang = Double.parseDouble(markerPlaceHolderLatLang[1]);
-                        System.out.println(markerLat + "," + markerLang);
-                        markerTitle          = markersFromFB.child("Title").getValue().toString();
-                        imageTag             = Integer.parseInt(markersFromFB.child("Image").getValue().toString());
-                        currentItem = addAttributesToItem(markerLat,markerLang,markerTitle,"hello","Beef",getImageFromTag(imageTag));
-                        markers.add(currentItem);
-                        mCM.addItem(currentItem);
-                        //go another level for the descriptions and the tags
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    System.out.println("something went wrong.");
-
-                }
-            });
-
-            mMap = googleMap;
-            try {
-                // Customise the styling of the base map using a JSON object defined
-                // in a raw resource file.
-                boolean success = googleMap.setMapStyle(
-                        MapStyleOptions.loadRawResourceStyle(
-                                this, R.raw.mapstyles));
-
-                if (!success) {
-                    Log.e(TAG, "Style parsing failed.");
-                }
-            } catch (Resources.NotFoundException e) {
-                Log.e(TAG, "Can't find style. Error: ", e);
+        firebaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                getMarkerData(dataSnapshot);
             }
-            mMap.setInfoWindowAdapter(new newinfoAdapter(MapsActivity.this));
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("something went wrong.");
+//
+            }
+        });
+
+
+        mMap = googleMap;
+        try {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            boolean success = googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.mapstyles));
+
+            if (!success) {
+                Log.e(TAG, "Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e(TAG, "Can't find style. Error: ", e);
+        }
+        mMap.setInfoWindowAdapter(new newinfoAdapter(MapsActivity.this));
 
             /* Most of this is for testing and example purposes, This should be commented/deleted out for the final build. -- Lynntonio
             || Also everything here is deprecated don't expect to be able to use it as an example.
@@ -308,65 +292,64 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             markers.get(3).setTag("Seafood");
             */
 
-            // end test/example -- Lynntonio
-            // Note: Most likely won't be an issue, however Tags need to be released by setting them to NULL, in order to prevent memory leaks.
-            // Deleting the marker does not release the tag and instead loses the reference to the tag. Should't see negative consequences
-            // unless we start making thousands of tags, in which case we need to start releasing tags. -- Lynntonio
+        // end test/example -- Lynntonio
+        // Note: Most likely won't be an issue, however Tags need to be released by setting them to NULL, in order to prevent memory leaks.
+        // Deleting the marker does not release the tag and instead loses the reference to the tag. Should't see negative consequences
+        // unless we start making thousands of tags, in which case we need to start releasing tags. -- Lynntonio
 
-            //A statement like this will work to hide markers in the[]:  markers.get(0).setVisible(false);
-            // get tag will also work
-            LatLng stmu = new LatLng(29.45249260178782, -98.56478047528071);
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(stmu));
+        //A statement like this will work to hide markers in the[]:  markers.get(0).setVisible(false);
+        // get tag will also work
+        LatLng stmu = new LatLng(29.45249260178782, -98.56478047528071);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(stmu));
 
-            //setup for the Cluster Manager -- Lynntonio
-            mCM = new ClusterManager<>(MapsActivity.this, mMap);
-            MyMarkerRender renderer = new MyMarkerRender(MapsActivity.this, mMap, mCM);
-            mCM.setRenderer(renderer);
-            // Points the maps listeners at the listeners implemented by the cluster manager
-            mMap.setOnCameraIdleListener(mCM);
-            mMap.setOnMarkerClickListener(mCM);
-            mMap.setInfoWindowAdapter(mCM.getMarkerManager());
-            mMap.setOnInfoWindowClickListener(mCM);
+        //setup for the Cluster Manager -- Lynntonio
+        mCM = new ClusterManager<>(MapsActivity.this, mMap);
+        MyMarkerRender renderer = new MyMarkerRender(MapsActivity.this, mMap, mCM);
+        mCM.setRenderer(renderer);
+        // Points the maps listeners at the listeners implemented by the cluster manager
+        mMap.setOnCameraIdleListener(mCM);
+        mMap.setOnMarkerClickListener(mCM);
+        mMap.setInfoWindowAdapter(mCM.getMarkerManager());
+        mMap.setOnInfoWindowClickListener(mCM);
 
-            mCM.setOnClusterClickListener(MapsActivity.this);
-            mCM.setOnClusterItemClickListener(MapsActivity.this);
-            mCM.setOnClusterInfoWindowClickListener(MapsActivity.this);
+        mCM.setOnClusterClickListener(MapsActivity.this);
+        mCM.setOnClusterItemClickListener(MapsActivity.this);
+        mCM.setOnClusterInfoWindowClickListener(MapsActivity.this);
+        renderer.setMinClusterSize(1);
 
-            //sets info window adapter.
-            mCM.getMarkerCollection().setOnInfoWindowAdapter(new GoogleMap.InfoWindowAdapter()
-            {
-                @Override
-                public View getInfoWindow(Marker marker)
-                {
-                    LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //sets info window adapter.
+        mCM.getMarkerCollection().setOnInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker marker) {
+                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-                    final View view = inflater.inflate(R.layout.newinfo, null);
+                final View view = inflater.inflate(R.layout.newinfo, null);
 
-                    TextView titleTV = (TextView) view.findViewById(R.id.title);
-                    TextView snippetTV = (TextView) view.findViewById((R.id.snippet));
+                TextView titleTV = (TextView) view.findViewById(R.id.title);
+                TextView snippetTV = (TextView) view.findViewById((R.id.snippet));
 
-                    titleTV.setText(clickedItem.getTitle());
-                    snippetTV.setText(clickedItem.getSnippet());
+                titleTV.setText(clickedItem.getTitle());
+                snippetTV.setText(clickedItem.getSnippet());
 
-                    return view;
-                }
+                return view;
+            }
 
-                @Override
-                public View getInfoContents (Marker marker)
-                {
-                    return null;
-                }
-            });
-            //Example method of how to add cluster items (markers) to the cluster managers
+            @Override
+            public View getInfoContents(Marker marker) {
+                return null;
+            }
+        });
 
-            mMap.getUiSettings().setZoomControlsEnabled(true);
-            // Move the camera instantly to stmu with a zoom of 15.
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(stmu, 15));
-            if(day.equals("1")) {
-                //this is all shaky and the map is retarded...fix it
-                GroundOverlayOptions fridayMap = new GroundOverlayOptions()
-                        .image(BitmapDescriptorFactory.fromResource(R.drawable.fobcafri))
-                        .position(stmu, 650f, 625f);
+        //Example method of how to add cluster items (markers) to the cluster managers
+
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        // Move the camera instantly to stmu with a zoom of 15.
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(stmu, 15));
+        if (day.equals("1")) {
+            //this is all shaky and the map is retarded...fix it
+            GroundOverlayOptions fridayMap = new GroundOverlayOptions()
+                    .image(BitmapDescriptorFactory.fromResource(R.drawable.fobcafri))
+                    .position(stmu, 650f, 625f);
 
             // Add an overlay to the map, retaining a handle to the GroundOverlay object.
             GroundOverlay imageOverlay = mMap.addGroundOverlay(fridayMap);
@@ -394,28 +377,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-
-        //This method is used for testing and example purposes. This method shows the general way
-        // to add markers in the form of MyItems and hoow to add them to the marker array for filtering. -- Lynntonio
+    //This method is used for testing and example purposes. This method shows the general way
+    // to add markers in the form of MyItems and hoow to add them to the marker array for filtering. -- Lynntonio
 
 
     @Override
-    public boolean onClusterClick(Cluster<MyItem> cluster)
-    {
+    public boolean onClusterClick(Cluster<MyItem> cluster) {
         LatLngBounds.Builder builder = LatLngBounds.builder();
-        Collection<MyItem> myItemMarker= cluster.getItems();
+        Collection<MyItem> myItemMarker = cluster.getItems();
 
-        for (ClusterItem item: myItemMarker)
-        {
+        for (ClusterItem item : myItemMarker) {
             LatLng itemPosition = item.getPosition();
             builder.include(itemPosition);
         }
 
         final LatLngBounds bounds = builder.build();
 
-        try { mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));}
-        catch (Exception error)
-        {
+        try {
+            mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
+        } catch (Exception error) {
 
         }
 
@@ -429,16 +409,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public boolean onClusterItemClick(MyItem myItem) {
-            clickedItem = myItem;
+        clickedItem = myItem;
         return false;
     }
 
-    public BitmapDescriptor getImageFromTag(int imageTag)
-    {
-        BitmapDescriptor  bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ambulance_all_sec);
+    public BitmapDescriptor getImageFromTag(int imageTag) {
+        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ambulance_all_sec);
 
-        switch(imageTag)
-        {
+        switch (imageTag) {
             case 1:
                 bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ambulance_all_sec);
                 break;
@@ -548,9 +526,68 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         return bitmap;
     }
 
-    public MyItem addAttributesToItem(double lat, double lng, String title, String snippet, String tag, BitmapDescriptor bitmap){
-            MyItem markerToAdd = new MyItem(lat,lng,title,snippet,tag,bitmap);
-            return markerToAdd;
+    public MyItem addAttributesToItem(double lat, double lng, String title, String snippet, String tag, BitmapDescriptor bitmap) {
+        MyItem markerToAdd = new MyItem(lat, lng, title, snippet, tag, bitmap);
+        return markerToAdd;
+    }
+
+
+    public String giveDescriptionsToMarkers(List<Integer> boothNumbers) {
+        String markersFullDescription = new String();
+        for (Map.Entry<Integer, String> entry : allDescriptions.entrySet()) {
+            for (int i = 0; i < boothNumbers.size(); i++) {
+                if (entry.getKey().equals(boothNumbers.get(i))) {
+                    markersFullDescription = markersFullDescription.concat(entry.getValue());
+                }
+            }
+        }
+
+//         We can use this to trace the HashMap of the Descriptions incase something goes wrong
+//        for (Map.Entry<Integer,String> name: allDescriptions.entrySet()){
+//
+//            String key =name.toString();
+//            String value = allDescriptions.get(name);
+//            System.out.println("The keys and values are"
+//                    +key + " " + value);
+//        }
+        return markersFullDescription;
+    }
+
+
+    public void getMarkerData(DataSnapshot dataSnapshot) {
+        FillDescriptionDataMap(dataSnapshot);
+
+        for (DataSnapshot markersFromFB : dataSnapshot.child("MarkersFriday").getChildren()) {
+            boothNumbers.clear();
+
+            String markerPlaceHolderLatLang[] = markersFromFB.child("Position").getValue().toString().split(",");
+            markerLat = Double.parseDouble(markerPlaceHolderLatLang[0]);
+            markerLang = Double.parseDouble(markerPlaceHolderLatLang[1]);
+            markerTitle = markersFromFB.child("Title").getValue().toString();
+            imageTag = Integer.parseInt(markersFromFB.child("Image").getValue().toString());
+            String allBoothValues[] = markersFromFB.child("Booths").getValue().toString().split(",");
+            for (int i = 0; i < allBoothValues.length; i++) {
+                boothNumbers.add(Integer.parseInt(allBoothValues[i]));
+            }
+            currentItem = addAttributesToItem(markerLat, markerLang, markerTitle, giveDescriptionsToMarkers(boothNumbers), "Beef", getImageFromTag(imageTag));
+            markers.add(currentItem);
+            mCM.addItem(currentItem);
+        }
+
+    }
+
+
+    public void FillDescriptionDataMap(DataSnapshot dataSnapshot) {
+        for (DataSnapshot boothsFromFB : dataSnapshot.child("BoothsFriday").getChildren()) {
+            DescriptionOfBooth = DescriptionOfBooth.delete(0, DescriptionOfBooth.length());
+            DescriptionOfBooth = DescriptionOfBooth.append(boothsFromFB.child("Coupon Count").getValue().toString());
+            DescriptionOfBooth = DescriptionOfBooth.append(" ");
+            DescriptionOfBooth = DescriptionOfBooth.append(boothsFromFB.child("Description").getValue().toString());
+            DescriptionOfBooth = DescriptionOfBooth.append(" ");
+            DescriptionOfBooth = DescriptionOfBooth.append(boothsFromFB.child("Status").getValue().toString());
+
+            allDescriptions.put(Integer.parseInt(boothsFromFB.child("Booth Number").getValue().toString()), DescriptionOfBooth.toString());
+        }
     }
 }
 
