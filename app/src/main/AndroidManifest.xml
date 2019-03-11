@@ -42,11 +42,13 @@
 
         <activity
             android:name=".EditMapsActivity"
-            android:label="Map"></activity>
+            android:label="Map" />
         <activity android:name=".Export" />
         <activity android:name=".ForgotPassword" />
         <activity android:name=".SignUp" />
-        <activity android:name=".AdminLogin" />
+        <activity
+            android:name=".AdminLogin"
+            android:label="Admin Login" />
         <activity
             android:name=".AboutOysterBake"
             android:label="@string/about_oyster_bake_title_label" />
@@ -65,8 +67,8 @@
             android:label="@string/schedule_list_title_label" />
         <activity
             android:name=".SelectedArtist"
-            android:label="@string/selected_artist_title_label"
-            android:parentActivityName=".ScheduleList" />
+            android:label="@string/selected_artist_title_label"/>
+         <!--   android:parentActivityName=".ScheduleList" -->
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -79,11 +81,18 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".AdminHomePage" />
-        <activity android:name=".DateSelect" />
+        <activity
+            android:name=".AdminHomePage"
+            android:label="Admin Home" />
+        <activity
+            android:name=".DateSelect"/>
+           <!-- android:label="Select Day"
+            android:parentActivityName=".AdminHomePage" -->
         <activity
             android:name=".AdminStageList"
-            android:exported="true" />
+            android:exported="true"/>
+         <!--   android:label="Stage List"
+            android:parentActivityName=".DateSelect" -->
         <activity
             android:name=".AdminSchedule"
             android:exported="true" />

@@ -39,19 +39,11 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -213,7 +205,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                MyItem newMarker = new MyItem(latLng, "Booth #",
+                /*MyItem newMarker = new MyItem(latLng, "Booth #",
                         "Example Booth #" + "\n" +
                                 "Product: Chicken on a stick\n" +
                                 "Price: 6 tickets\n" +
@@ -224,7 +216,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mCM.addItem(newMarker);
                 // always add to arraylist markers.
                 markers.add(newMarker);
-                mCM.cluster();
+                mCM.cluster();*/
             }
         });
         mMap.setInfoWindowAdapter(new newinfoAdapter(MapsActivity.this));
@@ -530,4 +522,3 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             markerOptions.icon(item.getIcon)
         }
     }*/ //Was just testing some stuff.
-

@@ -31,7 +31,6 @@ import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -40,17 +39,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -503,7 +499,6 @@ public class EditMapsActivity extends AppCompatActivity implements OnMapReadyCal
             public void onClick(DialogInterface dialog, int which) {
                 if (myTitleTV.getText().toString().matches("") || mySnippetTV.getText().toString().matches("") || myTagSpinner.getSelectedItemPosition() == 0) {
                     Toast.makeText(EditMapsActivity.this, "All fields must be filled.", Toast.LENGTH_SHORT).show();
-                    dialog.cancel();
                 } else {
                     // Jose's save code
                 }
@@ -512,7 +507,7 @@ public class EditMapsActivity extends AppCompatActivity implements OnMapReadyCal
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
+                dialog.cancel();
             }
         });
 
@@ -537,4 +532,3 @@ public class EditMapsActivity extends AppCompatActivity implements OnMapReadyCal
             markerOptions.icon(item.getIcon)
         }
     }*/ //Was just testing some stuff.
-
