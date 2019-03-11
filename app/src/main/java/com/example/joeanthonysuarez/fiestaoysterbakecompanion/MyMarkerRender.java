@@ -10,6 +10,7 @@ import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
 public class MyMarkerRender extends DefaultClusterRenderer<MyItem> {
     private final Context mContext;
+    private boolean isDraggable;
 
     public MyMarkerRender(Context context, GoogleMap map, ClusterManager<MyItem> clusterManager)
     {
@@ -21,5 +22,11 @@ public class MyMarkerRender extends DefaultClusterRenderer<MyItem> {
     protected void onBeforeClusterItemRendered(MyItem item, MarkerOptions markerOptions)
     {
         markerOptions.icon(item.getIcon());
+        markerOptions.draggable(isDraggable);  // THIS IS UNIVERSAL!!!
+    }
+
+    public void setDraggable (boolean bool)
+    {
+        isDraggable = bool;
     }
 }

@@ -141,7 +141,8 @@
         android:adjustViewBounds="true"
         android:maxHeight="200sp"
         android:scaleType="fitCenter"
-        android:src="@drawable/alumniassc_logo" />
+        android:src="@drawable/alumniassc_logo"
+        android:padding="8dp"/>
 
     <ImageView
         android:id="@+id/barefoot"
@@ -152,7 +153,8 @@
         android:adjustViewBounds="true"
         android:maxHeight="200sp"
         android:scaleType="fitCenter"
-        android:src="@drawable/barefoot_logo" />
+        android:src="@drawable/barefoot_logo"
+        android:padding="8dp"/>
 
     <ImageView
         android:id="@+id/budlight"
@@ -163,7 +165,8 @@
         android:adjustViewBounds="true"
         android:maxHeight="200sp"
         android:scaleType="fitCenter"
-        android:src="@drawable/budlight_logo" />
+        android:src="@drawable/budlight_logo"
+        android:padding="8dp"/>
 
     <ImageView
         android:id="@+id/integrity"
@@ -174,7 +177,8 @@
         android:adjustViewBounds="true"
         android:maxHeight="200sp"
         android:scaleType="fitCenter"
-        android:src="@drawable/integrity_logo" />
+        android:src="@drawable/integrity_logo"
+        android:padding="8dp"/>
 
     <ImageView
         android:id="@+id/spectrum"
@@ -185,7 +189,8 @@
         android:adjustViewBounds="true"
         android:maxHeight="200sp"
         android:scaleType="fitCenter"
-        android:src="@drawable/spectrum_logo" />
+        android:src="@drawable/spectrum_logo"
+        android:padding="8dp"/>
 
     <ImageView
         android:id="@+id/thomasjhenry"
@@ -196,7 +201,8 @@
         android:adjustViewBounds="true"
         android:maxHeight="200sp"
         android:scaleType="fitCenter"
-        android:src="@drawable/thomasjhenry_logo" />
+        android:src="@drawable/thomasjhenry_logo"
+        android:padding="8dp"/>
 
     <ImageView
         android:id="@+id/toyota"
@@ -207,5 +213,6 @@
         android:adjustViewBounds="true"
         android:maxHeight="200sp"
         android:scaleType="fitCenter"
-        android:src="@drawable/toyota_logo" />
+        android:src="@drawable/toyota_logo"
+        android:padding="8dp"/>
 </RelativeLayout>

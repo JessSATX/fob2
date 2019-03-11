@@ -11,9 +11,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -36,19 +40,17 @@ import java.util.Collection;
 import java.util.List;
 
 public class EditMapsActivity extends FragmentActivity implements OnMapReadyCallback,
-                                                                    ClusterManager.OnClusterClickListener<MyItem>,
-                                                                    ClusterManager.OnClusterItemClickListener<MyItem>,
-                                                                    ClusterManager.OnClusterInfoWindowClickListener<MyItem> {
-    Button refreshButton;
-    public static String day;
-    private ClusterManager<MyItem> mCM;
+        ClusterManager.OnClusterClickListener<MyItem>,
+        ClusterManager.OnClusterItemClickListener<MyItem>,
+        ClusterManager.OnClusterInfoWindowClickListener<MyItem> {
     private static final String TAG = MapsActivity.class.getSimpleName();
-    private GoogleMap mMap;
-
+    public static String day;
+    Button refreshButton;
     List<MyItem> markers = new ArrayList<MyItem>();
-    private MyItem clickedItem;
-
     List<MyItem> removedMarkers = new ArrayList<>();
+    private ClusterManager<MyItem> mCM;
+    private GoogleMap mMap;
+    private MyItem clickedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +64,7 @@ public class EditMapsActivity extends FragmentActivity implements OnMapReadyCall
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
-        addListenerOnButton();
+        //addListenerOnButton();
 
         if (bundle != null) {
             day = (String) bundle.get("day");
@@ -78,9 +80,9 @@ public class EditMapsActivity extends FragmentActivity implements OnMapReadyCall
                 AlertDialog.Builder alertFilter = new AlertDialog.Builder(EditMapsActivity.this);
 
                 //String array for Alert Dialogue multichoice items. MARKER TAGS MUST MATCH ONE OF THE CONTENTS OF THE ARRAY! -- Lynntonio
-                final String[]  filterArray = new String[] {"Chicken", "Beef", "Seafood", "Veggies", "Sweets", "Beverages", "Alcoholic Beverages", "Other"};
+                final String[] filterArray = new String[]{"Chicken", "Beef", "Seafood", "Veggies", "Sweets", "Beverages", "Alcoholic Beverages", "Other"};
                 //Boolean Array for selected items. Index contents are meant to correspond with those "filterArray". -- Lynntonio
-                final boolean[] filterB = new boolean[]    {     true,   true,      true,     true,     true,        true,                  true,     true};
+                final boolean[] filterB = new boolean[]{true, true, true, true, true, true, true, true};
 
                 alertFilter.setTitle("Select Categories to Filter");
                 alertFilter.setMultiChoiceItems(filterArray, filterB, new DialogInterface.OnMultiChoiceClickListener() {
@@ -97,14 +99,10 @@ public class EditMapsActivity extends FragmentActivity implements OnMapReadyCall
                         // this will check every marker in the markers list and set their visibility
                         // to match the corresponding filterB's value based on whether the marker's tag
                         // matches filterArray's current index location. -- Lynntonio
-                        for (int i = 0; i < markers.size(); i++)
-                        {
-                            for (int x = 0; x < filterArray.length; x++)
-                            {
-                                if (markers.get(i).getTag() == filterArray[x])
-                                {
-                                    if (filterB[x] == false)
-                                    {
+                        for (int i = 0; i < markers.size(); i++) {
+                            for (int x = 0; x < filterArray.length; x++) {
+                                if (markers.get(i).getTag() == filterArray[x]) {
+                                    if (filterB[x] == false) {
                                         removedMarkers.add(markers.get(i));
                                         mCM.removeItem(markers.get(i));
                                     }
@@ -114,14 +112,10 @@ public class EditMapsActivity extends FragmentActivity implements OnMapReadyCall
 
                         }
 
-                        for (int i = 0; i < removedMarkers.size(); i++)
-                        {
-                            for (int x = 0; x < filterArray.length; x++)
-                            {
-                                if (markers.get(i).getTag() == filterArray[x])
-                                {
-                                    if (filterB[x] == true)
-                                    {
+                        for (int i = 0; i < removedMarkers.size(); i++) {
+                            for (int x = 0; x < filterArray.length; x++) {
+                                if (markers.get(i).getTag() == filterArray[x]) {
+                                    if (filterB[x] == true) {
                                         mCM.addItem(markers.get(i));
                                         removedMarkers.remove(markers.get(i));
 
@@ -194,7 +188,7 @@ public class EditMapsActivity extends FragmentActivity implements OnMapReadyCall
             @Override
             public void onMapClick(LatLng latLng) {
                 MyItem newMarker = new MyItem(latLng, "Booth #",
-                        "Example Booth #"  + "\n" +
+                        "Example Booth #" + "\n" +
                                 "Product: Chicken on a stick\n" +
                                 "Price: 6 tickets\n" +
                                 "Status: Open(tag: Seafood)",
@@ -215,6 +209,7 @@ public class EditMapsActivity extends FragmentActivity implements OnMapReadyCall
         mCM = new ClusterManager<>(EditMapsActivity.this, mMap);
         MyMarkerRender renderer = new MyMarkerRender(EditMapsActivity.this, mMap, mCM);
         mCM.setRenderer(renderer);
+        renderer.setDraggable(true);  // This is the admin map, so this must be true.
         // Points the maps listeners at the listeners implemented by the cluster manager
         mMap.setOnCameraIdleListener(mCM);
         mMap.setOnMarkerClickListener(mCM);
@@ -226,11 +221,9 @@ public class EditMapsActivity extends FragmentActivity implements OnMapReadyCall
         mCM.setOnClusterInfoWindowClickListener(EditMapsActivity.this);
 
         //sets info window adapter.
-        mCM.getMarkerCollection().setOnInfoWindowAdapter(new GoogleMap.InfoWindowAdapter()
-        {
+        mCM.getMarkerCollection().setOnInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             @Override
-            public View getInfoWindow(Marker marker)
-            {
+            public View getInfoWindow(Marker marker) {
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
                 final View view = inflater.inflate(R.layout.newinfo, null);
@@ -245,8 +238,7 @@ public class EditMapsActivity extends FragmentActivity implements OnMapReadyCall
             }
 
             @Override
-            public View getInfoContents (Marker marker)
-            {
+            public View getInfoContents(Marker marker) {
                 return null;
             }
         });
@@ -254,7 +246,7 @@ public class EditMapsActivity extends FragmentActivity implements OnMapReadyCall
         mMap.getUiSettings().setZoomControlsEnabled(true);
         // Move the camera instantly to stmu with a zoom of 15.
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(stmu, 15));
-        if(day.equals("1")) {
+        if (day.equals("1")) {
             //this is all shaky and the map is retarded...fix it
             GroundOverlayOptions fridayMap = new GroundOverlayOptions()
                     .image(BitmapDescriptorFactory.fromResource(R.drawable.fobcafri))
@@ -289,19 +281,18 @@ public class EditMapsActivity extends FragmentActivity implements OnMapReadyCall
     @Override
     public boolean onClusterClick(Cluster<MyItem> cluster) {
         LatLngBounds.Builder builder = LatLngBounds.builder();
-        Collection<MyItem> myItemMarker= cluster.getItems();
+        Collection<MyItem> myItemMarker = cluster.getItems();
 
-        for (ClusterItem item: myItemMarker)
-        {
+        for (ClusterItem item : myItemMarker) {
             LatLng itemPosition = item.getPosition();
             builder.include(itemPosition);
         }
 
         final LatLngBounds bounds = builder.build();
 
-        try { mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));}
-        catch (Exception error)
-        {
+        try {
+            mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
+        } catch (Exception error) {
 
         }
 
@@ -316,6 +307,55 @@ public class EditMapsActivity extends FragmentActivity implements OnMapReadyCall
     @Override
     public boolean onClusterItemClick(MyItem myItem) {
         clickedItem = myItem;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(EditMapsActivity.this);
+        LinearLayout layout = new LinearLayout(EditMapsActivity.this);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        String myItemTitle = clickedItem.getTitle();
+        String myItemSnippet = clickedItem.getSnippet();
+        String myItemTag = clickedItem.getTag();
+        final EditText myTitleTV = new EditText(EditMapsActivity.this);
+        final EditText mySnippetTV = new EditText(EditMapsActivity.this);
+        EditText myTagTV = new EditText(EditMapsActivity.this);
+
+        layout.setLayoutParams(params);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        myTitleTV.setText(myItemTitle);
+        myTitleTV.setHint("Booth Title");
+
+        mySnippetTV.setText(myItemSnippet);
+        mySnippetTV.setHint("Booth Description");
+
+        myTagTV.setText(myItemTag);
+        myTagTV.setHint("Booth Tag");
+
+        layout.addView(myTitleTV);
+        layout.addView(mySnippetTV);
+        layout.addView(myTagTV);
+
+        builder.setTitle("Edit Booth");
+        builder.setView(layout);
+        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (myTitleTV.getText().toString().matches("") || mySnippetTV.getText().toString().matches("")) {
+                    Toast.makeText(EditMapsActivity.this, "All fields must be filled.", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Jose's save code
+                }
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
         return false;
     }
 }

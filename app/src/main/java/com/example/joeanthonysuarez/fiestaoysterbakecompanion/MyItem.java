@@ -14,6 +14,7 @@ public class MyItem implements ClusterItem {
     private final String mSnippet;
     private final String mTag;
     private final BitmapDescriptor mIcon;
+    //private final boolean isDraggable;
 
     public MyItem(LatLng position) {
         mPosition = position;
@@ -21,16 +22,16 @@ public class MyItem implements ClusterItem {
         mSnippet = "";
         mTag = "";
         mIcon = BitmapDescriptorFactory.fromResource(R.drawable.food);
+        //isDraggable = true;
     }
 
-    public MyItem(LatLng position, String title, String snippet, String tag, BitmapDescriptor bitmap)
-    {
+    public MyItem(LatLng position, String title, String snippet, String tag, BitmapDescriptor bitmap) {
         mPosition = position;
         mTitle = title;
         mSnippet = snippet;
         mTag = tag;
         mIcon = bitmap;
-
+        //isDraggable = true;
     }
 
     @Override
@@ -48,9 +49,11 @@ public class MyItem implements ClusterItem {
         return mSnippet;
     }
 
-    public String getTag() {return mTag;}
+    public String getTag() {
+        return mTag;
+    }
 
-    public BitmapDescriptor getIcon() {return mIcon;}
-
-
+    public BitmapDescriptor getIcon() {
+        return mIcon;
+    }
 }
