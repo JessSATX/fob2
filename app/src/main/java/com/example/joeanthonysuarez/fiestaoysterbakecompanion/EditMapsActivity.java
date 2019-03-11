@@ -519,7 +519,7 @@ public class EditMapsActivity extends AppCompatActivity implements OnMapReadyCal
         AlertDialog alert = builder.create();
         alert.show();
 
-        return false;
+        return true;
     }
 }
 
