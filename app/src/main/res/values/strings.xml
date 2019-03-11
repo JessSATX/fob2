@@ -17,4 +17,10 @@
     </string-array>
     <string name="title_activity_maps">Map</string>
     <string name="action_admin_login">Login (Admin Only)</string>
+    <string name="fiesta_oyster_bake_button_1">Fiesta Oyster Bake Button $1</string>
+    <string name="fiesta_oyster_bake_cap_15">Fiesta Oyster Bake Cap $15</string>
+    <string name="fiesta_oyster_bake_koozie">Fiesta Oyster Bake Koozie $</string>
+    <string name="fiesta_oyster_bake_shirts_10">Fiesta Oyster Bake Shirts $10</string>
+    <string name="fiesta_oyster_bake_medal_1">Fiesta Oyster Bake Medal $1</string>
+    <string name="fiesta_oyster_bake_koozie_5">Fiesta Oyster Bake Koozie $5</string>
 </resources>

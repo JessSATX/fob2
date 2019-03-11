@@ -7,7 +7,6 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
-
     private Context context;
     private String[] headerNames = {"Oyster Bake Hours", "Parking", "Park & Ride", "Family Friendly Event","Safety at Oyster Bake","Allowed & Prohibited Items", "Security & Entry","Exit & Re-entry","Payment Types","Rain Or Shine?","Refund & Policy","Contact Us"};
     private String[][] childNames = {{"Friday April 12: 5:00-11:00 PM (Fireworks start at 10:30 PM", "Saturday April 13: 12:00-11:00 PM"},
@@ -19,26 +18,25 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                     "illegal, and will discard and not return any items. No outside food or drink are allowed on the Oyster Bake Grounds. No refunds on admission tickets and food and beverage coupons, Volunteer wistbands are NOT for sale.",
                     " You may be photographed/ videotaped and your picture or likeness may be used for Fiesta Oyster Bake publicity and promotions."},
             {"All bags will be searched before entry. PRO-TIP: Leave bags at home and be able to take advantage of the express: No Bag Entry lanes. By purchasing a ticket, you agree to submit to a full body pat down and metal detector search before entry. Screening of children will always take place with the consent of the parent or guardian."+
-                "Persons that refuse to comply with the search policy will be refused into the event."},
+                    "Persons that refuse to comply with the search policy will be refused into the event."},
             {"Leaving any exit at this event at any time, you will not be allowed to re-enter."+
                     "If you purchase a 2- day ticket, on Friday you will be given a 2-day admission wristband that must NOT be removed in order for entrance on Saturday.   "},
             {"*Note: All Admission tickets and coupons are non- refundable*"+
                     "ATMs are available near each entrance gate and throughout the grounds of the event."+
-            "Credit Cards:" +
+                    "Credit Cards:" +
                     "We accept credit cards at gates and coupon booths. There will be a $20 minimum purchase for all credit card  transactions." +
                     "Checks:" +
                     "Checks are NOT accepted."+
-            "Coupons:" +
+                    "Coupons:" +
                     "All food and beverage items are purchased with coupons. Coupon sales end at 10:30 p.m. Coupons are available in $.50 increments."},
             {"YES! Oyster Bake will still go on rain or shine."},
             {"There will be NO REFUNDS. The Oyster Bake is rain or shine and all bands are subject to change."},
             {"Fiesta Oyster Bake             " +
-                    "     St. Mary's University Alumni Association        "+
-                    "                                       St. Mary's University Alumni Association        "+
+                    "      St. Mary's University Alumni Association"+
                     "                One Camino Santa Maria   " +
                     "       San Antonio, TX  78228    "+
-                "         210-436-3324     "+
-                "   oysterbake@stmarytx.edu"}
+                    "         210-436-3324     "+
+                    "   oysterbake@stmarytx.edu"}
     };
 
     public ExpandableListViewAdapter(Context context) {
