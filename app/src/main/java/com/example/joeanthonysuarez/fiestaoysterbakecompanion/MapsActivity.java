@@ -329,8 +329,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 TextView titleTV = (TextView) view.findViewById(R.id.title);
                 TextView snippetTV = (TextView) view.findViewById((R.id.snippet));
 
-                titleTV.setText(clickedItem.getTitle());
-                snippetTV.setText(clickedItem.getSnippet());
+                try {
+                    titleTV.setText(clickedItem.getTitle());
+                    snippetTV.setText(clickedItem.getSnippet());
+                } catch (Exception e) {
+
+                }
 
                 return view;
             }
@@ -451,9 +455,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public boolean onClusterItemClick(MyItem myItem) {
-        /*
         clickedItem = myItem;
-
+        /*
         AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
         LinearLayout layout = new LinearLayout(MapsActivity.this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);

@@ -14,7 +14,6 @@ public class MyItem implements ClusterItem {
     private final String mSnippet;
     private final String mTag;
     private final BitmapDescriptor mIcon;
-    //private final boolean isDraggable;
 
     public MyItem(LatLng position) {
         mPosition = position;
