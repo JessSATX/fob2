@@ -4,19 +4,23 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class EditShowtime extends AppCompatActivity {
+public class EditShowtime extends AppCompatActivity implements  AdapterView.OnItemSelectedListener {
     public String Artistname, Showstart, Showend, day;
     EditText name, start, end, showDay;
     Button saveinfo, cancel;
     private DatabaseReference fb;
     public static String stage, artistID;
+    Spinner daySelect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,20 +45,32 @@ public class EditShowtime extends AppCompatActivity {
 
         }
 
+        daySelect = (Spinner) findViewById(R.id.sDay);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.day_select, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        daySelect.setAdapter(adapter);
+        daySelect.setOnItemSelectedListener(this);
+
         saveinfo = (Button) findViewById(R.id.bSave);
         cancel = (Button) findViewById(R.id.bCancel);
         name = (EditText) findViewById(R.id.etName);
         start = (EditText) findViewById(R.id.etStartTime);
         end = (EditText) findViewById(R.id.etEndTime);
-        showDay = (EditText) findViewById(R.id.etDay);
+
 
 
         // set text on screen
         name.setText(Artistname);
         start.setText(Showstart);
         end.setText(Showend);
-        showDay.setText(day);
 
+        if (day.equals("1")) {
+
+            daySelect.setSelection(0);
+        }
+        else {
+            daySelect.setSelection(1);
+        }
 
         // save infp onto database
         saveinfo.setOnClickListener(new View.OnClickListener() {
@@ -64,10 +80,18 @@ public class EditShowtime extends AppCompatActivity {
                     fb.child("STAGES").child(stage).child("ARTISTS").child(artistID).child("NAME").setValue(name.getText().toString());
                     fb.child("STAGES").child(stage).child("ARTISTS").child(artistID).child("START_TIME").setValue(start.getText().toString());
                     fb.child("STAGES").child(stage).child("ARTISTS").child(artistID).child("END_TIME").setValue(end.getText().toString());
-                    fb.child("STAGES").child(stage).child("ARTISTS").child(artistID).child("DAY").setValue(showDay.getText().toString());
+
+                    if (day.equals("Friday")){
+                        fb.child("STAGES").child(stage).child("ARTISTS").child(artistID).child("DAY").setValue("1");
+                    }
+                    else if (day.equals("Saturday"))
+                    {
+                        fb.child("STAGES").child(stage).child("ARTISTS").child(artistID).child("DAY").setValue("2");
+                    }
+
                     Toast.makeText(EditShowtime.this, "Changed saved succesfully!", Toast.LENGTH_SHORT).show();
 
-                    Intent goback = new Intent (EditShowtime.this, AdminSchedule.class);
+                    Intent goback = new Intent (EditShowtime.this, AdminHomePage.class);
                     startActivity(goback);
                 }
 
@@ -92,4 +116,13 @@ public class EditShowtime extends AppCompatActivity {
 
 
     }
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+        day = adapterView.getItemAtPosition(position).toString();
+        }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
 }

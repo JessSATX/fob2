@@ -1,6 +1,7 @@
 package com.example.joeanthonysuarez.fiestaoysterbakecompanion;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -74,11 +75,9 @@ public class CreateShowtime extends AppCompatActivity implements AdapterView.OnI
                         fb.child("STAGES").child(stage).child("ARTISTS").child(key).child("END_TIME").setValue(end.getText().toString());
                         fb.child("STAGES").child(stage).child("ARTISTS").child(key).child("STATUS").setValue(true);
 
-                        if (day.equals("Friday")){
+                        if (day.equals("Friday")) {
                             fb.child("STAGES").child(stage).child("ARTISTS").child(key).child("DAY").setValue("1");
-                        }
-                        else if (day.equals("Saturday"))
-                        {
+                        } else if (day.equals("Saturday")) {
                             fb.child("STAGES").child(stage).child("ARTISTS").child(key).child("DAY").setValue("2");
                         }
 

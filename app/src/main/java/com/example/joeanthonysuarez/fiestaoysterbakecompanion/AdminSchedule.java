@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class AdminSchedule extends AppCompatActivity {
 
@@ -30,6 +31,13 @@ public class AdminSchedule extends AppCompatActivity {
     private DatabaseReference fb;
     private ArrayList<String> arrayList = new ArrayList<>();
     private ArrayAdapter<String> adapter;
+
+    public ArrayList<String> artistID = new ArrayList<>();
+    public ArrayList<String> artistsNamesList = new ArrayList<>();
+    public ArrayList<String> artistsStartTime = new ArrayList<>();
+    public ArrayList<String> artistEndTime = new ArrayList<>();
+    public ArrayList<String> artistDay = new ArrayList<>();
+    public ArrayList<Boolean> artistStatus = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,42 +67,41 @@ public class AdminSchedule extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList);
         artistsListView.setAdapter(adapter);
 
-        final ArrayList<String> artistID = new ArrayList<String>();
-        final ArrayList<String> artistsNamesList = new ArrayList<String>();
-        final ArrayList<String> artistsStartTime = new ArrayList<String>();
-        final ArrayList<String> artistDate = new ArrayList<String>();
-        final ArrayList<String> artistEndTime = new ArrayList<String>();
-        final ArrayList<String> artistDay = new ArrayList<>();
 
-
-        fb.child("STAGES").child(stage).child("ARTISTS").addValueEventListener(new ValueEventListener() {
+        fb.child("STAGES").child(stage).child("ARTISTS").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                if (dataSnapshot.exists()){
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
                     String id = ds.getKey();
-                    String name = ds.child("NAME").getValue().toString();
-                    String startTime = ds.child("START_TIME").getValue().toString();
-                    String endTime = ds.child("END_TIME").getValue().toString();
-                    String Artday = ds.child("DAY").getValue().toString();
-                    String is_active = ds.child("STATUS").getValue().toString();
+                    String name = ds.child("NAME").getValue(String.class);
+                    String startTime = ds.child("START_TIME").getValue(String.class);
+                    String endTime = ds.child("END_TIME").getValue(String.class);
+                    String Artday = ds.child("DAY").getValue(String.class);
+                    Boolean is_active = ds.child("STATUS").getValue(Boolean.class);
 
-                    // filter by day selected
-                    if (Artday.equals(day) && is_active.equals("true"))
-                    {
+                    artistID.add(id);
+                    artistsNamesList.add(name);
+                    artistsStartTime.add(startTime);
+                    artistEndTime.add(endTime);
+                    artistDay.add(Artday);
+                    artistStatus.add(is_active);
+
+                    if (Artday.equals(day) && is_active) {
                         arrayList.add(name + "\t\t\t\t" + startTime + " - " + endTime);
-
-                        artistID.add(id);
-                        artistsNamesList.add(name);
-                        artistsStartTime.add(startTime);
-                        artistEndTime.add(endTime);
-                        artistDay.add(Artday);
-
-
                         adapter.notifyDataSetChanged();
                     }
-
+                    else {
+                        artistID.remove(id);
+                        artistsNamesList.remove(name);
+                        artistsStartTime.remove(startTime);
+                        artistEndTime.remove(endTime);
+                        artistDay.remove(Artday);
+                        artistStatus.remove(is_active);
+                    }
                 }
+            }
             }
 
             @Override
@@ -102,6 +109,8 @@ public class AdminSchedule extends AppCompatActivity {
 
             }
         });
+
+        //filterArtists();
 
         createshowtime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +144,28 @@ public class AdminSchedule extends AppCompatActivity {
 
             }
         });
+    }
 
+    private void filterArtists() {
+        for (int i = artistsNamesList.size() - 1; i >= 0; i--) {
+            if ( artistDay.get(i).equals(day)  && artistStatus.get(i).toString().equals("true") ) {
+                String name = artistsNamesList.get(i);
+                String start = artistsStartTime.get(i);
+                String end = artistEndTime.get(i);
+                arrayList.add(name + "\t\t\t\t" + start + " - " + end);
+                adapter.notifyDataSetChanged();
+            }
+            else{
+                artistID.remove(i);
+                artistsNamesList.remove(i);
+                artistsStartTime.remove(i);
+                artistEndTime.remove(i);
+                artistDay.remove(i);
+                artistStatus.remove(i);
 
+            }
+        }
     }
 }
+
+

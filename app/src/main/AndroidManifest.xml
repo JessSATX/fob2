@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.joeanthonysuarez.fiestaoysterbakecompanion">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -22,6 +21,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".SelectDate"></activity>
         <activity android:name=".Export" />
         <activity android:name=".ForgotPassword" />
         <activity android:name=".SignUp" />
@@ -76,7 +76,7 @@
         <activity android:name=".AdminStageList" />
         <activity android:name=".AdminSchedule" />
         <activity android:name=".CreateShowtime" />
-        <activity android:name=".EditShowtime"></activity>
+        <activity android:name=".EditShowtime" />
     </application>
 
 </manifest>
