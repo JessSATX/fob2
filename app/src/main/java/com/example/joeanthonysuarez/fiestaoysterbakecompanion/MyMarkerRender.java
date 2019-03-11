@@ -31,4 +31,5 @@ public class MyMarkerRender extends DefaultClusterRenderer<MyItem> {
         marker.setVisible(item.isVisible());
     }
 
+
 }

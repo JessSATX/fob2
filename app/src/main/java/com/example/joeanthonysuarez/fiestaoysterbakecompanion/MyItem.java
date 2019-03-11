@@ -5,12 +5,15 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyItem implements ClusterItem {
 
     private final LatLng mPosition;
     private final String mTitle;
     private final String mSnippet;
-    private final String mTag;
+    private List<String> mTag = new ArrayList<>();
     private final BitmapDescriptor mIcon;
     private boolean visibility = true;
 
@@ -18,7 +21,6 @@ public class MyItem implements ClusterItem {
         mPosition = new LatLng(lat, lng);
         mTitle = "";
         mSnippet = "";
-        mTag = "";
         mIcon = BitmapDescriptorFactory.fromResource(R.drawable.food);
     }
 
@@ -27,7 +29,7 @@ public class MyItem implements ClusterItem {
         mPosition = new LatLng(lat, lng);
         mTitle = title;
         mSnippet = snippet;
-        mTag = tag;
+        mTag.add(tag);
         mIcon = bitmap;
 
     }
@@ -51,7 +53,12 @@ public class MyItem implements ClusterItem {
 
     public void setVisibility(boolean v) { this.visibility = v;}
 
-    public String getTag() {return mTag;}
+    public List<String> getTags() {return mTag;}
+
+    public void addTag(String tag)
+    {
+        mTag.add(tag);
+    }
 
     public BitmapDescriptor getIcon() {return mIcon;}
 

@@ -26,12 +26,9 @@ import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
-import com.google.maps.android.clustering.algo.GridBasedAlgorithm;
-import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -39,7 +36,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -64,10 +60,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         private ClusterManager<MyItem> mCM;
         private MyItem clickedItem;
 
-    MyMarkerRender renderer;
+        MyMarkerRender renderer;
 
         //ArrayList of MiItem class, for collecting the references to marker objects. -- Lynntonio
         List<MyItem> markers = new ArrayList<MyItem>();
+        //Boolean Array for selected items. Index contents are meant to correspond with those "filterArray". -- Lynntonio
+        final boolean[] filterB = new boolean[]    {     true,   true,      true,   true,         true,      true,            true,        true,     true,              true,  true,   true,  true,        true,       true,    true};
+        //make sure there is a boolean for every tag in the filter array, use the the comment below to aid in this.
+      //final String[]  filterArray = new String[] {"Chicken", "Beef", "Seafood", "Pork", "Vegetables", "Dessert", "Non-Alcoholic", "Alcoholic", "Coupon", "HCAB (Handicap)", "ATM", "Gate", "VIP", "First Aid", "Bathroom", "Other"};
 
 
 
@@ -98,8 +98,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     //String array for Alert Dialogue multichoice items. MARKER TAGS MUST MATCH ONE OF THE CONTENTS OF THE ARRAY! -- Lynntonio
                     final String[]  filterArray = new String[] {"Chicken", "Beef", "Seafood", "Pork", "Vegetables", "Dessert", "Non-Alcoholic", "Alcoholic", "Coupon", "HCAB (Handicap)", "ATM", "Gate", "VIP", "First Aid", "Bathroom", "Other"};
-                    //Boolean Array for selected items. Index contents are meant to correspond with those "filterArray". -- Lynntonio
-                    final boolean[] filterB = new boolean[]    {     true,   true,      true,   true,         true,      true,            true,        true,     true,              true,  true,   true,  true,        true,       true,    true};
+
+
 
                     alertFilter.setTitle("Select Categories to Filter");
                     alertFilter.setMultiChoiceItems(filterArray, filterB, new DialogInterface.OnMultiChoiceClickListener() {
@@ -113,33 +113,43 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     alertFilter.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            boolean exit = false;
                             // this will check every marker in the markers list and set their visibility
                             // to match the corresponding filterB's value based on whether the marker's tag
                             // matches filterArray's current index location. -- Lynntonio
-
                             mCM.clearItems();
                             mCM.getAlgorithm().clearItems();
                             for (int i = 0; i < markers.size(); i++)
                             {
                                 for (int x = 0; x < filterArray.length; x++)
                                 {
-                                    if (markers.get(i).getTag() == filterArray[x])
+                                    //this for-loop will terminate when just one of the markers tags is true.
+                                    for (int k = 0; k < markers.get(i).getTags().size(); k++)
                                     {
+
+                                        if (markers.get(i).getTags().get(k) == filterArray[x]) {
                                             markers.get(i).setVisibility(filterB[x]);
+                                            exit = filterB[x];
+                                        }
+
+                                        if (exit == true)
+                                        {
+                                            k = markers.get(i).getTags().size();
+                                        }
                                     }
+
+                                      exit = false;
 
                                     if (markers.get(i).isVisible())
                                     {
-                                               mCM.addItem(markers.get(i));
+                                        mCM.addItem(markers.get(i));
                                     }
-                                    else
-                                    {
+                                    else {
                                         mCM.removeItem(markers.get(i));
                                     }
-
                                 }
                             }
-
+                            //forces a re-render to show changes immediately.
                             mCM.cluster();
 
                         }
