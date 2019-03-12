@@ -45,9 +45,6 @@
             android:name=".ScheduleList"
             android:label="@string/schedule_list_title_label" />
         <activity
-            android:name=".backupStaticMap"
-            android:label="Map" />
-        <activity
             android:name=".SelectedArtist"
             android:label="@string/selected_artist_title_label"
             android:parentActivityName=".ScheduleList" />

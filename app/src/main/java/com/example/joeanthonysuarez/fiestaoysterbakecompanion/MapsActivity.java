@@ -45,6 +45,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -712,7 +713,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             allDescriptions.put(Integer.parseInt(boothsFromFB.child("Booth Number").getValue().toString()), DescriptionOfBooth.toString());
         }
     }
-}
+
 
 
     @Override
