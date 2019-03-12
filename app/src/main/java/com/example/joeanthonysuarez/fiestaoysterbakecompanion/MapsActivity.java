@@ -45,7 +45,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -66,7 +65,8 @@ import java.util.Map;
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,
                                                                 ClusterManager.OnClusterClickListener<MyItem>,
                                                                 ClusterManager.OnClusterItemClickListener<MyItem>,
-                                                                ClusterManager.OnClusterInfoWindowClickListener<MyItem> {
+                                                                ClusterManager.OnClusterItemInfoWindowClickListener<MyItem>,
+                                                                ClusterManager.OnClusterInfoWindowClickListener<MyItem>{
 
     Button refreshButton;
     public static String day;
@@ -79,8 +79,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     HashMap<Integer, String> allDescriptions = new HashMap<>();
     List<Integer> boothNumbers = new ArrayList<>();
 
+        MyMarkerRender renderer;
+
+        //ArrayList of MiItem class, for collecting the references to marker objects. -- Lynntonio
+        List<MyItem> markers = new ArrayList<MyItem>();
+        //Boolean Array for selected items. Index contents are meant to correspond with those "filterArray". -- Lynntonio
+        final boolean[] filterB = new boolean[]    {     true,   true,      true,   true,         true,      true,            true,        true,     true,              true,  true,   true,  true,        true,       true,    true};
+        //make sure there is a boolean for every tag in the filter array, use the the comment below to aid in this.
+      //final String[]  filterArray = new String[] {"Chicken", "Beef", "Seafood", "Pork", "Vegetables", "Dessert", "Non-Alcoholic", "Alcoholic", "Coupon", "HCAB (Handicap)", "ATM", "Gate", "VIP", "First Aid", "Bathroom", "Other"};
+
     //ArrayList of Marker class, for collecting the references to marker objects. -- Lynntonio
-    List<MyItem> markers = new ArrayList<MyItem>();
     private MyItem clickedItem;
 
     //used in filtering purposes.
@@ -94,14 +102,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     Integer imageTag = 1;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_map);
+            // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -121,10 +129,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View v) {
                 AlertDialog.Builder alertFilter = new AlertDialog.Builder(MapsActivity.this);
 
-                //String array for Alert Dialogue multichoice items. MARKER TAGS MUST MATCH ONE OF THE CONTENTS OF THE ARRAY! -- Lynntonio
-                final String[] filterArray = new String[]{"Chicken", "Beef", "Seafood", "Veggies", "Sweets", "Beverages", "Alcoholic Beverages", "Other"};
-                //Boolean Array for selected items. Index contents are meant to correspond with those "filterArray". -- Lynntonio
-                final boolean[] filterB = new boolean[]{true, true, true, true, true, true, true, true};
+                    //String array for Alert Dialogue multichoice items. MARKER TAGS MUST MATCH ONE OF THE CONTENTS OF THE ARRAY! -- Lynntonio
+                    final String[]  filterArray = new String[] {"Chicken", "Beef", "Seafood", "Pork", "Vegetables", "Dessert", "Non-Alcoholic", "Alcoholic", "Coupon", "HCAB (Handicap)", "ATM", "Gate", "VIP", "First Aid", "Bathroom", "Other"};
+
+
 
                 alertFilter.setTitle("Select Categories to Filter");
                 alertFilter.setMultiChoiceItems(filterArray, filterB, new DialogInterface.OnMultiChoiceClickListener() {
@@ -134,41 +142,51 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 });
 
-                //set positive/Ok button click listener
-                alertFilter.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // this will check every marker in the markers list and set their visibility
-                        // to match the corresponding filterB's value based on whether the marker's tag
-                        // matches filterArray's current index location. -- Lynntonio
-                        for (int i = 0; i < markers.size(); i++) {
-                            for (int x = 0; x < filterArray.length; x++) {
-                                if (markers.get(i).getTag() == filterArray[x]) {
-                                    if (filterB[x] == false) {
-                                        removedMarkers.add(markers.get(i));
+                    //set positive/Ok button click listener
+                    alertFilter.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            boolean exit = false;
+                            // this will check every marker in the markers list and set their visibility
+                            // to match the corresponding filterB's value based on whether the marker's tag
+                            // matches filterArray's current index location. -- Lynntonio
+                            mCM.clearItems();
+                            mCM.getAlgorithm().clearItems();
+                            for (int i = 0; i < markers.size(); i++)
+                            {
+                                for (int x = 0; x < filterArray.length; x++)
+                                {
+                                    //this for-loop will terminate when just one of the markers tags is true.
+                                    for (int k = 0; k < markers.get(i).getTags().size(); k++)
+                                    {
+
+                                        if (markers.get(i).getTags().get(k) == filterArray[x]) {
+                                            markers.get(i).setVisibility(filterB[x]);
+                                            exit = filterB[x];
+                                        }
+
+                                        if (exit == true)
+                                        {
+                                            k = markers.get(i).getTags().size();
+                                        }
+                                    }
+
+                                      exit = false;
+
+                                    if (markers.get(i).isVisible())
+                                    {
+                                        mCM.addItem(markers.get(i));
+                                    }
+                                    else {
                                         mCM.removeItem(markers.get(i));
                                     }
                                 }
                             }
-
+                            //forces a re-render to show changes immediately.
+                            mCM.cluster();
 
                         }
-
-                        for (int i = 0; i < removedMarkers.size(); i++) {
-                            for (int x = 0; x < filterArray.length; x++) {
-                                if (markers.get(i).getTag() == filterArray[x]) {
-                                    if (filterB[x] == true) {
-                                        mCM.addItem(markers.get(i));
-                                        removedMarkers.remove(markers.get(i));
-
-                                    }
-                                }
-                            }
-                        }
-
-                        mCM.cluster();
-                    }
-                });
+                    });
 
                 // Set neutral/Cancel button click listener
                 alertFilter.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
@@ -313,20 +331,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         LatLng stmu = new LatLng(29.45249260178782, -98.56478047528071);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(stmu));
 
-        //setup for the Cluster Manager -- Lynntonio
-        mCM = new ClusterManager<>(MapsActivity.this, mMap);
-        MyMarkerRender renderer = new MyMarkerRender(MapsActivity.this, mMap, mCM);
-        mCM.setRenderer(renderer);
-        // Points the maps listeners at the listeners implemented by the cluster manager
-        mMap.setOnCameraIdleListener(mCM);
-        mMap.setOnMarkerClickListener(mCM);
-        mMap.setInfoWindowAdapter(mCM.getMarkerManager());
-        mMap.setOnInfoWindowClickListener(mCM);
+            //setup for the Cluster Manager -- Lynntonio
+            mCM = new ClusterManager<>(MapsActivity.this, mMap);
+            renderer = new MyMarkerRender(MapsActivity.this, mMap, mCM);
+            mCM.setRenderer(renderer);
+            // Points the maps listeners at the listeners implemented by the cluster manager
+            mMap.setOnCameraIdleListener(mCM);
+            mMap.setOnMarkerClickListener(mCM);
+            mMap.setInfoWindowAdapter(mCM.getMarkerManager());
+            mMap.setOnInfoWindowClickListener(mCM);
 
-        mCM.setOnClusterClickListener(MapsActivity.this);
-        mCM.setOnClusterItemClickListener(MapsActivity.this);
-        mCM.setOnClusterInfoWindowClickListener(MapsActivity.this);
-        renderer.setMinClusterSize(1);
+            mCM.setOnClusterClickListener(MapsActivity.this);
+            mCM.setOnClusterItemClickListener(MapsActivity.this);
+            mCM.setOnClusterInfoWindowClickListener(MapsActivity.this);
+            mCM.setOnClusterItemInfoWindowClickListener(MapsActivity.this);
 
         //sets info window adapter.
         mCM.getMarkerCollection().setOnInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
@@ -696,6 +714,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 }
 
+
+    @Override
+    public void onClusterItemInfoWindowClick(final MyItem myItem)
+    {
+        renderer.getMarker(myItem).hideInfoWindow();
+    }
+}
 
     /*class OwnIconRendered  extends DefaultClusterRenderer<MyItem>
     {
