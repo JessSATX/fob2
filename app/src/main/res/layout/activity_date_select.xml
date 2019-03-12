@@ -1,36 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
     tools:context="com.example.joeanthonysuarez.fiestaoysterbakecompanion.DateSelect">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tTitle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/holo_purple"
+        android:textSize="15sp"
+        android:textStyle="italic" />
 
-        <TextView
-            android:id="@+id/tTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="textStart"
-            android:textColor="@android:color/holo_purple"
-            android:textSize="15sp"
-            android:textStyle="italic" />
+    <Button
+        android:id="@+id/bFri"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Friday " />
 
-        <Button
-            android:id="@+id/bFri"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Friday " />
+    <Button
+        android:id="@+id/bSat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Saturday" />
 
-        <Button
-            android:id="@+id/bSat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Saturday" />
-    </LinearLayout>
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

@@ -26,7 +26,7 @@ public class Map extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // initialize the view and the gesture detector
-      //  mImageView = findViewById(R.id.map);
+        //  mImageView = findViewById(R.id.map);
         mScaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
     }
 
@@ -40,7 +40,7 @@ public class Map extends AppCompatActivity {
 
         // when a scale gesture is detected, use it to resize the image
         @Override
-        public boolean onScale(ScaleGestureDetector scaleGestureDetector){
+        public boolean onScale(ScaleGestureDetector scaleGestureDetector) {
             mScaleFactor *= scaleGestureDetector.getScaleFactor();
             mImageView.setScaleX(mScaleFactor);
             mImageView.setScaleY(mScaleFactor);

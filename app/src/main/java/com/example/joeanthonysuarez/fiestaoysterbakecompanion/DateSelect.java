@@ -10,25 +10,22 @@ import android.widget.TextView;
 public class DateSelect extends AppCompatActivity {
     TextView title;
     Button bfri, bsat;
-
+    String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date_select);
 
-
-
         Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
 
-        String type = (String) bundle.get("Type");
+        type = intent.getStringExtra("Type");
 
         title = (TextView) findViewById(R.id.tTitle);
         bfri = (Button) findViewById(R.id.bFri);
         bsat = (Button) findViewById(R.id.bSat);
 
-        title.setText("Please specify what day for " + type);
+        title.setText("Please specify which day you would like to change for " + type + ".");
 
         if (type.equals("showtimes")) {
 
@@ -53,14 +50,12 @@ public class DateSelect extends AppCompatActivity {
                     startActivity(gotoStages);
                 }
             });
-        }
-
-        else {
+        } else {
 
             bfri.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent gotoMap = new Intent (DateSelect.this, MapsActivity.class);
+                    Intent gotoMap = new Intent(DateSelect.this, EditMapsActivity.class);
                     gotoMap.putExtra("day", "1");
                     startActivity(gotoMap);
                 }
@@ -69,13 +64,11 @@ public class DateSelect extends AppCompatActivity {
             bsat.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent gotoMap = new Intent (DateSelect.this, MapsActivity.class);
+                    Intent gotoMap = new Intent(DateSelect.this, EditMapsActivity.class);
                     gotoMap.putExtra("day", "2");
                     startActivity(gotoMap);
                 }
             });
-
         }
-
     }
 }

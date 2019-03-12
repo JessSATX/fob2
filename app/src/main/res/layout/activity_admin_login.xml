@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="8dp"
     tools:context=".AdminLogin">
 
     <EditText
@@ -12,31 +13,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Email"
         android:inputType="textPersonName" />
-
-    <TextView
-        android:id="@+id/Emailtxt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="E-mail"
-        android:textColor="#4D82DE"
-        android:textSize="14sp"
-        android:textStyle="italic" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Password"
         android:inputType="textPassword" />
-
-    <TextView
-        android:id="@+id/Passtxt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Password"
-        android:textColor="#4D82DE"
-        android:textStyle="italic" />
 
     <Button
         android:id="@+id/bLogin"

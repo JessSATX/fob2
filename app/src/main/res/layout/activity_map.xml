@@ -4,25 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    tools:context=".MapsActivity">
 
     <fragment
         android:id="@+id/map"
         class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/map"
-        android:layout_alignBaseline="@+id/map"
-        android:layout_alignParentTop="false"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="-100dp"
-        android:text="Refresh Booth Information" />
-
+    <!--
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/map"
+            android:layout_alignBaseline="@+id/map"
+            android:layout_alignParentTop="false"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="-100dp"
+            android:text="Refresh Booth Information" />
+    -->
     <ImageButton
         android:id="@+id/filterbutton"
         android:layout_width="56dp"
