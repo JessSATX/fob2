@@ -576,10 +576,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
             //add all the attributes that we got from above code to a MyItem object
-            currentItem = addAttributesToItem(markerLat, markerLang, markerTitle, giveDescriptionsToMarkers(boothNumbers), null, getImageFromTag(imageTag));
-            for(int i = 0;i< markerTags.length;i++)
+            currentItem = addAttributesToItem(markerLat, markerLang, markerTitle, giveDescriptionsToMarkers(boothNumbers), markerTags[0], getImageFromTag(imageTag));
+            for(int i = 1;i< markerTags.length;i++)
             {
-                currentItem.addTag(markerTags[i]);
+                currentItem.addTag(markerTags[i].trim());
             }
             markers.add(currentItem);
             mCM.addItem(currentItem);
