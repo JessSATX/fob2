@@ -21,9 +21,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".SelectDate"></activity>
+        <activity android:name=".Export" />
         <activity android:name=".SaturdayBackupMap"></activity>
         <activity android:name=".FridayBackupMap" />
-        <activity android:name=".Export" />
         <activity android:name=".ForgotPassword" />
         <activity android:name=".SignUp" />
         <activity android:name=".AdminLogin" />
@@ -72,6 +73,12 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
+        <activity android:name=".AdminHomePage" />
+        <activity android:name=".DateSelect" />
+        <activity android:name=".AdminStageList" />
+        <activity android:name=".AdminSchedule" />
+        <activity android:name=".CreateShowtime" />
+        <activity android:name=".EditShowtime" />
     </application>
 
 </manifest>

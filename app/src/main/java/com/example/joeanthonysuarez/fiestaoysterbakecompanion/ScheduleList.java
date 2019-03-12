@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class ScheduleList extends AppCompatActivity {
 
     public static String stageNum;
+    public static String day;
 
     private DatabaseReference fbRef;
     private FirebaseDatabase fbDatabase;
@@ -41,6 +42,7 @@ public class ScheduleList extends AppCompatActivity {
 
         if (bundle != null) {
             stageNum = (String) bundle.get("STAGE_NUM");
+            day = (String) bundle.get("day");
         }
 
         TextView stageTitle = (TextView) findViewById(R.id.txTitle);
@@ -63,31 +65,20 @@ public class ScheduleList extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    try {
-                        String name = ds.child("NAME").getValue().toString();
-                        String startTime = ds.child("START_TIME").getValue().toString();
-                        String endTime = ds.child("END_TIME").getValue().toString();
+                    String name = ds.child("NAME").getValue().toString();
+                    String startTime = ds.child("START_TIME").getValue().toString();
+                    String endTime = ds.child("END_TIME").getValue().toString();
+                    String Artday = ds.child("DAY").getValue(String.class);
+                    Boolean is_active = ds.child("STATUS").getValue(Boolean.class);
 
 
+                    if (Artday.equals(day) && is_active) {
                         arrayList.add(name + "\t\t\t\t" + startTime + " - " + endTime);
-                        artistsNamesList.add(name);
-
-                        throw new Exception();
-
-                        //adapter.notifyDataSetChanged();
-                    }catch(Exception e)
-                    {
-                        /*
-                        if (Friday)
-                        {
-                            Intent intent = new Intent(
-                         */
-                        Intent intent = new Intent(ScheduleList.this, FridayBackupMap.class);
-                        startActivity(intent);
-
+                        adapter.notifyDataSetChanged();
                     }
-                }
 
+                    adapter.notifyDataSetChanged();
+                }
             }
 
             @Override

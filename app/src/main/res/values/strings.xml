@@ -15,6 +15,10 @@
         <item>Line two of text</item>
         <item>A line that is so long that, depending on how the app runs, may or may not wrap this line of text around to the next line on the screen of the device that this app is currently running on.</item>
     </string-array>
+    <string-array name="day_select">
+        <item> Friday </item>
+        <item> Saturday </item>
+    </string-array>
     <string name="title_activity_maps">Map</string>
     <string name="action_admin_login">Login (Admin Only)</string>
     <string name="fiesta_oyster_bake_button_1">Fiesta Oyster Bake Button $1</string>
