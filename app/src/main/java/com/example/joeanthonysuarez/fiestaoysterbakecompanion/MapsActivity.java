@@ -115,7 +115,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
-        addListenerOnButton();
 
         if (bundle != null) {
             day = (String) bundle.get("day");
@@ -207,19 +206,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-    public void addListenerOnButton() {
-
-        refreshButton = (Button) findViewById(R.id.button3);
-
-        refreshButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                //Do
-            }
-        });
-    }
-
 
     /**
      * Manipulates the map once available.
@@ -286,43 +272,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         mMap.setInfoWindowAdapter(new newinfoAdapter(MapsActivity.this));
 
-            /* Most of this is for testing and example purposes, This should be commented/deleted out for the final build. -- Lynntonio
-            || Also everything here is deprecated don't expect to be able to use it as an example.
-            LatLng stmu = new LatLng(29.45249260178782, -98.56478047528071);
-            LatLng c1 = new LatLng(29.45149260178782, -98.56478047528071);
-            LatLng c2 = new LatLng(29.45249260178782, -98.56278047528071);
-            LatLng c3 = new LatLng(29.45349260178782, -98.56278047528071);
-            Marker test1 = mMap.addMarker(new MarkerOptions()
-                    .position(stmu)
-                    .title("Fiesta Oyster Bake")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.food))
-                    .snippet("Example Booth\n" +
-                            "Product: Chicken on a stick\n" +
-                            "Price: 6 tickets\n" +
-                            "Status: Open"));
-            test1.setTag("Chicken");
-            markers.add(test1); // this is one way to store marker references, but requires you to manually initiallize the process. Don't do this.
-            markers.add(mMap.addMarker(new MarkerOptions() // thi is probably the most Ideal way to store markers.
-                    .position(c1)
-                    .title("Test1")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.food))
-                    .snippet("Testing Filter: Tag = 'Beef'")));
-            markers.get(1).setTag("Beef");
-            markers.add(mMap.addMarker(new MarkerOptions()
-                    .position(c2)
-                    .title("Test2")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.food))
-                    .snippet("Testing Filter: Tag = 'Seafood'")));
-            markers.get(2).setTag("Seafood");
-            markers.add(mMap.addMarker(new MarkerOptions()
-                    .position(c3)
-                    .title("Test2")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.food))
-                    .snippet("Testing Filter: Tag = 'Seafood'")));
-            markers.get(3).setTag("Seafood");
-            */
-
-        // end test/example -- Lynntonio
         // Note: Most likely won't be an issue, however Tags need to be released by setting them to NULL, in order to prevent memory leaks.
         // Deleting the marker does not release the tag and instead loses the reference to the tag. Should't see negative consequences
         // unless we start making thousands of tags, in which case we need to start releasing tags. -- Lynntonio
@@ -619,6 +568,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             markerLat = Double.parseDouble(markerPlaceHolderLatLang[0]);
             markerLang = Double.parseDouble(markerPlaceHolderLatLang[1]);
 
+            String markerTags[] = markersFromFB.child("Tags").getValue().toString().split(",");
+
             //get the title,imageTag and corresponding booths
             markerTitle = markersFromFB.child("Title").getValue().toString();
             imageTag = Integer.parseInt(markersFromFB.child("Image").getValue().toString());
@@ -630,7 +581,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
             //add all the attributes that we got from above code to a MyItem object
-            currentItem = addAttributesToItem(markerLat, markerLang, markerTitle, giveDescriptionsToMarkers(boothNumbers), "Beef", getImageFromTag(imageTag));
+            currentItem = addAttributesToItem(markerLat, markerLang, markerTitle, giveDescriptionsToMarkers(boothNumbers), null, getImageFromTag(imageTag));
+            for(int i = 0;i< markerTags.length;i++)
+            {
+                currentItem.addTag(markerTags[i]);
+            }
             markers.add(currentItem);
             mCM.addItem(currentItem);
         }
@@ -654,6 +609,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             markerLat = Double.parseDouble(markerPlaceHolderLatLang[0]);
             markerLang = Double.parseDouble(markerPlaceHolderLatLang[1]);
 
+            String markerTags[] = markersFromFB.child("Tags").getValue().toString().split(",");
+
+
             //get the title,imageTag and corresponding booths
             markerTitle = markersFromFB.child("Title").getValue().toString();
             imageTag = Integer.parseInt(markersFromFB.child("Image").getValue().toString());
@@ -665,10 +623,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
             //add all the attributes that we got from above code to a MyItem object
-            currentItem = addAttributesToItem(markerLat, markerLang, markerTitle, giveDescriptionsToMarkers(boothNumbers), "Beef", getImageFromTag(imageTag));
+            currentItem = addAttributesToItem(markerLat, markerLang, markerTitle, giveDescriptionsToMarkers(boothNumbers),markerTags[0], getImageFromTag(imageTag));
+            for(int i = 1;i< markerTags.length;i++)
+            {
+//                System.out.println("The tags are" + markerTags[i]);
+//                System.out.println("The title is" + markerTitle);
+//                System.out.println("The description are" + giveDescriptionsToMarkers(boothNumbers));
+                currentItem.addTag(markerTags[i]);
+            }
             markers.add(currentItem);
             mCM.addItem(currentItem);
         }
+        System.out.println(currentItem.getTags());
 
     }
 
@@ -722,18 +688,3 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         renderer.getMarker(myItem).hideInfoWindow();
     }
 }
-
-    /*class OwnIconRendered  extends DefaultClusterRenderer<MyItem>
-    {
-        public OwnIconRendered(Context context, GoogleMap map, ClusterManager<MyItem> clusterManager)
-        {
-            super(context, map, clusterManager);
-        }
-
-        @Override
-        protected void onBeforeClusterItemRendered(MyItem item, MarkerOptions markerOptions)
-        {
-            markerOptions.icon(item.getIcon)
-        }
-    }*/ //Was just testing some stuff.
-

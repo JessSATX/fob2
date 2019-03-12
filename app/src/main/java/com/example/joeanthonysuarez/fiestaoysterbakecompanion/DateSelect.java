@@ -52,23 +52,6 @@ public class DateSelect extends AppCompatActivity {
             });
         } else {
 
-            bfri.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent gotoMap = new Intent(DateSelect.this, EditMapsActivity.class);
-                    gotoMap.putExtra("day", "1");
-                    startActivity(gotoMap);
-                }
-            });
-
-            bsat.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent gotoMap = new Intent(DateSelect.this, EditMapsActivity.class);
-                    gotoMap.putExtra("day", "2");
-                    startActivity(gotoMap);
-                }
-            });
         }
     }
 }
