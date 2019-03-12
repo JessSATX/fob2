@@ -68,8 +68,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                                                 ClusterManager.OnClusterItemClickListener<MyItem>,
                                                                 ClusterManager.OnClusterItemInfoWindowClickListener<MyItem>,
                                                                 ClusterManager.OnClusterInfoWindowClickListener<MyItem>{
-
-    Button refreshButton;
     public static String day;
     private GoogleMap mMap;
     private ClusterManager<MyItem> mCM;
@@ -92,14 +90,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     //ArrayList of Marker class, for collecting the references to marker objects. -- Lynntonio
     private MyItem clickedItem;
 
-    //used in filtering purposes.
-    List<MyItem> removedMarkers = new ArrayList<>();
-
     //This is used to save the variables in that we use for the markers
     String markerTitle = "intitial";
     Double markerLat = 0.0;
     Double markerLang = 0.0;
-    String markerTags = "defaultTag";
     Integer imageTag = 1;
 
 
@@ -159,8 +153,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     //this for-loop will terminate when just one of the markers tags is true.
                                     for (int k = 0; k < markers.get(i).getTags().size(); k++)
                                     {
-
-                                        if (markers.get(i).getTags().get(k) == filterArray[x]) {
+                                        if (markers.get(i).getTags().get(k).equals(filterArray[x])) {
                                             markers.get(i).setVisibility(filterB[x]);
                                             exit = filterB[x];
                                         }
@@ -320,8 +313,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
 
         //Example method of how to add cluster items (markers) to the cluster managers
-
         mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setMapToolbarEnabled(false);
+
         // Move the camera instantly to stmu with a zoom of 15.
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(stmu, 15));
         if (day.equals("1")) {
@@ -388,6 +382,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public boolean onClusterItemClick(MyItem myItem) {
         clickedItem = myItem;
+        //System.out.println("ji");
         return false;
     }
 
@@ -623,19 +618,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
             //add all the attributes that we got from above code to a MyItem object
-            currentItem = addAttributesToItem(markerLat, markerLang, markerTitle, giveDescriptionsToMarkers(boothNumbers),markerTags[0], getImageFromTag(imageTag));
-            for(int i = 1;i< markerTags.length;i++)
+            currentItem = new MyItem(markerLat, markerLang, markerTitle, giveDescriptionsToMarkers(boothNumbers),markerTags[0], getImageFromTag(imageTag));
+            for(int i = 1;i < markerTags.length;i++)
             {
-//                System.out.println("The tags are" + markerTags[i]);
-//                System.out.println("The title is" + markerTitle);
-//                System.out.println("The description are" + giveDescriptionsToMarkers(boothNumbers));
-                currentItem.addTag(markerTags[i]);
+                currentItem.addTag(markerTags[i].trim());
             }
             markers.add(currentItem);
             mCM.addItem(currentItem);
         }
-        System.out.println(currentItem.getTags());
-
     }
 
     /**
