@@ -321,7 +321,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (day.equals("1")) {
             GroundOverlayOptions fridayMap = new GroundOverlayOptions()
                     .image(BitmapDescriptorFactory.fromResource(R.drawable.fobcafri))
-                    .position(stmu, 650f, 625f);
+                    .position(stmu, 725f, 700f);
 
             // Add an overlay to the map, retaining a handle to the GroundOverlay object.
             GroundOverlay imageOverlay = mMap.addGroundOverlay(fridayMap);
