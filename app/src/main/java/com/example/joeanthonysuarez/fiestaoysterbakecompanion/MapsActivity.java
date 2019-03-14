@@ -83,7 +83,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //ArrayList of MiItem class, for collecting the references to marker objects. -- Lynntonio
         List<MyItem> markers = new ArrayList<MyItem>();
         //Boolean Array for selected items. Index contents are meant to correspond with those "filterArray". -- Lynntonio
-        final boolean[] filterB = new boolean[]    {     true,   true,      true,   true,         true,      true,            true,        true,     true,              true,  true,   true,  true,        true,       true,    true};
+        final boolean[] filterB = new boolean[]    {     false,   false,      false,   false,         false,      false,            false,        false,     false,              false,  false,   false,  false,        false,       false,    false};
         //make sure there is a boolean for every tag in the filter array, use the the comment below to aid in this.
       //final String[]  filterArray = new String[] {"Chicken", "Beef", "Seafood", "Pork", "Vegetables", "Dessert", "Non-Alcoholic", "Alcoholic", "Coupon", "HCAB (Handicap)", "ATM", "Gate", "VIP", "First Aid", "Bathroom", "Other"};
 
@@ -121,11 +121,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         fbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alertFilter = new AlertDialog.Builder(MapsActivity.this);
+
+                final AlertDialog.Builder alertFilter = new AlertDialog.Builder(MapsActivity.this);
 
                     //String array for Alert Dialogue multichoice items. MARKER TAGS MUST MATCH ONE OF THE CONTENTS OF THE ARRAY! -- Lynntonio
-                    final String[]  filterArray = new String[] {"Chicken", "Beef", "Seafood", "Pork", "Vegetables", "Dessert", "Non-Alcoholic", "Alcoholic", "Coupon", "HCAB (Handicap)", "ATM", "Gate", "VIP", "First Aid", "Bathroom", "Other"};
-
+                    final String[]  filterArray = new String[] {"Alcoholic", "ATM", "Bathroom", "Beef", "Chicken", "Coupon", "Dessert", "First Aid", "Gate", "HCAB (Handicap)", "Non-Alcoholic", "Other", "Pork", "Seafood", "Vegetables", "VIP"};
 
 
                 alertFilter.setTitle("Select Categories to Filter");
@@ -144,39 +144,41 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             // this will check every marker in the markers list and set their visibility
                             // to match the corresponding filterB's value based on whether the marker's tag
                             // matches filterArray's current index location. -- Lynntonio
-                            mCM.clearItems();
-                            mCM.getAlgorithm().clearItems();
-                            for (int i = 0; i < markers.size(); i++)
-                            {
-                                for (int x = 0; x < filterArray.length; x++)
-                                {
-                                    //this for-loop will terminate when just one of the markers tags is true.
-                                    for (int k = 0; k < markers.get(i).getTags().size(); k++)
-                                    {
-                                        if (markers.get(i).getTags().get(k).equals(filterArray[x])) {
-                                            markers.get(i).setVisibility(filterB[x]);
-                                            exit = filterB[x];
+                            for (int t = 1; t <= 2; t++) {
+                                mCM.clearItems();
+                                mCM.getAlgorithm().clearItems();
+                                for (int i = 0; i < markers.size(); i++) {
+                                    for (int x = 0; x < filterArray.length; x++) {
+                                        //this for-loop will terminate when just one of the markers tags is true.
+                                        for (int k = 0; k < markers.get(i).getTags().size(); k++) {
+                                            if (markers.get(i).getTags().get(k).equals(filterArray[x])) {
+                                                markers.get(i).setVisibility(filterB[x]);
+                                                exit = filterB[x];
+                                            }
+
+                                            if (exit == true) {
+                                                //k = markers.get(i).getTags().size();
+                                                break;
+                                            }
                                         }
 
-                                        if (exit == true)
-                                        {
-                                            k = markers.get(i).getTags().size();
+
+
+                                        if (markers.get(i).isVisible()) {
+                                            mCM.addItem(markers.get(i));
+                                        } else {
+                                            mCM.removeItem(markers.get(i));
                                         }
+
+                                        if ( exit == true)
+                                            break;
                                     }
 
-                                      exit = false;
-
-                                    if (markers.get(i).isVisible())
-                                    {
-                                        mCM.addItem(markers.get(i));
-                                    }
-                                    else {
-                                        mCM.removeItem(markers.get(i));
-                                    }
+                                    exit = false;
                                 }
+                                //forces a re-render to show changes immediately.
+                                mCM.cluster();
                             }
-                            //forces a re-render to show changes immediately.
-                            mCM.cluster();
 
                         }
                     });
@@ -189,13 +191,64 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 });
 
+                // Set negative/Deselect all button click listener
+                alertFilter.setNegativeButton("Deselect All", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        boolean exit = false;
+
+                        for (int x = 0; x < filterB.length; x++)
+                        {
+                            filterB[x] = false;
+                        }
+
+                        for (int t = 1; t <= 2; t++) {
+                            mCM.clearItems();
+                            mCM.getAlgorithm().clearItems();
+                            for (int i = 0; i < markers.size(); i++) {
+                                for (int x = 0; x < filterArray.length; x++) {
+                                    //this for-loop will terminate when just one of the markers tags is true.
+                                    for (int k = 0; k < markers.get(i).getTags().size(); k++) {
+                                        if (markers.get(i).getTags().get(k).equals(filterArray[x])) {
+                                            markers.get(i).setVisibility(filterB[x]);
+                                            exit = filterB[x];
+                                        }
+
+                                        if (exit == true) {
+                                            k = markers.get(i).getTags().size();
+                                            break;
+                                        }
+                                    }
+
+                                    exit = false;
+
+                                    if (markers.get(i).isVisible()) {
+                                        mCM.addItem(markers.get(i));
+                                    } else {
+                                        mCM.removeItem(markers.get(i));
+                                    }
+
+                                    if (exit == true)
+                                        break;
+                                }
+
+                                exit = false;
+                            }
+                            //forces a re-render to show changes immediately.
+                            mCM.cluster();
+                        }
+
+                    }
+                });
+
                 AlertDialog dialog = alertFilter.create();
                 //show dialog
                 dialog.show();
 
-
             }
         });
+
     }
 
 
@@ -382,7 +435,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public boolean onClusterItemClick(MyItem myItem) {
         clickedItem = myItem;
-        //System.out.println("ji");
+        for(int x = 0; x < myItem.getTags().size(); x++)
+        {
+            System.out.println(myItem.getTags().get(x));
+        }
         return false;
     }
 
@@ -584,6 +640,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             markers.add(currentItem);
             mCM.addItem(currentItem);
         }
+        mCM.cluster();
 
     }
 
@@ -626,6 +683,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             markers.add(currentItem);
             mCM.addItem(currentItem);
         }
+        mCM.cluster();
     }
 
     /**
