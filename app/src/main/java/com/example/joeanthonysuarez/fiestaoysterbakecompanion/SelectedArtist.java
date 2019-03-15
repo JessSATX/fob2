@@ -23,15 +23,12 @@ public class SelectedArtist extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             name = (String) bundle.get("NAME");
-            bio = (String) bundle.get("BIO");
+
         }
 
         // Set TextView title to to the artist's name.
         nameTitle = (TextView) findViewById(R.id.artist_name);
         nameTitle.setText(name);
 
-        // Set multi-line text to the artist's bio.
-        bioText = (TextView) findViewById(R.id.artist_bio);
-        bioText.setText(bio);
     }
 }

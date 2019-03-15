@@ -73,11 +73,11 @@ public class ScheduleList extends AppCompatActivity {
 
 
                     if (Artday.equals(day) && is_active) {
+                        artistsNamesList.add(name);
                         arrayList.add(name + "\t\t\t\t" + startTime + " - " + endTime);
                         adapter.notifyDataSetChanged();
                     }
 
-                    adapter.notifyDataSetChanged();
                 }
             }
 
