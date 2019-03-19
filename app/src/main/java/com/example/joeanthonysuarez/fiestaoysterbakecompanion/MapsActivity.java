@@ -694,7 +694,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         for (DataSnapshot boothsFromFB : dataSnapshot.child("BoothsFriday").getChildren()) {
             DescriptionOfBooth = DescriptionOfBooth.delete(0, DescriptionOfBooth.length());
             DescriptionOfBooth = DescriptionOfBooth.append(boothsFromFB.child("Coupon Count").getValue().toString());
-            DescriptionOfBooth = DescriptionOfBooth.append(" Coupons");
             DescriptionOfBooth = DescriptionOfBooth.append("\n");
             DescriptionOfBooth = DescriptionOfBooth.append(boothsFromFB.child("Description").getValue().toString());
             DescriptionOfBooth = DescriptionOfBooth.append("\n");
@@ -703,6 +702,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             DescriptionOfBooth = DescriptionOfBooth.append("\n\n");
 
             allDescriptions.put(Integer.parseInt(boothsFromFB.child("Booth Number").getValue().toString()), DescriptionOfBooth.toString());
+
         }
     }
 
