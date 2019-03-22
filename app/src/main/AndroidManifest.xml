@@ -22,9 +22,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/square_shuckie"
+        android:icon="@mipmap/cropped_shuckie"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/circle_shuckie"
+        android:roundIcon="@mipmap/cropped_shuckie"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".SelectDate"></activity>

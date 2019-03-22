@@ -139,10 +139,11 @@
         android:layout_below="@id/sponsor_label"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
+        android:maxWidth="250dp"
         android:maxHeight="200sp"
+        android:padding="8dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/alumniassc_logo"
-        android:padding="8dp"/>
+        android:src="@drawable/alumniassc_logo" />
 
     <ImageView
         android:id="@+id/barefoot"
@@ -151,10 +152,11 @@
         android:layout_below="@id/alunmni_assc"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
+        android:maxWidth="250dp"
         android:maxHeight="200sp"
+        android:padding="8dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/barefoot_logo"
-        android:padding="8dp"/>
+        android:src="@drawable/barefoot_logo" />
 
     <ImageView
         android:id="@+id/budlight"
@@ -163,10 +165,11 @@
         android:layout_below="@id/barefoot"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
+        android:maxWidth="250dp"
         android:maxHeight="200sp"
+        android:padding="8dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/budlight_logo"
-        android:padding="8dp"/>
+        android:src="@drawable/budlight_logo" />
 
     <ImageView
         android:id="@+id/integrity"
@@ -175,10 +178,11 @@
         android:layout_below="@id/budlight"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
+        android:maxWidth="250dp"
         android:maxHeight="200sp"
+        android:padding="8dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/integrity_logo"
-        android:padding="8dp"/>
+        android:src="@drawable/integrity_logo" />
 
     <ImageView
         android:id="@+id/spectrum"
@@ -187,10 +191,12 @@
         android:layout_below="@id/integrity"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
+        android:maxWidth="250dp"
         android:maxHeight="200sp"
+        android:padding="8dp"
         android:scaleType="fitCenter"
         android:src="@drawable/spectrum_logo"
-        android:padding="8dp"/>
+        android:visibility="visible" />
 
     <ImageView
         android:id="@+id/thomasjhenry"
@@ -199,10 +205,12 @@
         android:layout_below="@id/spectrum"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
+        android:maxWidth="250dp"
         android:maxHeight="200sp"
+        android:padding="8dp"
         android:scaleType="fitCenter"
         android:src="@drawable/thomasjhenry_logo"
-        android:padding="8dp"/>
+        android:visibility="visible" />
 
     <ImageView
         android:id="@+id/toyota"
@@ -211,8 +219,9 @@
         android:layout_below="@id/thomasjhenry"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
+        android:maxWidth="250dp"
         android:maxHeight="200sp"
+        android:padding="8dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/toyota_logo"
-        android:padding="8dp"/>
+        android:src="@drawable/toyota_logo" />
 </RelativeLayout>
