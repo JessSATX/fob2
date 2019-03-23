@@ -16,6 +16,7 @@
 
 package com.example.joeanthonysuarez.fiestaoysterbakecompanion;
 
+import com.google.android.gms.common.internal.Constants;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -42,6 +43,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -364,8 +366,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return null;
             }
         });
-
-        //Example method of how to add cluster items (markers) to the cluster managers
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setMapToolbarEnabled(false);
 
@@ -399,6 +399,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 new LatLng(29.449547605603758, -98.5687959744298), new LatLng(29.454892949715997, -98.56029317457967));
         // Constrain the camera target to STMU
         mMap.setLatLngBoundsForCameraTarget(STMU);
+
+        View tutorialView = findViewById(R.id.tutorialView);
+        boolean tutorialShown = false;
+        if (!tutorialShown) {
+            tutorialView.setVisibility(View.VISIBLE);
+        } else {
+            tutorialView.setVisibility(View.GONE);
+        }
+
+        tutorialView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setVisibility(View.GONE);
+            }
+        });
     }
 
 
