@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.joeanthonysuarez.fiestaoysterbakecompanion">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -29,8 +32,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".SelectDate"></activity>
         <activity android:name=".Export" />
-        <activity android:name=".SaturdayBackupMap"></activity>
-        <activity android:name=".FridayBackupMap" />
         <activity android:name=".ForgotPassword" />
         <activity android:name=".SignUp" />
         <activity
@@ -81,6 +82,9 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
+
+        <activity android:name=".SaturdayBackupMap"></activity>
+        <activity android:name=".FridayBackupMap" />
 
         <activity
             android:name=".MapsActivity"

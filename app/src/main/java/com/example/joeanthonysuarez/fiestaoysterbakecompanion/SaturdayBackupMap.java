@@ -1,5 +1,6 @@
 package com.example.joeanthonysuarez.fiestaoysterbakecompanion;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ExpandableListView;
@@ -19,6 +20,5 @@ public class SaturdayBackupMap extends AppCompatActivity {
         expandableListViewAdapter = new ExpandableListViewAdapterForBackupMap(this);
 
         expandableListView.setAdapter(expandableListViewAdapter);
-
     }
 }
