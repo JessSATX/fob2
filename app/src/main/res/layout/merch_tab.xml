@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1"
-                    android:text="@string/fiesta_oyster_bake_medal_1"
+                    android:text="@string/fiesta_oyster_bake_medal_12"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
             </LinearLayout>
