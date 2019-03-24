@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MapsActivity">
@@ -30,38 +31,27 @@
 
         <ImageView
             android:id="@+id/arrowForFilter"
-            android:layout_width="253dp"
-            android:layout_height="108dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="35dp"
-            android:layout_marginTop="450dp"
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:layout_marginLeft="125dp"
+            android:layout_marginTop="10dp"
             android:rotation="340"
             android:src="@drawable/arrow_filter" />
 
         <ImageView
-            android:id="@+id/arrowForClusters"
-            android:layout_width="253dp"
-            android:layout_height="108dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="175dp"
-            android:layout_marginTop="155dp"
-            android:src="@drawable/arrow_cluster" />
-
-        <ImageView
             android:id="@+id/arrowForIcons"
-            android:layout_width="253dp"
-            android:layout_height="108dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="128dp"
+            android:layout_width="141dp"
+            android:layout_height="65dp"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="435dp"
             android:src="@drawable/arrow_filter" />
 
         <TextView
             android:id="@+id/textView17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="90dp"
             android:fontFamily="casual"
             android:text="You can click here to utilize the booth filter to find exactly what you are looking for!"
             android:textColor="#FFFFFF"
@@ -73,21 +63,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:layout_marginTop="650dp"
-            android:layout_marginRight="25dp"
+            android:layout_marginTop="550dp"
             android:fontFamily="casual"
-            android:textStyle="bold"
             android:text="(Tap anywhere to dismiss)"
             android:textColor="#FFFFFF"
-            android:textSize="30sp" />
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="150dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="250dp"
             android:fontFamily="casual"
             android:text="These blue circles represent multiple booths within a small area!"
             android:textColor="#FFFFFF"
@@ -98,14 +86,18 @@
             android:id="@+id/textView19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="575dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="475dp"
             android:fontFamily="casual"
             android:text="You can also tap icons such as these to get more information on a booth!"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold" />
+
+        <android.support.constraint.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
 
