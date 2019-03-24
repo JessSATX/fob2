@@ -153,7 +153,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 final AlertDialog.Builder alertFilter = new AlertDialog.Builder(MapsActivity.this);
 
                     //String array for Alert Dialogue multichoice items. MARKER TAGS MUST MATCH ONE OF THE CONTENTS OF THE ARRAY! -- Lynntonio
-                    final String[]  filterArray = new String[] {"Alcoholic", "ATM", "Bathroom", "Beef", "Chicken", "Coupon", "Dessert", "First Aid", "Gate", "HCAB (Handicap)", "Non-Alcoholic", "Other", "Pork", "Seafood", "Vegetables", "VIP"};
+                    final String[]  filterArray = new String[] {"Alcoholic", "ATM", "Beef", "Chicken", "Coupon", "Dessert", "First Aid", "Gate", "HCAB (Handicap)", "Non-Alcoholic", "Other", "Pork", "Restroom", "Seafood", "Vegetables", "VIP"};
 
 
                 alertFilter.setTitle("Select Categories to Filter");
