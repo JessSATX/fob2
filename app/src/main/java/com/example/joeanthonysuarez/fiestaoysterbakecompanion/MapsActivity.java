@@ -42,6 +42,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -116,7 +118,31 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             day = (String) bundle.get("day");
         }
 
+            boolean connected = false;
+            ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+            if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                    connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+                //we are connected to a network
+                connected = true;
+            }
+            else
+                connected = false;
 
+            if (!connected)
+            {
+                if (day.equals("1"))
+                {
+                    Intent myIntent = new Intent(MapsActivity.this, FridayBackupMap.class);
+                    MapsActivity.this.startActivity(myIntent);
+                    finish();
+                }
+                else
+                {
+                    Intent myIntent = new Intent(MapsActivity.this, SaturdayBackupMap.class);
+                    MapsActivity.this.startActivity(myIntent);
+                    finish();
+                }
+            }
         ImageButton fbutton = findViewById(R.id.filterbutton);
         // This is the basis to the whole Filter System. ITEMS WILL NOT BE FILTERED IF THEY ARE NOT TAGGED
         // PROPERLY AND IF THEY ARE NOT STORED IN THE LIST "markers"! -- Lynntonio
