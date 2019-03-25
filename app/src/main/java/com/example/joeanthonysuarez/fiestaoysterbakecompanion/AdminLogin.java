@@ -67,7 +67,7 @@ public class AdminLogin extends AppCompatActivity {
                                 Intent goToHome = new Intent(AdminLogin.this, AdminHomePage.class);
                                 startActivity(goToHome);
                                // finish();
-                            } else if (!user.isEmailVerified()) {
+                            } else if (user != null && !user.isEmailVerified()) {
                                 verify_msg.setText("Your e-mail is not verified. Please check your inbox for a verification e-mail" +
                                         " Click here to send a new verification e-mail.");
                                 verify_msg.setOnClickListener(new View.OnClickListener() {
