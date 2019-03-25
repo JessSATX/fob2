@@ -97,6 +97,14 @@
             android:text="Thank you for supporting student scholarships and university programs, and viva Oyster Bake!"
             android:textSize="18sp" />
 
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="The following Google Map can be used to get directions to the 3 gates of Oyster Bake"
+            android:textSize="18sp" />
+
         <fragment
             android:id="@+id/map"
             class="com.google.android.gms.maps.SupportMapFragment"

@@ -75,12 +75,12 @@ public class MainActivity extends AppCompatActivity {
         spinner.setAdapter(new MyAdapter(
                 toolbar.getContext(),
                 new String[]{
-                        "Home",
+                        "Home Page",
                         "Map",
-                        "Showtimes",
-                        "About the Devs",
+                        "Stages",
+                        "Developers",
                         "FAQ",
-                        "Merchandise"
+                        "Souvenirs"
                 }));
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
