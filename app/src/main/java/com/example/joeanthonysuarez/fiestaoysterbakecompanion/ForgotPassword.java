@@ -32,9 +32,9 @@ public class ForgotPassword extends AppCompatActivity {
         sendem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String e_mail = email.getText().toString();
+                String e_mail = email.getText().toString().trim();
 
-                if (!email.equals("")) {
+                try {
                     auth.sendPasswordResetEmail(e_mail).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -50,7 +50,7 @@ public class ForgotPassword extends AppCompatActivity {
 
                         }
                     });
-                } else {
+                } catch (Exception e) {
                     Toast.makeText(ForgotPassword.this, "Please enter an e-mail.", Toast.LENGTH_SHORT).show();
                 }
             }
