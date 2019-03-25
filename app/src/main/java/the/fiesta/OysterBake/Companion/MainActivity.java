@@ -76,10 +76,10 @@ public class MainActivity extends AppCompatActivity {
                 toolbar.getContext(),
                 new String[]{
                         "Home Page",
-                        "Map",
+                        "Maps",
                         "Stages",
                         "Developers",
-                        "FAQ",
+                        "FAQs",
                         "Souvenirs"
                 }));
 

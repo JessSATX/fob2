@@ -66,47 +66,43 @@ import java.util.Map;
  * requires forwarding all the important lifecycle methods onto MapView.
  */
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,
-                                                                ClusterManager.OnClusterClickListener<MyItem>,
-                                                                ClusterManager.OnClusterItemClickListener<MyItem>,
-                                                                ClusterManager.OnClusterItemInfoWindowClickListener<MyItem>,
-                                                                ClusterManager.OnClusterInfoWindowClickListener<MyItem>{
-    public static String day;
-    private GoogleMap mMap;
-    private ClusterManager<MyItem> mCM;
+        ClusterManager.OnClusterClickListener<MyItem>,
+        ClusterManager.OnClusterItemClickListener<MyItem>,
+        ClusterManager.OnClusterItemInfoWindowClickListener<MyItem>,
+        ClusterManager.OnClusterInfoWindowClickListener<MyItem> {
+
     private static final String TAG = MapsActivity.class.getSimpleName();
-    private MyItem currentItem;
+    public static String day;
+    //Boolean Array for selected items. Index contents are meant to correspond with those "filterArray". -- Lynntonio
+    final boolean[] filterB = new boolean[]{false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
     StringBuilder DescriptionOfBooth = new StringBuilder();
-    private DatabaseReference firebaseReference;
     HashMap<Integer, String> allDescriptions = new HashMap<>();
     List<Integer> boothNumbers = new ArrayList<>();
-
-        MyMarkerRender renderer;
-
-        //ArrayList of MiItem class, for collecting the references to marker objects. -- Lynntonio
-        List<MyItem> markers = new ArrayList<MyItem>();
-        //Boolean Array for selected items. Index contents are meant to correspond with those "filterArray". -- Lynntonio
-        final boolean[] filterB = new boolean[]    {     false,   false,      false,   false,         false,      false,            false,        false,     false,              false,  false,   false,  false,        false,       false,    false};
-        //make sure there is a boolean for every tag in the filter array, use the the comment below to aid in this.
-      //final String[]  filterArray = new String[] {"Chicken", "Beef", "Seafood", "Pork", "Vegetables", "Dessert", "Non-Alcoholic", "Alcoholic", "Coupon", "HCAB (Handicap)", "ATM", "Gate", "VIP", "First Aid", "Bathroom", "Other"};
-
-    //ArrayList of Marker class, for collecting the references to marker objects. -- Lynntonio
-    private MyItem clickedItem;
-
+    MyMarkerRender renderer;
+    //ArrayList of MiItem class, for collecting the references to marker objects. -- Lynntonio
+    List<MyItem> markers = new ArrayList<MyItem>();
     //This is used to save the variables in that we use for the markers
     String markerTitle = "intitial";
     Double markerLat = 0.0;
     Double markerLang = 0.0;
     Integer imageTag = 1;
+    //make sure there is a boolean for every tag in the filter array, use the the comment below to aid in this.
+    //final String[]  filterArray = new String[] {"Chicken", "Beef", "Seafood", "Pork", "Vegetables", "Dessert", "Non-Alcoholic", "Alcoholic", "Coupon", "HCAB (Handicap)", "ATM", "Gate", "VIP", "First Aid", "Bathroom", "Other"};
+    private GoogleMap mMap;
+    private ClusterManager<MyItem> mCM;
+    private MyItem currentItem;
+    private DatabaseReference firebaseReference;
+    //ArrayList of Marker class, for collecting the references to marker objects. -- Lynntonio
+    private MyItem clickedItem;
 
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_map);
-            // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.map);
-            mapFragment.getMapAsync(this);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_map);
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -116,27 +112,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             day = (String) bundle.get("day");
         }
 
-            boolean connected = false;
-            ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-            //we are connected to a network
-            connected = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                    connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        //we are connected to a network
+        connected = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
 
-            if (!connected)
-            {
-                if (day.equals("1"))
-                {
-                    Intent myIntent = new Intent(MapsActivity.this, FridayBackupMap.class);
-                    MapsActivity.this.startActivity(myIntent);
-                    finish();
-                }
-                else
-                {
-                    Intent myIntent = new Intent(MapsActivity.this, SaturdayBackupMap.class);
-                    MapsActivity.this.startActivity(myIntent);
-                    finish();
-                }
+        if (!connected) {
+            if (day.equals("1")) {
+                Intent myIntent = new Intent(MapsActivity.this, FridayBackupMap.class);
+                MapsActivity.this.startActivity(myIntent);
+                finish();
+            } else {
+                Intent myIntent = new Intent(MapsActivity.this, SaturdayBackupMap.class);
+                MapsActivity.this.startActivity(myIntent);
+                finish();
             }
+        }
         ImageButton fbutton = findViewById(R.id.filterbutton);
         // This is the basis to the whole Filter System. ITEMS WILL NOT BE FILTERED IF THEY ARE NOT TAGGED
         // PROPERLY AND IF THEY ARE NOT STORED IN THE LIST "markers"! -- Lynntonio
@@ -146,8 +138,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 final AlertDialog.Builder alertFilter = new AlertDialog.Builder(MapsActivity.this);
 
-                    //String array for Alert Dialogue multichoice items. MARKER TAGS MUST MATCH ONE OF THE CONTENTS OF THE ARRAY! -- Lynntonio
-                    final String[]  filterArray = new String[] {"Alcoholic", "ATM", "Beef", "Chicken", "Coupon", "Dessert", "First Aid", "Gate", "HCAB (Handicap)", "Non-Alcoholic", "Other", "Pork", "Restroom", "Seafood", "Vegetables", "VIP"};
+                //String array for Alert Dialogue multichoice items. MARKER TAGS MUST MATCH ONE OF THE CONTENTS OF THE ARRAY! -- Lynntonio
+                final String[] filterArray = new String[]{"Alcoholic", "ATM", "Beef", "Chicken", "Coupon", "Dessert", "First Aid", "Gate", "HCAB (Handicap)", "Non-Alcoholic", "Other", "Pork", "Restroom", "Seafood", "Vegetables", "VIP"};
 
 
                 alertFilter.setTitle("Select Categories to Filter");
@@ -158,52 +150,51 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 });
 
-                    //set positive/Ok button click listener
-                    alertFilter.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            boolean exit = false;
-                            // this will check every marker in the markers list and set their visibility
-                            // to match the corresponding filterB's value based on whether the marker's tag
-                            // matches filterArray's current index location. -- Lynntonio
-                            for (int t = 1; t <= 2; t++) {
-                                mCM.clearItems();
-                                mCM.getAlgorithm().clearItems();
-                                for (int i = 0; i < markers.size(); i++) {
-                                    for (int x = 0; x < filterArray.length; x++) {
-                                        //this for-loop will terminate when just one of the markers tags is true.
-                                        for (int k = 0; k < markers.get(i).getTags().size(); k++) {
-                                            if (markers.get(i).getTags().get(k).equals(filterArray[x])) {
-                                                markers.get(i).setVisibility(filterB[x]);
-                                                exit = filterB[x];
-                                            }
-
-                                            if (exit == true) {
-                                                //k = markers.get(i).getTags().size();
-                                                break;
-                                            }
+                //set positive/Ok button click listener
+                alertFilter.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        boolean exit = false;
+                        // this will check every marker in the markers list and set their visibility
+                        // to match the corresponding filterB's value based on whether the marker's tag
+                        // matches filterArray's current index location. -- Lynntonio
+                        for (int t = 1; t <= 2; t++) {
+                            mCM.clearItems();
+                            mCM.getAlgorithm().clearItems();
+                            for (int i = 0; i < markers.size(); i++) {
+                                for (int x = 0; x < filterArray.length; x++) {
+                                    //this for-loop will terminate when just one of the markers tags is true.
+                                    for (int k = 0; k < markers.get(i).getTags().size(); k++) {
+                                        if (markers.get(i).getTags().get(k).equals(filterArray[x])) {
+                                            markers.get(i).setVisibility(filterB[x]);
+                                            exit = filterB[x];
                                         }
 
-
-
-                                        if (markers.get(i).isVisible()) {
-                                            mCM.addItem(markers.get(i));
-                                        } else {
-                                            mCM.removeItem(markers.get(i));
-                                        }
-
-                                        if ( exit == true)
+                                        if (exit == true) {
+                                            //k = markers.get(i).getTags().size();
                                             break;
+                                        }
                                     }
 
-                                    exit = false;
-                                }
-                                //forces a re-render to show changes immediately.
-                                mCM.cluster();
-                            }
 
+                                    if (markers.get(i).isVisible()) {
+                                        mCM.addItem(markers.get(i));
+                                    } else {
+                                        mCM.removeItem(markers.get(i));
+                                    }
+
+                                    if (exit == true)
+                                        break;
+                                }
+
+                                exit = false;
+                            }
+                            //forces a re-render to show changes immediately.
+                            mCM.cluster();
                         }
-                    });
+
+                    }
+                });
 
                 // Set neutral/Cancel button click listener
                 alertFilter.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
@@ -220,8 +211,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                         boolean exit = false;
 
-                        for (int x = 0; x < filterB.length; x++)
-                        {
+                        for (int x = 0; x < filterB.length; x++) {
                             filterB[x] = false;
                         }
 
@@ -274,7 +264,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -289,7 +278,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // set up connection to firebase
 
         //If it is Friday Map
-        if(day.equals("1")) {
+        if (day.equals("1")) {
 
             firebaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -306,8 +295,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             });
         }
         //If it is Saturday Map
-        else
-        {
+        else {
             firebaseReference = FirebaseDatabase.getInstance().getReference();
 
             firebaseReference.addValueEventListener(new ValueEventListener() {
@@ -349,20 +337,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         LatLng stmu = new LatLng(29.45249260178782, -98.56478047528071);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(stmu));
 
-            //setup for the Cluster Manager -- Lynntonio
-            mCM = new ClusterManager<>(MapsActivity.this, mMap);
-            renderer = new MyMarkerRender(MapsActivity.this, mMap, mCM);
-            mCM.setRenderer(renderer);
-            // Points the maps listeners at the listeners implemented by the cluster manager
-            mMap.setOnCameraIdleListener(mCM);
-            mMap.setOnMarkerClickListener(mCM);
-            mMap.setInfoWindowAdapter(mCM.getMarkerManager());
-            mMap.setOnInfoWindowClickListener(mCM);
+        //setup for the Cluster Manager -- Lynntonio
+        mCM = new ClusterManager<>(MapsActivity.this, mMap);
+        renderer = new MyMarkerRender(MapsActivity.this, mMap, mCM);
+        mCM.setRenderer(renderer);
+        // Points the maps listeners at the listeners implemented by the cluster manager
+        mMap.setOnCameraIdleListener(mCM);
+        mMap.setOnMarkerClickListener(mCM);
+        mMap.setInfoWindowAdapter(mCM.getMarkerManager());
+        mMap.setOnInfoWindowClickListener(mCM);
 
-            mCM.setOnClusterClickListener(MapsActivity.this);
-            mCM.setOnClusterItemClickListener(MapsActivity.this);
-            mCM.setOnClusterInfoWindowClickListener(MapsActivity.this);
-            mCM.setOnClusterItemInfoWindowClickListener(MapsActivity.this);
+        mCM.setOnClusterClickListener(MapsActivity.this);
+        mCM.setOnClusterItemClickListener(MapsActivity.this);
+        mCM.setOnClusterInfoWindowClickListener(MapsActivity.this);
+        mCM.setOnClusterItemInfoWindowClickListener(MapsActivity.this);
 
         //sets info window adapter.
         mCM.getMarkerCollection().setOnInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
@@ -470,8 +458,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public boolean onClusterItemClick(MyItem myItem) {
         clickedItem = myItem;
-        for(int x = 0; x < myItem.getTags().size(); x++)
-        {
+        for (int x = 0; x < myItem.getTags().size(); x++) {
             System.out.println(myItem.getTags().get(x));
         }
         return false;
@@ -480,6 +467,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     /**
      * This function is essentially a large switch, using the photo of the imageTags, you must pass in
      * the right number to get the image you want.
+     *
      * @param imageTag
      * @return
      */
@@ -536,7 +524,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 bitmap = BitmapDescriptorFactory.fromResource(R.drawable.lostnfound);
                 break;
             case 17:
-                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.oysters);
+                bitmap = BitmapDescriptorFactory.fromResource(R.drawable.oysters_small);
                 break;
             case 18:
                 bitmap = BitmapDescriptorFactory.fromResource(R.drawable.port_a_john_handicap);
@@ -598,6 +586,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     /**
      * Add all the attributes to the item
+     *
      * @param lat
      * @param lng
      * @param title
@@ -614,6 +603,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     /**
      * We have to get the booth numbers and compare the hashmaps keys to the numbers
      * if they match, then concatenate that corresponding keys description to the markers description
+     *
      * @param boothNumbers
      * @return description for the entire marker (including all booths)
      */
@@ -639,6 +629,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     /**
      * This function you can use to populate the Friday map
+     *
      * @param dataSnapshot
      */
     public void getMarkerDataFriday(DataSnapshot dataSnapshot) {
@@ -668,8 +659,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             //add all the attributes that we got from above code to a MyItem object
             currentItem = addAttributesToItem(markerLat, markerLang, markerTitle, giveDescriptionsToMarkers(boothNumbers), markerTags[0], getImageFromTag(imageTag));
-            for(int i = 1;i< markerTags.length;i++)
-            {
+            for (int i = 1; i < markerTags.length; i++) {
                 currentItem.addTag(markerTags[i].trim());
             }
             markers.add(currentItem);
@@ -681,6 +671,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     /**
      * This function used to actually populate the Saturday Map
+     *
      * @param dataSnapshot
      */
     public void getMarkerDataSaturday(DataSnapshot dataSnapshot) {
@@ -710,9 +701,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
             //add all the attributes that we got from above code to a MyItem object
-            currentItem = new MyItem(markerLat, markerLang, markerTitle, giveDescriptionsToMarkers(boothNumbers),markerTags[0], getImageFromTag(imageTag));
-            for(int i = 1;i < markerTags.length;i++)
-            {
+            currentItem = new MyItem(markerLat, markerLang, markerTitle, giveDescriptionsToMarkers(boothNumbers), markerTags[0], getImageFromTag(imageTag));
+            for (int i = 1; i < markerTags.length; i++) {
                 currentItem.addTag(markerTags[i].trim());
             }
             markers.add(currentItem);
@@ -723,6 +713,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     /**
      * This fuction used to fill the HashMap with values for Friday
+     *
      * @param dataSnapshot
      */
     public void FillDescriptionDataMapFriday(DataSnapshot dataSnapshot) {
@@ -743,6 +734,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     /**
      * Used to fill theHashMap with values for Saturday
+     *
      * @param dataSnapshot
      */
     public void FillDescriptionDataMapSaturday(DataSnapshot dataSnapshot) {
@@ -763,10 +755,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-
     @Override
-    public void onClusterItemInfoWindowClick(final MyItem myItem)
-    {
+    public void onClusterItemInfoWindowClick(final MyItem myItem) {
         renderer.getMarker(myItem).hideInfoWindow();
     }
 }
