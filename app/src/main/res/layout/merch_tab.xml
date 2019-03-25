@@ -26,7 +26,7 @@
                 android:layout_marginBottom="5dp"
                 android:orientation="horizontal">
 
-                <com.example.joeanthonysuarez.fiestaoysterbakecompanion.TouchImageView
+                <the.fiesta.OysterBake.Companion.TouchImageView
                     android:layout_width="197dp"
                     android:layout_height="173dp"
                     android:layout_margin="5dp"
@@ -51,7 +51,7 @@
                 android:layout_marginBottom="5dp"
                 android:orientation="horizontal">
 
-                <com.example.joeanthonysuarez.fiestaoysterbakecompanion.TouchImageView
+                <the.fiesta.OysterBake.Companion.TouchImageView
                     android:id="@+id/merch1"
                     android:layout_width="193dp"
                     android:layout_height="193dp"
@@ -76,7 +76,7 @@
                 android:layout_margin="5dp"
                 android:orientation="horizontal">
 
-                <com.example.joeanthonysuarez.fiestaoysterbakecompanion.TouchImageView
+                <the.fiesta.OysterBake.Companion.TouchImageView
 
                     android:layout_width="187dp"
                     android:layout_height="216dp"
@@ -101,7 +101,7 @@
                 android:layout_margin="5dp"
                 android:orientation="horizontal">
 
-                <com.example.joeanthonysuarez.fiestaoysterbakecompanion.TouchImageView
+                <the.fiesta.OysterBake.Companion.TouchImageView
 
                     android:layout_width="192dp"
                     android:layout_height="208dp"
@@ -125,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.example.joeanthonysuarez.fiestaoysterbakecompanion.TouchImageView
+                <the.fiesta.OysterBake.Companion.TouchImageView
                     android:layout_width="197dp"
                     android:layout_height="179dp"
                     android:layout_margin="5dp"

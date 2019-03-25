@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.joeanthonysuarez.fiestaoysterbakecompanion.MainActivity">
+    tools:context="com.fiesta.OysterBake.Companion.The.fiesta.OysterBake.Companion.MainActivity">
     <item
         android:id="@+id/action_admin_login"
         android:orderInCategory="100"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.joeanthonysuarez.fiestaoysterbakecompanion.AdminSchedule">
+    tools:context="com.fiesta.OysterBake.Companion.The.fiesta.OysterBake.Companion.AdminSchedule">
 
     <ScrollView
         android:layout_width="match_parent"

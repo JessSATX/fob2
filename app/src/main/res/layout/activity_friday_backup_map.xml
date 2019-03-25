@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".FridayBackupMap">
+    tools:context="the.fiesta.OysterBake.Companion.FridayBackupMap">
 
 
-    <com.example.joeanthonysuarez.fiestaoysterbakecompanion.TouchImageView
+    <the.fiesta.OysterBake.Companion.TouchImageView
         android:id="@+id/fridayBackup"
         android:layout_width="wrap_content"
         android:layout_height="311dp"

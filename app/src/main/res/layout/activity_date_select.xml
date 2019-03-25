@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="8dp"
-    tools:context="com.example.joeanthonysuarez.fiestaoysterbakecompanion.DateSelect">
+    tools:context="com.fiesta.OysterBake.Companion.The.fiesta.OysterBake.Companion.DateSelect">
 
     <TextView
         android:id="@+id/tTitle"

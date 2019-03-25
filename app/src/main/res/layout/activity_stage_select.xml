@@ -7,7 +7,7 @@
     android:background="#E2E3DD"
     android:orientation="vertical"
     android:padding="8dp"
-    tools:context=".StageSelect">
+    tools:context="the.fiesta.OysterBake.Companion.StageSelect">
 
     <RelativeLayout
         android:layout_width="match_parent"

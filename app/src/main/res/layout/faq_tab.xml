@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".MainActivity$FAQTab"
+    tools:context="the.fiesta.OysterBake.Companion.MainActivity$FAQTab"
     android:nestedScrollingEnabled="true">
 
     <ExpandableListView

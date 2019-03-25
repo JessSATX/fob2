@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#E2E3DD"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+    tools:context="the.fiesta.OysterBake.Companion.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
