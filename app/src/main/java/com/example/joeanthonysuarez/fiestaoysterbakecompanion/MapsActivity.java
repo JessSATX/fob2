@@ -756,7 +756,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             //Here we are going and getting all the 3 attributes and structuring it for each booths description
             DescriptionOfBooth = DescriptionOfBooth.delete(0, DescriptionOfBooth.length());
             DescriptionOfBooth = DescriptionOfBooth.append(boothsFromFB.child("Coupon Count").getValue().toString());
-            DescriptionOfBooth = DescriptionOfBooth.append(" Coupons");
             DescriptionOfBooth = DescriptionOfBooth.append("\n");
             DescriptionOfBooth = DescriptionOfBooth.append(boothsFromFB.child("Description").getValue().toString());
             DescriptionOfBooth = DescriptionOfBooth.append("\n");
