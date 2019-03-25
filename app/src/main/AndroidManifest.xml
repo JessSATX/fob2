@@ -3,15 +3,12 @@
     package="com.example.joeanthonysuarez.fiestaoysterbakecompanion">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -30,7 +27,8 @@
         android:roundIcon="@mipmap/cropped_shuckie"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SelectDate"></activity>
+        <activity android:name=".StageSelect"></activity>
+        <activity android:name=".SelectDate" />
         <activity android:name=".Export" />
         <activity android:name=".ForgotPassword" />
         <activity android:name=".SignUp" />
@@ -55,9 +53,7 @@
             android:label="@string/schedule_list_title_label" />
         <activity
             android:name=".SelectedArtist"
-            android:label="@string/selected_artist_title_label"/>
-         <!--   android:parentActivityName=".ScheduleList" -->
-
+            android:label="@string/selected_artist_title_label" /> <!-- android:parentActivityName=".ScheduleList" -->
         <!--
             The API key for Google Maps-based APIs is defined as a string resource.
             (See the file "res/values/google_maps_api.xml").
@@ -65,16 +61,13 @@
             You need a different API key for each encryption key, including the release key that is used to
             sign the APK for publishing.
             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-       -->
+        -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDvHx8qTFDh_9l3zrBtwX_kltjplycEWPI" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
-
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -83,24 +76,26 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".SaturdayBackupMap"></activity>
+        <activity android:name=".SaturdayBackupMap" />
         <activity android:name=".FridayBackupMap" />
-
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".AdminHomePage"
             android:label="Admin Home" />
-        <activity
-            android:name=".DateSelect"/>
-           <!-- android:label="Select Day"
-            android:parentActivityName=".AdminHomePage" -->
+        <activity android:name=".DateSelect" />
+        <!--
+ android:label="Select Day"
+            android:parentActivityName=".AdminHomePage"
+        -->
         <activity
             android:name=".AdminStageList"
-            android:exported="true"/>
-         <!--   android:label="Stage List"
-            android:parentActivityName=".DateSelect" -->
+            android:exported="true" />
+        <!--
+   android:label="Stage List"
+            android:parentActivityName=".DateSelect"
+        -->
         <activity
             android:name=".AdminSchedule"
             android:exported="true" />

@@ -41,7 +41,7 @@ public class ScheduleList extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
 
         if (bundle != null) {
-            stageNum = (String) bundle.get("STAGE_NUM");
+            stageNum = (String) bundle.get("Stage");
             day = (String) bundle.get("day");
         }
 
@@ -49,8 +49,13 @@ public class ScheduleList extends AppCompatActivity {
         artistsListView = (ListView) findViewById(R.id.Artists_List);
 
         // Set the name of the stage.
-        stageTitle.setText("STAGE " + stageNum);
+        if (stageNum.equals("4")){
+            stageTitle.setText("STAGE 6");
 
+        }
+        else {
+            stageTitle.setText("STAGE " + stageNum);
+        }
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList);
         artistsListView.setAdapter(adapter);
 
@@ -73,8 +78,9 @@ public class ScheduleList extends AppCompatActivity {
 
 
                     if (Artday.equals(day) && is_active) {
+
                         artistsNamesList.add(name);
-                        arrayList.add(name + "\t\t\t\t" + startTime + " - " + endTime);
+                        arrayList.add(name + "\n" + startTime + "-" + endTime);
                         adapter.notifyDataSetChanged();
                     }
 
@@ -88,7 +94,7 @@ public class ScheduleList extends AppCompatActivity {
         });
 
         // Event listener for when an item in the ListView is clicked or tapped
-        artistsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    /*    artistsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get the name and the bio of the selected artist.
@@ -101,6 +107,6 @@ public class ScheduleList extends AppCompatActivity {
 
                 startActivity(artistSelectIntent);
             }
-        });
+        });*/
     }
 }

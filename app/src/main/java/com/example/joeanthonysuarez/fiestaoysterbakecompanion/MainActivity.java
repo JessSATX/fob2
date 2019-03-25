@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (position == 2) // Showtimes content
                 {
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container, ShowtimesTab.newInstance(position + 1))
+                            .replace(R.id.container, SelectDate.newInstance(position + 1))
                             .commit();
                 } else if (position == 3) // About content
                 {
@@ -518,28 +518,26 @@ public class MainActivity extends AppCompatActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class ShowtimesTab extends Fragment implements View.OnClickListener {
+    public static class SelectDate extends Fragment implements View.OnClickListener {
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        public Button stage1;
-        public Button stage2;
-        public Button stage3;
-        public Button stage4;
-        public Button stage5;
+        public Button fri;
+        public Button sat;
 
-        public ShowtimesTab() {
+
+        public SelectDate() {
         }
 
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static ShowtimesTab newInstance(int sectionNumber) {
-            ShowtimesTab fragment = new ShowtimesTab();
+        public static SelectDate newInstance(int sectionNumber) {
+            SelectDate fragment = new SelectDate();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
@@ -549,50 +547,38 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.showtimes_tab, container, false);
+            View rootView = inflater.inflate(R.layout.activity_select_date, container, false);
 
-            stage1 = (Button) rootView.findViewById(R.id.Stage1);
-            stage2 = (Button) rootView.findViewById(R.id.Stage2);
-            stage3 = (Button) rootView.findViewById(R.id.Stage3);
-            stage4 = (Button) rootView.findViewById(R.id.Stage4);
-            stage5 = (Button) rootView.findViewById(R.id.Stage5);
+            fri = (Button) rootView.findViewById(R.id.friB);
+            sat = (Button) rootView.findViewById(R.id.satB);
 
-            stage1.setOnClickListener(this);
-            stage2.setOnClickListener(this);
-            stage3.setOnClickListener(this);
-            stage4.setOnClickListener(this);
-            stage5.setOnClickListener(this);
+
+            sat.setOnClickListener(this);
+            fri.setOnClickListener(this);
+
 
             return rootView;
         }
 
         @Override
         public void onClick(View view) {
-            String stageNum = "";
+            String Day = "";
 
             switch (view.getId()) {
-                case R.id.Stage1:
-                    stageNum = "1";
+                case R.id.friB:
+                    Day = "1";
                     break;
-                case R.id.Stage2:
-                    stageNum = "2";
+                case R.id.satB:
+                    Day = "2";
                     break;
-                case R.id.Stage3:
-                    stageNum = "3";
-                    break;
-                case R.id.Stage4:
-                    stageNum = "4";
-                    break;
-                case R.id.Stage5:
-                    stageNum = "5";
-                    break;
+
             }
 
-            // New intent to go to SelectDate.java Activity
-            Intent intent = new Intent(getActivity(), SelectDate.class);
+            // New intent to go to StageSelect.java Activity
+            Intent intent = new Intent(getActivity(), StageSelect.class);
 
             // Send the stage number as a string.
-            intent.putExtra("STAGE_NUM", stageNum);
+            intent.putExtra("Day", Day);
             startActivity(intent);
         }
     }
