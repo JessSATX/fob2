@@ -102,7 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="The following Google Map can be used to get directions to the 3 gates of Oyster Bake"
+            android:text="The following Google Map can be used to get directions to the 3 gates of Oyster Bake by tapping on their respective icons!"
             android:textSize="18sp" />
 
         <fragment
