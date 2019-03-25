@@ -26,8 +26,8 @@ public class ForgotPassword extends AppCompatActivity {
 
         //FirebaseApp.initializeApp(this);
         auth = FirebaseAuth.getInstance();
-        email = (EditText) findViewById(R.id.etEmail);
-        sendem = (Button) findViewById(R.id.bSendEmail);
+        email = findViewById(R.id.etEmail);
+        sendem = findViewById(R.id.bSendEmail);
 
         sendem.setOnClickListener(new View.OnClickListener() {
             @Override

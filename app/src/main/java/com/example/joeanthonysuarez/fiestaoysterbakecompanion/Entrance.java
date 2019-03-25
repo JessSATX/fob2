@@ -4,6 +4,5 @@ public class Entrance extends FOBService
 {
 	Entrance()
 	{
-		;
-	}
+    }
 }

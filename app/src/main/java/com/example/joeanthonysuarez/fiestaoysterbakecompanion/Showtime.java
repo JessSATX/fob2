@@ -4,6 +4,5 @@ public class Showtime extends Stage
 {
 	Showtime()
 	{
-		;
-	}
+    }
 }

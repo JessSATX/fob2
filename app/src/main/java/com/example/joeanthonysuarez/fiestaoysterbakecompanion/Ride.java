@@ -4,6 +4,5 @@ public class Ride extends PointOfInterest
 {
 	Ride()
 	{
-		;
-	}
+    }
 }

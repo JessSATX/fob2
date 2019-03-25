@@ -30,7 +30,7 @@ public class Export extends AppCompatActivity {
         // set up connection to database
         dbRef = FirebaseDatabase.getInstance().getReference();
 
-        data = (TextView) findViewById(R.id.dataText);
+        data = findViewById(R.id.dataText);
 
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override

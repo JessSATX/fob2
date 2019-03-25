@@ -21,8 +21,8 @@ public class SelectDate extends AppCompatActivity {
 
         stageNum = (String) bundle.get("STAGE_NUM");
 
-        fri = (Button) findViewById(R.id.friB);
-        sat = (Button) findViewById(R.id.satB);
+        fri = findViewById(R.id.friB);
+        sat = findViewById(R.id.satB);
 
 
         fri.setOnClickListener(new View.OnClickListener() {

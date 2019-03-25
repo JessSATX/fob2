@@ -58,9 +58,9 @@ public class AdminSchedule extends AppCompatActivity {
         }
 
         // find title textview and artists listview and create button
-        title = (TextView) findViewById(R.id.txtAStext);
-        artistsListView = (ListView) findViewById(R.id.lsArtists);
-        createshowtime = (Button) findViewById(R.id.bAdd);
+        title = findViewById(R.id.txtAStext);
+        artistsListView = findViewById(R.id.lsArtists);
+        createshowtime = findViewById(R.id.bAdd);
 
         title.setText("Artists performing on stage" + stage);
 

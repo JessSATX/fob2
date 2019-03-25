@@ -4,6 +4,5 @@ public class Emergency extends FOBService
 {
 	Emergency()
 	{
-		;
-	}
+    }
 }

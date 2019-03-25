@@ -120,13 +120,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             boolean connected = false;
             ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-            if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                    connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-                //we are connected to a network
-                connected = true;
-            }
-            else
-                connected = false;
+            //we are connected to a network
+            connected = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                    connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
 
             if (!connected)
             {
@@ -378,8 +374,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 final View view = inflater.inflate(R.layout.newinfo, null);
 
-                TextView titleTV = (TextView) view.findViewById(R.id.title);
-                TextView snippetTV = (TextView) view.findViewById((R.id.snippet));
+                TextView titleTV = view.findViewById(R.id.title);
+                TextView snippetTV = view.findViewById((R.id.snippet));
 
                 titleTV.setText(clickedItem.getTitle());
                 snippetTV.setText(clickedItem.getSnippet());

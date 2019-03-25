@@ -24,11 +24,11 @@ public class StageSelect extends AppCompatActivity {
 
         day = (String) bundle.get("Day");
 
-        stage1 = (Button) findViewById(R.id.Stage1);
-        stage2 = (Button) findViewById(R.id.Stage2);
-        stage3 = (Button) findViewById(R.id.Stage3);
-        stage5 = (Button) findViewById(R.id.Stage5);
-        stage6 = (Button) findViewById(R.id.Stage6);
+        stage1 = findViewById(R.id.Stage1);
+        stage2 = findViewById(R.id.Stage2);
+        stage3 = findViewById(R.id.Stage3);
+        stage5 = findViewById(R.id.Stage5);
+        stage6 = findViewById(R.id.Stage6);
 
         // change button names depending on day
 

@@ -45,8 +45,8 @@ public class ScheduleList extends AppCompatActivity {
             day = (String) bundle.get("day");
         }
 
-        TextView stageTitle = (TextView) findViewById(R.id.txTitle);
-        artistsListView = (ListView) findViewById(R.id.Artists_List);
+        TextView stageTitle = findViewById(R.id.txTitle);
+        artistsListView = findViewById(R.id.Artists_List);
 
         // Set the name of the stage.
         if (stageNum.equals("4")){

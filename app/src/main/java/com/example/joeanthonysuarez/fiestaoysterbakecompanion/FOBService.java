@@ -4,6 +4,5 @@ public class FOBService extends PointOfInterest
 {
 	FOBService()
 	{
-		;
-	}
+    }
 }

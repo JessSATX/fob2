@@ -4,6 +4,5 @@ public class CouponStand extends FOBService
 {
 	CouponStand()
 	{
-		;
-	}
+    }
 }

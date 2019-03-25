@@ -24,12 +24,12 @@ public class AdminStageList extends AppCompatActivity {
 
         day = (String) bundle.get("day");
 
-        title = (TextView) findViewById(R.id.txtStagetitle);
-        bstage1 = (Button) findViewById(R.id.bStage1);
-        bstage2 = (Button) findViewById(R.id.bStage2);
-        bstage3 = (Button) findViewById(R.id.bStage3);
-        bstage4 = (Button) findViewById(R.id.bStage4);
-        bstage5 = (Button) findViewById(R.id.bStage5);
+        title = findViewById(R.id.txtStagetitle);
+        bstage1 = findViewById(R.id.bStage1);
+        bstage2 = findViewById(R.id.bStage2);
+        bstage3 = findViewById(R.id.bStage3);
+        bstage4 = findViewById(R.id.bStage4);
+        bstage5 = findViewById(R.id.bStage5);
 
 
         title.setText("Stages for " + (day.equals("1") ? "Friday" : "Saturday"));

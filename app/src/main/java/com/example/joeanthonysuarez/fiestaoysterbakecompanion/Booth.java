@@ -17,6 +17,5 @@ public class Booth extends PointOfInterest
 	
 	Booth()
 	{
-		;
-	}
+    }
 }

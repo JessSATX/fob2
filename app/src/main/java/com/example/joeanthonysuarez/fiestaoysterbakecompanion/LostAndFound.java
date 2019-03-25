@@ -4,6 +4,5 @@ public class LostAndFound extends FOBService
 {
 	LostAndFound()
 	{
-		;
-	}
+    }
 }

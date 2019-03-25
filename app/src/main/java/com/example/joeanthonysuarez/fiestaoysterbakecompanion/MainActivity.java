@@ -61,17 +61,17 @@ public class MainActivity extends AppCompatActivity {
 
         // check if a user is logged in
 
-        if (auth.getInstance().getCurrentUser() != null){
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
             Intent AdminHome = new Intent (MainActivity.this, AdminHomePage.class);
             startActivity(AdminHome);
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         // Setup spinner
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        Spinner spinner = findViewById(R.id.spinner);
         spinner.setAdapter(new MyAdapter(
                 toolbar.getContext(),
                 new String[]{
@@ -133,9 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean checkMapServices() {
         if (isServicesOK()) {
-            if (isMapsEnabled()) {
-                return true;
-            }
+            return isMapsEnabled();
         }
         return false;
     }
@@ -288,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
                 view = convertView;
             }
 
-            TextView textView = (TextView) view.findViewById(android.R.id.text1);
+            TextView textView = view.findViewById(android.R.id.text1);
             textView.setText(getItem(position));
 
             return view;
@@ -390,13 +388,13 @@ public class MainActivity extends AppCompatActivity {
             yearCountTextString = yearCountTextString + "time. 35+ bands. 100,000 oysters. 2 days. 1 good time.";
 
             View rootView = inflater.inflate(R.layout.home_tab, container, false);
-            TextView welcomeText = (TextView) rootView.findViewById(R.id.welcome_text);
-            TextView yearCountText = (TextView) rootView.findViewById(R.id.year_count_text);
-            buyTicketsButton = (Button) rootView.findViewById(R.id.buy_tickets_button);
-            aboutOysterBakeButton = (Button) rootView.findViewById(R.id.about_oyster_bake_button);
-            followOnTwitterButton = (Button) rootView.findViewById(R.id.twitter_button);
-            followOnInstagramButton = (Button) rootView.findViewById(R.id.instagram_button);
-            likeOnFacebookButton = (Button) rootView.findViewById(R.id.facebook_button);
+            TextView welcomeText = rootView.findViewById(R.id.welcome_text);
+            TextView yearCountText = rootView.findViewById(R.id.year_count_text);
+            buyTicketsButton = rootView.findViewById(R.id.buy_tickets_button);
+            aboutOysterBakeButton = rootView.findViewById(R.id.about_oyster_bake_button);
+            followOnTwitterButton = rootView.findViewById(R.id.twitter_button);
+            followOnInstagramButton = rootView.findViewById(R.id.instagram_button);
+            likeOnFacebookButton = rootView.findViewById(R.id.facebook_button);
 
             welcomeText.setText(welcomeTextString);
             yearCountText.setText(yearCountTextString);
@@ -483,8 +481,8 @@ public class MainActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.activity_maps, container, false);
 
-            fridayButton = (Button) rootView.findViewById(R.id.fridayMap);
-            saturdayButton = (Button) rootView.findViewById(R.id.saturdayMap);
+            fridayButton = rootView.findViewById(R.id.fridayMap);
+            saturdayButton = rootView.findViewById(R.id.saturdayMap);
 
             fridayButton.setOnClickListener(this);
             saturdayButton.setOnClickListener(this);
@@ -549,8 +547,8 @@ public class MainActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.activity_select_date, container, false);
 
-            fri = (Button) rootView.findViewById(R.id.friB);
-            sat = (Button) rootView.findViewById(R.id.satB);
+            fri = rootView.findViewById(R.id.friB);
+            sat = rootView.findViewById(R.id.satB);
 
 
             sat.setOnClickListener(this);
@@ -652,7 +650,7 @@ public class MainActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.faq_tab, container, false);
 
-            expandableListView = (ExpandableListView) rootView.findViewById(R.id.expandableListView);
+            expandableListView = rootView.findViewById(R.id.expandableListView);
             expandableListViewAdapter = new ExpandableListViewAdapter(this.getContext());
 
             expandableListView.setAdapter(expandableListViewAdapter);

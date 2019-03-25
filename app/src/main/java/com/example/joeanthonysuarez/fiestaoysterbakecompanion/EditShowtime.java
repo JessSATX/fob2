@@ -45,17 +45,17 @@ public class EditShowtime extends AppCompatActivity implements  AdapterView.OnIt
 
         }
 
-        daySelect = (Spinner) findViewById(R.id.sDay);
+        daySelect = findViewById(R.id.sDay);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.day_select, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         daySelect.setAdapter(adapter);
         daySelect.setOnItemSelectedListener(this);
 
-        saveinfo = (Button) findViewById(R.id.bSave);
-        cancel = (Button) findViewById(R.id.bCancel);
-        name = (EditText) findViewById(R.id.etName);
-        start = (EditText) findViewById(R.id.etStartTime);
-        end = (EditText) findViewById(R.id.etEndTime);
+        saveinfo = findViewById(R.id.bSave);
+        cancel = findViewById(R.id.bCancel);
+        name = findViewById(R.id.etName);
+        start = findViewById(R.id.etStartTime);
+        end = findViewById(R.id.etEndTime);
 
 
 

@@ -5,6 +5,5 @@ public class PointOfInterest
 {
 	PointOfInterest()
 	{
-		;
-	}
+    }
 }

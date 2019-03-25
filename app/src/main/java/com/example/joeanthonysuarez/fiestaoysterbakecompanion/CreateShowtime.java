@@ -45,17 +45,17 @@ public class CreateShowtime extends AppCompatActivity implements AdapterView.OnI
         }
 
 
-        daySelect = (Spinner) findViewById(R.id.sDaySelect);
+        daySelect = findViewById(R.id.sDaySelect);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.day_select, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         daySelect.setAdapter(adapter);
         daySelect.setOnItemSelectedListener(this);
 
 // get the user inputted data
-        name = (EditText) findViewById(R.id.etName);
-        start = (EditText) findViewById(R.id.etStartTime);
-        end = (EditText) findViewById(R.id.etEndTime);
-        create = (Button) findViewById(R.id.bcreate);
+        name = findViewById(R.id.etName);
+        start = findViewById(R.id.etStartTime);
+        end = findViewById(R.id.etEndTime);
+        create = findViewById(R.id.bcreate);
 
 
         create.setOnClickListener(new View.OnClickListener() {

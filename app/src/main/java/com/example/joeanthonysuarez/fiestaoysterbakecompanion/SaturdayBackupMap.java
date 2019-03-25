@@ -14,9 +14,9 @@ public class SaturdayBackupMap extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saturday_backup_map);
-        TouchImageView map = (TouchImageView) findViewById(R.id.saturdayBackup);
+        TouchImageView map = findViewById(R.id.saturdayBackup);
 
-        expandableListView = (ExpandableListView) findViewById(R.id.backupListSaturday);
+        expandableListView = findViewById(R.id.backupListSaturday);
         expandableListViewAdapter = new ExpandableListViewAdapterForBackupMap(this);
 
         expandableListView.setAdapter(expandableListViewAdapter);

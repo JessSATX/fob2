@@ -41,10 +41,10 @@ public class SignUp extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         rbRef = FirebaseDatabase.getInstance().getReference();
 
-        Email = (EditText) findViewById(R.id.nEmail);
-        Password = (EditText) findViewById(R.id.nPassword);
-        PassConfirm = (EditText) findViewById(R.id.cPassword);
-        signUp = (Button) findViewById(R.id.btnsignUp);
+        Email = findViewById(R.id.nEmail);
+        Password = findViewById(R.id.nPassword);
+        PassConfirm = findViewById(R.id.cPassword);
+        signUp = findViewById(R.id.btnsignUp);
 
         rbRef.child("UserEmails").addValueEventListener(new ValueEventListener() {
             @Override
@@ -118,10 +118,6 @@ public class SignUp extends AppCompatActivity {
     public boolean VerifyEmail(String email) {
         final String em = email;
 
-        if (emailList.contains(em)) {
-            return true;
-        } else {
-            return false;
-        }
+        return emailList.contains(em);
     }
 }

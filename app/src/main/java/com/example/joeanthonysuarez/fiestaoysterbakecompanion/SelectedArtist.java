@@ -27,7 +27,7 @@ public class SelectedArtist extends AppCompatActivity {
         }
 
         // Set TextView title to to the artist's name.
-        nameTitle = (TextView) findViewById(R.id.artist_name);
+        nameTitle = findViewById(R.id.artist_name);
         nameTitle.setText(name);
 
     }

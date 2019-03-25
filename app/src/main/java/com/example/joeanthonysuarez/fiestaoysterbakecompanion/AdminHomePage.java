@@ -20,9 +20,9 @@ public class AdminHomePage extends AppCompatActivity {
         //FirebaseApp.initializeApp(this);
         auth = FirebaseAuth.getInstance();
 
-        bmap = (Button) findViewById(R.id.bMaps);
-        bshowtime = (Button) findViewById(R.id.bShowtimes);
-        logout = (Button) findViewById(R.id.bLogout);
+        bmap = findViewById(R.id.bMaps);
+        bshowtime = findViewById(R.id.bShowtimes);
+        logout = findViewById(R.id.bLogout);
         bmap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

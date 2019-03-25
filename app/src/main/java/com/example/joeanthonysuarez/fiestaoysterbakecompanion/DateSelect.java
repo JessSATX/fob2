@@ -21,9 +21,9 @@ public class DateSelect extends AppCompatActivity {
 
         type = intent.getStringExtra("Type");
 
-        title = (TextView) findViewById(R.id.tTitle);
-        bfri = (Button) findViewById(R.id.bFri);
-        bsat = (Button) findViewById(R.id.bSat);
+        title = findViewById(R.id.tTitle);
+        bfri = findViewById(R.id.bFri);
+        bsat = findViewById(R.id.bSat);
 
         title.setText("Please specify which day you would like to change for " + type + ".");
 

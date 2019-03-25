@@ -33,13 +33,13 @@ public class AdminLogin extends AppCompatActivity {
         //FirebaseApp.initializeApp(this);
         auth = FirebaseAuth.getInstance();
 
-        email = (EditText) findViewById(R.id.etEmail);
-        password = (EditText) findViewById(R.id.etPassword);
-        blogin = (Button) findViewById(R.id.bLogin);
-        bsignup = (Button) findViewById(R.id.bSignUp);
-        bforgotpass = (Button) findViewById(R.id.bForgotPassword);
-        verify_msg = (TextView) findViewById(R.id.VerifyText);
-        bexport = (Button) findViewById(R.id.bExport);
+        email = findViewById(R.id.etEmail);
+        password = findViewById(R.id.etPassword);
+        blogin = findViewById(R.id.bLogin);
+        bsignup = findViewById(R.id.bSignUp);
+        bforgotpass = findViewById(R.id.bForgotPassword);
+        verify_msg = findViewById(R.id.VerifyText);
+        bexport = findViewById(R.id.bExport);
 
         bsignup.setOnClickListener(new View.OnClickListener() {
             @Override
