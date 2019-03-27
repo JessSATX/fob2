@@ -155,44 +155,96 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         boolean exit = false;
+                        boolean allfalse = false;
                         // this will check every marker in the markers list and set their visibility
                         // to match the corresponding filterB's value based on whether the marker's tag
                         // matches filterArray's current index location. -- Lynntonio
-                        for (int t = 1; t <= 2; t++) {
-                            mCM.clearItems();
-                            mCM.getAlgorithm().clearItems();
-                            for (int i = 0; i < markers.size(); i++) {
-                                for (int x = 0; x < filterArray.length; x++) {
-                                    //this for-loop will terminate when just one of the markers tags is true.
-                                    for (int k = 0; k < markers.get(i).getTags().size(); k++) {
-                                        if (markers.get(i).getTags().get(k).equals(filterArray[x])) {
-                                            markers.get(i).setVisibility(filterB[x]);
-                                            exit = filterB[x];
-                                        }
-
-                                        if (exit == true) {
-                                            //k = markers.get(i).getTags().size();
-                                            break;
-                                        }
-                                    }
-
-
-                                    if (markers.get(i).isVisible()) {
-                                        mCM.addItem(markers.get(i));
-                                    } else {
-                                        mCM.removeItem(markers.get(i));
-                                    }
-
-                                    if (exit == true)
-                                        break;
-                                }
-
-                                exit = false;
+                        for (int b = 0; b < filterB.length; b++) {
+                            if (filterB[b]) {
+                                break;
                             }
-                            //forces a re-render to show changes immediately.
-                            mCM.cluster();
-                        }
 
+                            if (b == filterB.length-1 && filterB[b] == false) {
+                                allfalse = true;
+                            }
+
+                        }
+                        //with this check, never again will the user see an empty map.
+                        //I hope you're happy Vincent.
+                        if (allfalse) {
+                            for (int t = 1; t <= 2; t++) {
+                                mCM.clearItems();
+                                mCM.getAlgorithm().clearItems();
+                                for (int i = 0; i < markers.size(); i++) {
+                                    for (int x = 0; x < filterArray.length; x++) {
+                                        //this for-loop will terminate when just one of the markers tags is true.
+                                        for (int k = 0; k < markers.get(i).getTags().size(); k++) {
+                                            if (markers.get(i).getTags().get(k).equals(filterArray[x])) {
+                                                markers.get(i).setVisibility(true);
+                                                exit = filterB[x];
+                                            }
+
+                                            if (exit == true) {
+                                                k = markers.get(i).getTags().size();
+                                                break;
+                                            }
+                                        }
+
+                                        exit = false;
+
+                                        if (markers.get(i).isVisible()) {
+                                            mCM.addItem(markers.get(i));
+                                        } else {
+                                            mCM.removeItem(markers.get(i));
+                                        }
+
+                                        if (exit == true)
+                                            break;
+                                    }
+
+                                    exit = false;
+                                }
+                                //forces a re-render to show changes immediately.
+                                mCM.cluster();
+                            }
+                        }
+                        else {
+                            for (int t = 1; t <= 2; t++) {
+                                mCM.clearItems();
+                                mCM.getAlgorithm().clearItems();
+                                for (int i = 0; i < markers.size(); i++) {
+                                    for (int x = 0; x < filterArray.length; x++) {
+                                        //this for-loop will terminate when just one of the markers tags is true.
+                                        for (int k = 0; k < markers.get(i).getTags().size(); k++) {
+                                            if (markers.get(i).getTags().get(k).equals(filterArray[x])) {
+                                                markers.get(i).setVisibility(filterB[x]);
+                                                exit = filterB[x];
+                                            }
+
+                                            if (exit == true) {
+                                                //k = markers.get(i).getTags().size();
+                                                break;
+                                            }
+                                        }
+
+
+                                        if (markers.get(i).isVisible()) {
+                                            mCM.addItem(markers.get(i));
+                                        } else {
+                                            mCM.removeItem(markers.get(i));
+                                        }
+
+                                        if (exit == true)
+                                            break;
+                                    }
+
+                                    exit = false;
+                                }
+                                //forces a re-render to show changes immediately.
+                                mCM.cluster();
+                            }
+
+                        }
                     }
                 });
 
@@ -223,7 +275,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     //this for-loop will terminate when just one of the markers tags is true.
                                     for (int k = 0; k < markers.get(i).getTags().size(); k++) {
                                         if (markers.get(i).getTags().get(k).equals(filterArray[x])) {
-                                            markers.get(i).setVisibility(filterB[x]);
+                                            markers.get(i).setVisibility(true);
                                             exit = filterB[x];
                                         }
 

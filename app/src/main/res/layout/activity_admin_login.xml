@@ -51,9 +51,4 @@
         android:textSize="14sp"
         android:textStyle="italic" />
 
-    <Button
-        android:id="@+id/bExport"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Export Database" />
 </LinearLayout>
