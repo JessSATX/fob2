@@ -39,7 +39,7 @@ public class AdminLogin extends AppCompatActivity {
         bsignup = findViewById(R.id.bSignUp);
         bforgotpass = findViewById(R.id.bForgotPassword);
         verify_msg = findViewById(R.id.VerifyText);
-        bexport = findViewById(R.id.bExport);
+
 
         bsignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,12 +98,6 @@ public class AdminLogin extends AppCompatActivity {
             }
         });
 
-        bexport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent goToExport = new Intent (AdminLogin.this, Export.class);
-                startActivity(goToExport);
-            }
-        });
+
     }
 }
