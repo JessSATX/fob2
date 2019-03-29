@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -64,7 +63,7 @@ public class Export extends AppCompatActivity {
         try {
             data.setText(openFileInput("FOBdata.txt").toString());
             data.setTextColor(Color.GREEN);
-            data. setTextSize(20);
+            data.setTextSize(20);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

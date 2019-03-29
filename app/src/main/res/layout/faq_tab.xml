@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="the.fiesta.OysterBake.Companion.MainActivity$FAQTab"
-    android:nestedScrollingEnabled="true">
+    android:baselineAligned="false"
+    android:nestedScrollingEnabled="true"
+    tools:context="the.fiesta.OysterBake.Companion.MainActivity$FAQTab">
 
     <ExpandableListView
         android:id="@+id/expandableListView"
-        android:layout_width="match_parent"
-        android:layout_height="800dp"
-        android:layout_weight="0.14"
-        />
+        android:layout_width="0dp"
+        android:layout_height="2000dp"
+        android:layout_weight="0.14" />
 </LinearLayout>

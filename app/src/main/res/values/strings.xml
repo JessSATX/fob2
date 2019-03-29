@@ -9,12 +9,6 @@
     <string name="schedule_list_title_label">Scheduled Performances</string>
     <string name="about_oyster_bake_title_label">About Fiesta Oyster Bake</string>
     <string name="google_maps_api_key">AIzaSyDvHx8qTFDh_9l3zrBtwX_kltjplycEWPI</string>
-
-    <string-array name="test_array_1">
-        <item>Line one of text</item>
-        <item>Line two of text</item>
-        <item>A line that is so long that, depending on how the app runs, may or may not wrap this line of text around to the next line on the screen of the device that this app is currently running on.</item>
-    </string-array>
     <string-array name="day_select">
         <item> Friday </item>
         <item> Saturday </item>
@@ -29,4 +23,60 @@
     <string name="fiesta_oyster_bake_koozie_5">Fiesta Oyster Bake Koozie $5</string>
     <string name="title_activity_edit_maps">Map</string>
     <string name="fiesta_oyster_bake_medal_12">Fiesta Oyster Bake Medal $12</string>
+    <string name="development_team">Development Team</string>
+    <string name="christine_flores">Christine Flores</string>
+    <string name="nathan_marcos">Nathan Marcos</string>
+    <string name="vincent_nava">Vincent Nava</string>
+    <string name="lynntonio_robinson">Lynntonio Robinson</string>
+    <string name="jose_tanori">Jose Tanori</string>
+    <string name="joe_anthony_suarez">Joe Anthony Suarez</string>
+    <string name="about_text_block">This companion application was made for St. Mary\'s University and Oyster Bake by a team of Computer Science Seniors. In hope of continued support and improved patron experience, please report any bugs or feed back to the following email.</string>
+    <string name="support_email">alumrel@stmarytx.edu</string>
+    <string name="thanks_bro">Thank you for your support!</string>
+    <string name="about_fob_p1">For a third of San Antonio’s history, the Oyster Bake has been part of the fabric of the community. What started as a St. Mary’s University alumni gathering with a handful of people in 1916 on the banks of the San Antonio River downtown has grown to a premier Fiesta San Antonio event with over 70,000 patrons and more than 7,000 volunteers.</string>
+    <string name="about_fob_p2">The Oyster Bake truly is a party with a purpose. 100% of the proceeds raised during the Oyster Bake go directly back to the students of St. Mary’s University. By attending the Oyster Bake, you are helping to further the education of students and their growth as future community leaders. Over the years, your patronage has directly contributed millions of dollars in student scholarships and university programs, and for this we can simply say: thank you.</string>
+    <string name="about_fob_p3">And in case you were wondering, over the two days of Oyster Bake, we go through 100,000 oysters and 32,000 chickens on sticks with jalapeños!</string>
+    <string name="our_mission">Our Mission</string>
+    <string name="about_fob_p4">To produce a quality, volunteer-driven, Fiesta San Antonio-approved music festival to raise funds for student scholarships to St. Mary’s University, and to support the University and the Alumni Association.</string>
+    <string name="about_fob_p5">Thank you for supporting student scholarships and university programs, and viva Oyster Bake!</string>
+    <string name="map_help_fob">The following Google Map can be used to get directions to the 3 gates of Oyster Bake by tapping on their respective icons!</string>
+    <string name="edit_maps">Edit Maps</string>
+    <string name="edit_showtimes">Edit Showtimes</string>
+    <string name="log_out">Log Out</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="log_in">Log In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="add_a_showtime">Add a showtime</string>
+    <string name="stage_1">Stage 1</string>
+    <string name="stage_2">Stage 2</string>
+    <string name="stage_3">Stage 3</string>
+    <string name="stage_4">Stage 4</string>
+    <string name="stage_5">Stage 5</string>
+    <string name="artist_name">Artist Name</string>
+    <string name="start_time">Start Time</string>
+    <string name="end_time">End Time</string>
+    <string name="day">Day</string>
+    <string name="create_showtime">Create Showtime</string>
+    <string name="friday_admin">Friday</string>
+    <string name="saturday_admin">Saturday</string>
+    <string name="cancel_showtime">Cancel Showtime</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="send_recovery_e_mail">Send recovery e-mail</string>
+    <string name="tutorial_1">You can click here to utilize the booth filter to find exactly what you are looking for!</string>
+    <string name="tutorial_2">These blue circles represent multiple booths within a small area!</string>
+    <string name="tutorial_3">(Tap anywhere to dismiss)</string>
+    <string name="tutorial_4">You can also tap icons such as these to get more information on a booth!</string>
+    <string name="friday_map">Friday Map</string>
+    <string name="saturday_map">Saturday Map</string>
+    <string name="sign_up_page">Sign Up Page</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="about_oyster_bake">About Oyster Bake</string>
+    <string name="buy_tickets">Buy Tickets</string>
+    <string name="connect_with_oyster_bake">Connect with Oyster Bake!</string>
+    <string name="like_on_facebook">Like on Facebook!</string>
+    <string name="follow_on_instagram">Follow on Instagram!</string>
+    <string name="follow_on_twitter">Follow on Twitter!</string>
+    <string name="thanks_sponsors">Oyster Bake would not be possible without our sponsors!</string>
 </resources>

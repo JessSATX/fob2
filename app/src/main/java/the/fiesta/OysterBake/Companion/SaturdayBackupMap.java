@@ -4,8 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ExpandableListView;
 
-
-
 public class SaturdayBackupMap extends AppCompatActivity {
 
     private ExpandableListView expandableListView;

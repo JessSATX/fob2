@@ -53,7 +53,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="60dp"
             android:fontFamily="casual"
-            android:text="You can click here to utilize the booth filter to find exactly what you are looking for!"
+            android:text="@string/tutorial_1"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -65,7 +65,7 @@
             android:layout_marginLeft="25dp"
             android:layout_marginTop="350dp"
             android:fontFamily="casual"
-            android:text="(Tap anywhere to dismiss)"
+            android:text="@string/tutorial_3"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -77,7 +77,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="150dp"
             android:fontFamily="casual"
-            android:text="These blue circles represent multiple booths within a small area!"
+            android:text="@string/tutorial_2"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -89,7 +89,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="220dp"
             android:fontFamily="casual"
-            android:text="You can also tap icons such as these to get more information on a booth!"
+            android:text="@string/tutorial_4"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold" />

@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,22 +21,22 @@ import java.util.ArrayList;
 
 public class AdminSchedule extends AppCompatActivity {
 
-    TextView title;
-    ListView artistsListView;
-    Button createshowtime;
     public static String stage;
     public static String day;
-
-    private DatabaseReference fb;
-    private ArrayList<String> arrayList = new ArrayList<>();
-    private ArrayAdapter<String> adapter;
-
     public ArrayList<String> artistID = new ArrayList<>();
     public ArrayList<String> artistsNamesList = new ArrayList<>();
     public ArrayList<String> artistsStartTime = new ArrayList<>();
     public ArrayList<String> artistEndTime = new ArrayList<>();
     public ArrayList<String> artistDay = new ArrayList<>();
     public ArrayList<Boolean> artistStatus = new ArrayList<>();
+
+    TextView title;
+    ListView artistsListView;
+    Button createshowtime;
+
+    private DatabaseReference fb;
+    private ArrayList<String> arrayList = new ArrayList<>();
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,37 +70,36 @@ public class AdminSchedule extends AppCompatActivity {
         fb.child("STAGES").child(stage).child("ARTISTS").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    String id = ds.getKey();
-                    String name = ds.child("NAME").getValue(String.class);
-                    String startTime = ds.child("START_TIME").getValue(String.class);
-                    String endTime = ds.child("END_TIME").getValue(String.class);
-                    String Artday = ds.child("DAY").getValue(String.class);
-                    Boolean is_active = ds.child("STATUS").getValue(Boolean.class);
+                        String id = ds.getKey();
+                        String name = ds.child("NAME").getValue(String.class);
+                        String startTime = ds.child("START_TIME").getValue(String.class);
+                        String endTime = ds.child("END_TIME").getValue(String.class);
+                        String Artday = ds.child("DAY").getValue(String.class);
+                        Boolean is_active = ds.child("STATUS").getValue(Boolean.class);
 
-                    artistID.add(id);
-                    artistsNamesList.add(name);
-                    artistsStartTime.add(startTime);
-                    artistEndTime.add(endTime);
-                    artistDay.add(Artday);
-                    artistStatus.add(is_active);
+                        artistID.add(id);
+                        artistsNamesList.add(name);
+                        artistsStartTime.add(startTime);
+                        artistEndTime.add(endTime);
+                        artistDay.add(Artday);
+                        artistStatus.add(is_active);
 
-                    if (Artday.equals(day) && is_active) {
-                        arrayList.add(name + "\t\t\t\t" + startTime + " - " + endTime);
-                        adapter.notifyDataSetChanged();
-                    }
-                    else {
-                        artistID.remove(id);
-                        artistsNamesList.remove(name);
-                        artistsStartTime.remove(startTime);
-                        artistEndTime.remove(endTime);
-                        artistDay.remove(Artday);
-                        artistStatus.remove(is_active);
+                        if (Artday.equals(day) && is_active) {
+                            arrayList.add(name + "\t\t\t\t" + startTime + " - " + endTime);
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            artistID.remove(id);
+                            artistsNamesList.remove(name);
+                            artistsStartTime.remove(startTime);
+                            artistEndTime.remove(endTime);
+                            artistDay.remove(Artday);
+                            artistStatus.remove(is_active);
+                        }
                     }
                 }
-            }
             }
 
             @Override
@@ -115,7 +113,7 @@ public class AdminSchedule extends AppCompatActivity {
         createshowtime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent gotoCreate = new Intent (AdminSchedule.this, CreateShowtime.class);
+                Intent gotoCreate = new Intent(AdminSchedule.this, CreateShowtime.class);
                 gotoCreate.putExtra("Stage", stage);
                 startActivity(gotoCreate);
             }
@@ -131,7 +129,7 @@ public class AdminSchedule extends AppCompatActivity {
                 String end = artistEndTime.get(position);
                 String day = artistDay.get(position);
 
-                Intent gotoEditShowtime = new Intent (AdminSchedule.this, EditShowtime.class);
+                Intent gotoEditShowtime = new Intent(AdminSchedule.this, EditShowtime.class);
 
                 gotoEditShowtime.putExtra("stage", stage);
                 gotoEditShowtime.putExtra("ID", artID);
@@ -148,24 +146,20 @@ public class AdminSchedule extends AppCompatActivity {
 
     private void filterArtists() {
         for (int i = artistsNamesList.size() - 1; i >= 0; i--) {
-            if ( artistDay.get(i).equals(day)  && artistStatus.get(i).toString().equals("true") ) {
+            if (artistDay.get(i).equals(day) && artistStatus.get(i).toString().equals("true")) {
                 String name = artistsNamesList.get(i);
                 String start = artistsStartTime.get(i);
                 String end = artistEndTime.get(i);
                 arrayList.add(name + "\t\t\t\t" + start + " - " + end);
                 adapter.notifyDataSetChanged();
-            }
-            else{
+            } else {
                 artistID.remove(i);
                 artistsNamesList.remove(i);
                 artistsStartTime.remove(i);
                 artistEndTime.remove(i);
                 artistDay.remove(i);
                 artistStatus.remove(i);
-
             }
         }
     }
 }
-
-

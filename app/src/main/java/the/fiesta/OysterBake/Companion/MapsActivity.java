@@ -16,7 +16,6 @@
 
 package the.fiesta.OysterBake.Companion;
 
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -164,7 +163,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 break;
                             }
 
-                            if (b == filterB.length-1 && filterB[b] == false) {
+                            if (b == filterB.length - 1 && filterB[b] == false) {
                                 allfalse = true;
                             }
 
@@ -207,8 +206,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 //forces a re-render to show changes immediately.
                                 mCM.cluster();
                             }
-                        }
-                        else {
+                        } else {
                             for (int t = 1; t <= 2; t++) {
                                 mCM.clearItems();
                                 mCM.getAlgorithm().clearItems();

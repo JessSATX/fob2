@@ -7,12 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-
 import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminHomePage extends AppCompatActivity {
+
     Button bmap, bshowtime, logout;
     private FirebaseAuth auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,14 +51,13 @@ public class AdminHomePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                auth.signOut();
-                Intent gotoMain = new Intent(AdminHomePage.this, MainActivity.class);
-                startActivity(gotoMain);
-                Toast.makeText(AdminHomePage.this, "Succesfully Logged Out!", Toast.LENGTH_SHORT).show();
-            }
-            catch (Exception e){
-                Toast.makeText(AdminHomePage.this, "Could not log out. Try again.", Toast.LENGTH_SHORT).show();
-            }
+                    auth.signOut();
+                    Intent gotoMain = new Intent(AdminHomePage.this, MainActivity.class);
+                    startActivity(gotoMain);
+                    Toast.makeText(AdminHomePage.this, "Succesfully Logged Out!", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(AdminHomePage.this, "Could not log out. Try again.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

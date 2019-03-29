@@ -6,13 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-
 public class StageSelect extends AppCompatActivity {
 
-
-    Button stage1, stage2, stage3, stage5, stage6;
-
     public static String day;
+    Button stage1, stage2, stage3, stage5, stage6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +30,7 @@ public class StageSelect extends AppCompatActivity {
 
         // change button names depending on day
 
-        if (day.equals("1")){
+        if (day.equals("1")) {
 
             stage1.setText("Classic Rock Stage Presented by Bud Light, KONO 101.1 & The Eagle 106.7");
             stage2.setText("Country Stage Presented by Bud Light & Y100");
@@ -41,8 +38,7 @@ public class StageSelect extends AppCompatActivity {
             stage5.setText("R&B & Hip Hop Stage Presented by Bud Light &The Beat 98.5");
             stage6.setText("Children’s & Family Stage");
 
-        }
-        else {
+        } else {
 
             stage1.setText("Rock Stage Presented by Bud Light & KISS 99.5");
             stage2.setText("Country Stage Presented by Bud Light & KJ 97");
@@ -114,6 +110,5 @@ public class StageSelect extends AppCompatActivity {
                 startActivity(goToSchedule);
             }
         });
-
     }
 }

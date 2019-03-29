@@ -7,8 +7,6 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.widget.ImageView;
 
-
-
 public class Map extends AppCompatActivity {
 
     private ScaleGestureDetector mScaleGestureDetector;

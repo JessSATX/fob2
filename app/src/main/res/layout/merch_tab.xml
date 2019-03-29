@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_below="@id/merch1"
@@ -9,139 +7,126 @@
     android:nestedScrollingEnabled="false"
     android:orientation="vertical">
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/merch5"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <the.fiesta.OysterBake.Companion.TouchImageView
+            android:layout_width="197dp"
+            android:layout_height="173dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/medal_2" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="30dp"
+            android:layout_weight="1"
+            android:text="@string/fiesta_oyster_bake_medal_12"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-            <LinearLayout
-                android:id="@+id/merch5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="5dp"
-                android:orientation="horizontal">
+    </LinearLayout>
 
-                <the.fiesta.OysterBake.Companion.TouchImageView
-                    android:layout_width="197dp"
-                    android:layout_height="173dp"
-                    android:layout_margin="5dp"
-                    android:src="@drawable/medal_2" />
+    <LinearLayout
+        android:id="@+id/merch4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:layout_weight="1"
-                    android:text="@string/fiesta_oyster_bake_medal_12"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+        <the.fiesta.OysterBake.Companion.TouchImageView
+            android:id="@+id/merch1"
+            android:layout_width="193dp"
+            android:layout_height="193dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/shirts_1" />
 
-            </LinearLayout>
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_weight="1"
+            android:text="@string/fiesta_oyster_bake_shirts_10"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-            <LinearLayout
-                android:id="@+id/merch4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="5dp"
-                android:orientation="horizontal">
+    </LinearLayout>
 
-                <the.fiesta.OysterBake.Companion.TouchImageView
-                    android:id="@+id/merch1"
-                    android:layout_width="193dp"
-                    android:layout_height="193dp"
-                    android:layout_margin="5dp"
-                    android:src="@drawable/shirts_1" />
+    <LinearLayout
+        android:id="@+id/merch3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:layout_weight="1"
-                    android:text="@string/fiesta_oyster_bake_shirts_10"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+        <the.fiesta.OysterBake.Companion.TouchImageView
+            android:layout_width="187dp"
+            android:layout_height="216dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/koozie_2" />
 
-            </LinearLayout>
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_weight="1"
+            android:text="@string/fiesta_oyster_bake_koozie_5"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-            <LinearLayout
-                android:id="@+id/merch3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="horizontal">
+    </LinearLayout>
 
-                <the.fiesta.OysterBake.Companion.TouchImageView
+    <LinearLayout
+        android:id="@+id/merch2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
 
-                    android:layout_width="187dp"
-                    android:layout_height="216dp"
-                    android:layout_margin="5dp"
-                    android:src="@drawable/koozie_2" />
+        <the.fiesta.OysterBake.Companion.TouchImageView
+            android:layout_width="192dp"
+            android:layout_height="208dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/hat_2" />
 
-                <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:layout_weight="1"
-                    android:text="@string/fiesta_oyster_bake_koozie_5"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:text="@string/fiesta_oyster_bake_cap_15"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-            </LinearLayout>
+    </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/merch2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="horizontal">
+    <LinearLayout
+        android:id="@+id/merch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-                <the.fiesta.OysterBake.Companion.TouchImageView
+        <the.fiesta.OysterBake.Companion.TouchImageView
+            android:layout_width="197dp"
+            android:layout_height="179dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/fobbutton" />
 
-                    android:layout_width="192dp"
-                    android:layout_height="208dp"
-                    android:layout_margin="5dp"
-                    android:src="@drawable/hat_2" />
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_weight="1"
+            android:text="@string/fiesta_oyster_bake_button_1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:text="@string/fiesta_oyster_bake_cap_15"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/merch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <the.fiesta.OysterBake.Companion.TouchImageView
-                    android:layout_width="197dp"
-                    android:layout_height="179dp"
-                    android:layout_margin="5dp"
-                    android:src="@drawable/fobbutton" />
-
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:layout_weight="1"
-                    android:text="@string/fiesta_oyster_bake_button_1"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>

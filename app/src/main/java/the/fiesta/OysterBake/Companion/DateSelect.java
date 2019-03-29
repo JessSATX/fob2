@@ -7,9 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-
-
 public class DateSelect extends AppCompatActivity {
+
     TextView title;
     Button bfri, bsat;
     String type;
@@ -52,8 +51,6 @@ public class DateSelect extends AppCompatActivity {
                     startActivity(gotoStages);
                 }
             });
-        } else {
-
         }
     }
 }

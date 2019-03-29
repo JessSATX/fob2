@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -20,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class AdminLogin extends AppCompatActivity {
 
     public EditText email, password;
-    public Button blogin, bsignup, bforgotpass, bexport;
+    public Button blogin, bsignup, bforgotpass/*, bexport*/;
     public TextView verify_msg;
 
     private FirebaseAuth auth;
@@ -66,7 +65,7 @@ public class AdminLogin extends AppCompatActivity {
                                 Toast.makeText(AdminLogin.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                                 Intent goToHome = new Intent(AdminLogin.this, AdminHomePage.class);
                                 startActivity(goToHome);
-                               // finish();
+                                // finish();
                             } else if (user != null && !user.isEmailVerified()) {
                                 verify_msg.setText("Your e-mail is not verified. Please check your inbox for a verification e-mail" +
                                         " Click here to send a new verification e-mail.");
@@ -97,7 +96,5 @@ public class AdminLogin extends AppCompatActivity {
                 startActivity(goToForgotPass);
             }
         });
-
-
     }
 }

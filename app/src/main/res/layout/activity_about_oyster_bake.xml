@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="For a third of San Antonio’s history, the Oyster Bake has been part of the fabric of the community. What started as a St. Mary’s University alumni gathering with a handful of people in 1916 on the banks of the San Antonio River downtown has grown to a premier Fiesta San Antonio event with over 70,000 patrons and more than 7,000 volunteers."
+            android:text="@string/about_fob_p1"
             android:textSize="18sp" />
 
         <LinearLayout
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="The Oyster Bake truly is a party with a purpose. 100% of the proceeds raised during the Oyster Bake go directly back to the students of St. Mary’s University. By attending the Oyster Bake, you are helping to further the education of students and their growth as future community leaders. Over the years, your patronage has directly contributed millions of dollars in student scholarships and university programs, and for this we can simply say: thank you."
+            android:text="@string/about_fob_p2"
             android:textSize="18sp" />
 
         <LinearLayout
@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="And in case you were wondering, over the two days of Oyster Bake, we go through 100,000 oysters and 32,000 chickens on sticks with jalapeños!"
+            android:text="@string/about_fob_p3"
             android:textSize="18sp" />
 
         <View
@@ -80,7 +80,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Our Mission"
+            android:text="@string/our_mission"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -88,7 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="To produce a quality, volunteer-driven, Fiesta San Antonio-approved music festival to raise funds for student scholarships to St. Mary’s University, and to support the University and the Alumni Association."
+            android:text="@string/about_fob_p4"
             android:textSize="18sp" />
 
         <LinearLayout
@@ -110,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Thank you for supporting student scholarships and university programs, and viva Oyster Bake!"
+            android:text="@string/about_fob_p5"
             android:textSize="18sp" />
 
         <TextView
@@ -118,7 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="The following Google Map can be used to get directions to the 3 gates of Oyster Bake by tapping on their respective icons!"
+            android:text="@string/map_help_fob"
             android:textSize="18sp" />
 
         <fragment

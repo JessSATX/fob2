@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -16,9 +15,9 @@ import java.util.Calendar;
 
 public class AboutOysterBake extends AppCompatActivity implements OnMapReadyCallback {
 
+    private final String TAG = MapsActivity.class.getSimpleName();
     TextView fobTitle1;
     GoogleMap mMap;
-    private final String TAG = MapsActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,36 +34,34 @@ public class AboutOysterBake extends AppCompatActivity implements OnMapReadyCall
         fobTitle1 = findViewById(R.id.fob_title_1);
 
         fobTitle1.setText(Integer.toString(currentFOBCount) + " Years and Counting");
-
     }
 
-        @Override
-        public void onMapReady(GoogleMap googleMap) {
-            {
-                mMap = googleMap;
-                mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-                mMap.getUiSettings().setAllGesturesEnabled(false);
-                // Move the camera instantly to stmu with a zoom of 15.
-                LatLng gate1 = new LatLng(29.454482242994565, -98.56836338953309);
-                LatLng gate2 = new LatLng(29.44891046566121, -98.56295840989685);
-                LatLng gate3 = new LatLng(29.45126734383246, -98.56090615697059);
-                LatLng stmu = new LatLng(29.45249260178782, -98.56478047528071);
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        {
+            mMap = googleMap;
+            mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+            mMap.getUiSettings().setAllGesturesEnabled(false);
+            // Move the camera instantly to stmu with a zoom of 15.
+            LatLng gate1 = new LatLng(29.454482242994565, -98.56836338953309);
+            LatLng gate2 = new LatLng(29.44891046566121, -98.56295840989685);
+            LatLng gate3 = new LatLng(29.45126734383246, -98.56090615697059);
+            LatLng stmu = new LatLng(29.45249260178782, -98.56478047528071);
 
-                mMap.addMarker(new MarkerOptions()
-                        .title("Fiesta Oyster Bake NW36th Entrance")
-                        .position(gate1));
+            mMap.addMarker(new MarkerOptions()
+                    .title("Fiesta Oyster Bake NW36th Entrance")
+                    .position(gate1));
 
-                mMap.addMarker(new MarkerOptions()
-                        .title("Fiesta Oyster Bake Culebra Entrance")
-                        .position(gate2));
+            mMap.addMarker(new MarkerOptions()
+                    .title("Fiesta Oyster Bake Culebra Entrance")
+                    .position(gate2));
 
-                mMap.addMarker(new MarkerOptions()
-                        .title("Fiesta Oyster Bake Camino Santa Maria Entrance")
-                        .position(gate3));
+            mMap.addMarker(new MarkerOptions()
+                    .title("Fiesta Oyster Bake Camino Santa Maria Entrance")
+                    .position(gate3));
 
 
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(stmu, 15));
-            }
-
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(stmu, 15));
         }
     }
+}

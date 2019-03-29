@@ -4,11 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ExpandableListView;
 
-
 public class FridayBackupMap extends AppCompatActivity {
+
     private ExpandableListView expandableListView;
     private ExpandableListViewAdapterForBackupMap expandableListViewAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,4 +21,3 @@ public class FridayBackupMap extends AppCompatActivity {
         expandableListView.setAdapter(expandableListViewAdapter);
     }
 }
-

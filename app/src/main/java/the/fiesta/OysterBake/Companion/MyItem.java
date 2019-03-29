@@ -1,6 +1,5 @@
 package the.fiesta.OysterBake.Companion;
 
-
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -14,8 +13,8 @@ public class MyItem implements ClusterItem {
     private final LatLng mPosition;
     private final String mTitle;
     private final String mSnippet;
-    private List<String> mTag = new ArrayList<>();
     private final BitmapDescriptor mIcon;
+    private List<String> mTag = new ArrayList<>();
     private boolean visibility = true;
 
     public MyItem(double lat, double lng) {
@@ -25,8 +24,7 @@ public class MyItem implements ClusterItem {
         mIcon = BitmapDescriptorFactory.fromResource(R.drawable.food);
     }
 
-    public MyItem(double lat, double lng, String title, String snippet, String tag, BitmapDescriptor bitmap)
-    {
+    public MyItem(double lat, double lng, String title, String snippet, String tag, BitmapDescriptor bitmap) {
         mPosition = new LatLng(lat, lng);
         mTitle = title;
         mSnippet = snippet;
@@ -50,23 +48,27 @@ public class MyItem implements ClusterItem {
         return mSnippet;
     }
 
-    public boolean isVisible() {return this.visibility;}
+    public boolean isVisible() {
+        return this.visibility;
+    }
 
-    public void setVisibility(boolean v) { this.visibility = v;}
+    public void setVisibility(boolean v) {
+        this.visibility = v;
+    }
 
-    public List<String> getTags() {return mTag;}
+    public List<String> getTags() {
+        return mTag;
+    }
 
-    public void addTag(String tag)
-    {
+    public void addTag(String tag) {
         mTag.add(tag);
     }
 
-    public void removeTag(int index)
-    {
+    public void removeTag(int index) {
         mTag.remove(index);
     }
 
-    public BitmapDescriptor getIcon() {return mIcon;}
-
-
+    public BitmapDescriptor getIcon() {
+        return mIcon;
+    }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="8dp"
     tools:context="the.fiesta.OysterBake.Companion.SelectDate">
 
     <LinearLayout
@@ -15,12 +15,16 @@
             android:id="@+id/friB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Friday" />
+            android:text="@string/friday_admin" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="64dp" />
 
         <Button
             android:id="@+id/satB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Saturday " />
+            android:text="@string/saturday_admin" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

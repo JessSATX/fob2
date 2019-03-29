@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="8dp"
-    tools:context="com.fiesta.OysterBake.Companion.The.fiesta.OysterBake.Companion.DateSelect">
+    tools:context="the.fiesta.OysterBake.Companion.DateSelect">
 
     <TextView
         android:id="@+id/tTitle"
@@ -21,12 +20,16 @@
         android:id="@+id/bFri"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Friday " />
+        android:text="@string/friday_admin" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="64dp" />
 
     <Button
         android:id="@+id/bSat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Saturday" />
+        android:text="@string/saturday_admin" />
 
 </LinearLayout>

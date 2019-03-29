@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,11 +47,10 @@ public class ScheduleList extends AppCompatActivity {
         artistsListView = findViewById(R.id.Artists_List);
 
         // Set the name of the stage.
-        if (stageNum.equals("4")){
+        if (stageNum.equals("4")) {
             stageTitle.setText("STAGE 6");
 
-        }
-        else {
+        } else {
             stageTitle.setText("STAGE " + stageNum);
         }
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList);

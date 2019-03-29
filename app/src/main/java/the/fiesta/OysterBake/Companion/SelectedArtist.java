@@ -5,8 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-
-
 public class SelectedArtist extends AppCompatActivity {
 
     public static String name;
@@ -31,6 +29,5 @@ public class SelectedArtist extends AppCompatActivity {
         // Set TextView title to to the artist's name.
         nameTitle = findViewById(R.id.artist_name);
         nameTitle.setText(name);
-
     }
 }

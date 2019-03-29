@@ -5,35 +5,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 
 public class newinfoAdapter implements GoogleMap.InfoWindowAdapter {
+
     private final View mWindow;
     private Context mContext;
 
-    public newinfoAdapter(Context context)
-    {
+    public newinfoAdapter(Context context) {
         mContext = context;
         mWindow = LayoutInflater.from(context).inflate(R.layout.newinfo, null);
     }
 
-    private void rendorWindowText(Marker marker, View view)
-    {
+    private void rendorWindowText(Marker marker, View view) {
         String title = marker.getTitle();
         TextView tvTitle = view.findViewById(R.id.title);
 
-        if(!title.equals(""))
-        {
+        if (!title.equals("")) {
             tvTitle.setText(title);
         }
 
         String snippet = marker.getSnippet();
         TextView tvSnippet = view.findViewById(R.id.snippet);
 
-        if(!snippet.equals(""))
-        {
+        if (!snippet.equals("")) {
             tvSnippet.setText(snippet);
         }
     }

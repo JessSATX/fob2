@@ -11,17 +11,19 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class EditShowtime extends AppCompatActivity implements  AdapterView.OnItemSelectedListener {
+public class EditShowtime extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+    public static String stage, artistID;
     public String Artistname, Showstart, Showend, day;
+
     EditText name, start, end, showDay;
     Button saveinfo, cancel;
-    private DatabaseReference fb;
-    public static String stage, artistID;
     Spinner daySelect;
+
+    private DatabaseReference fb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +40,16 @@ public class EditShowtime extends AppCompatActivity implements  AdapterView.OnIt
 
         if (bundle != null) {
             stage = (String) bundle.get("stage");
-            artistID = (String) bundle.get ("ID");
+            artistID = (String) bundle.get("ID");
             Artistname = (String) bundle.get("name");
-            Showstart = (String) bundle.get ("start");
-            Showend = (String) bundle.get ("end");
+            Showstart = (String) bundle.get("start");
+            Showend = (String) bundle.get("end");
             day = (String) bundle.get("day");
 
         }
 
         daySelect = findViewById(R.id.sDay);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.day_select, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.day_select, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         daySelect.setAdapter(adapter);
         daySelect.setOnItemSelectedListener(this);
@@ -59,7 +61,6 @@ public class EditShowtime extends AppCompatActivity implements  AdapterView.OnIt
         end = findViewById(R.id.etEndTime);
 
 
-
         // set text on screen
         name.setText(Artistname);
         start.setText(Showstart);
@@ -68,8 +69,7 @@ public class EditShowtime extends AppCompatActivity implements  AdapterView.OnIt
         if (day.equals("1")) {
 
             daySelect.setSelection(0);
-        }
-        else {
+        } else {
             daySelect.setSelection(1);
         }
 
@@ -82,21 +82,17 @@ public class EditShowtime extends AppCompatActivity implements  AdapterView.OnIt
                     fb.child("STAGES").child(stage).child("ARTISTS").child(artistID).child("START_TIME").setValue(start.getText().toString());
                     fb.child("STAGES").child(stage).child("ARTISTS").child(artistID).child("END_TIME").setValue(end.getText().toString());
 
-                    if (day.equals("Friday")){
+                    if (day.equals("Friday")) {
                         fb.child("STAGES").child(stage).child("ARTISTS").child(artistID).child("DAY").setValue("1");
-                    }
-                    else if (day.equals("Saturday"))
-                    {
+                    } else if (day.equals("Saturday")) {
                         fb.child("STAGES").child(stage).child("ARTISTS").child(artistID).child("DAY").setValue("2");
                     }
 
                     Toast.makeText(EditShowtime.this, "Changed saved succesfully!", Toast.LENGTH_SHORT).show();
 
-                    Intent goback = new Intent (EditShowtime.this, AdminHomePage.class);
+                    Intent goback = new Intent(EditShowtime.this, AdminHomePage.class);
                     startActivity(goback);
-                }
-
-                catch (Exception e){
+                } catch (Exception e) {
                     Toast.makeText(EditShowtime.this, "Information could not be updated. Please try again.", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -107,23 +103,20 @@ public class EditShowtime extends AppCompatActivity implements  AdapterView.OnIt
             public void onClick(View view) {
                 fb.child("STAGES").child(stage).child("ARTISTS").child(artistID).child("STATUS").setValue(false);
                 Toast.makeText(EditShowtime.this, "Showtime Canceled", Toast.LENGTH_SHORT).show();
-                Intent goback = new Intent (EditShowtime.this, AdminSchedule.class);
+                Intent goback = new Intent(EditShowtime.this, AdminSchedule.class);
                 startActivity(goback);
 
             }
         });
-
-
-
-
     }
+
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
         day = adapterView.getItemAtPosition(position).toString();
-        }
+    }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
-        }
+    }
 }

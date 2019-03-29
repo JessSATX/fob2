@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-
-
 public class SelectDate extends AppCompatActivity {
 
     public static String stageNum;
@@ -30,7 +28,7 @@ public class SelectDate extends AppCompatActivity {
         fri.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent gotosch = new Intent (SelectDate.this, ScheduleList.class);
+                Intent gotosch = new Intent(SelectDate.this, ScheduleList.class);
                 gotosch.putExtra("STAGE_NUM", stageNum);
                 gotosch.putExtra("day", "1");
                 startActivity(gotosch);
@@ -40,13 +38,11 @@ public class SelectDate extends AppCompatActivity {
         sat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent gotosch = new Intent (SelectDate.this, ScheduleList.class);
+                Intent gotosch = new Intent(SelectDate.this, ScheduleList.class);
                 gotosch.putExtra("STAGE_NUM", stageNum);
                 gotosch.putExtra("day", "2");
                 startActivity(gotosch);
             }
         });
-
-
     }
 }

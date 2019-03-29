@@ -39,7 +39,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.HashMap;
 import java.util.Calendar;
 import java.util.List;
 
@@ -61,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
         // check if a user is logged in
 
-        if (FirebaseAuth.getInstance().getCurrentUser() != null){
-            Intent AdminHome = new Intent (MainActivity.this, AdminHomePage.class);
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            Intent AdminHome = new Intent(MainActivity.this, AdminHomePage.class);
             startActivity(AdminHome);
         }
 
@@ -113,8 +112,7 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.container, FAQTab.newInstance(position + 1))
                             .commit();
-                }
-                else if (position == 5) // Merch content
+                } else if (position == 5) // Merch content
                 {
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.container, MerchTab.newInstance(position + 1))
@@ -126,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
     }
 
     //The following is for the map --------------------------------------------------------------
@@ -228,12 +225,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-
     }
 
     //this ends the map section! --------------------------------------------
 
-
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -264,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
+    */
 
     private static class MyAdapter extends ArrayAdapter<String> implements ThemedSpinnerAdapter {
         private final ThemedSpinnerAdapter.Helper mDropDownHelper;
@@ -339,7 +335,6 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-            // currentYear = 2097;   // Play around with different year values.
 
             String welcomeTextString = "Welcome to the ";
             welcomeTextString = welcomeTextString + Integer.toString(currentYear);
@@ -627,8 +622,6 @@ public class MainActivity extends AppCompatActivity {
 
         private ExpandableListView expandableListView;
         private ExpandableListViewAdapter expandableListViewAdapter;
-        private List<String> listDataGroup;
-        private HashMap<String, List<String>>listDataChild;
 
         public FAQTab() {
         }
@@ -668,11 +661,6 @@ public class MainActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
-
-        private ExpandableListView expandableListView;
-        private ExpandableListViewAdapter expandableListViewAdapter;
-        private List<String> listDataGroup;
-        private HashMap<String, List<String>> listDataChild;
 
         public MerchTab() {
         }

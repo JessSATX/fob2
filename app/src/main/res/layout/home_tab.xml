@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/text_divider"
         android:layout_alignParentRight="true"
-        android:text="About Oyster Bake" />
+        android:text="@string/about_oyster_bake" />
 
     <Button
         android:id="@+id/buy_tickets_button"
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/text_divider"
         android:layout_alignParentLeft="true"
-        android:text="Purchase Tickets" />
+        android:text="@string/buy_tickets" />
 
     <View
         android:id="@+id/social_divider"
@@ -80,7 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/social_divider"
-        android:text="Connect with Oyster Bake!"
+        android:text="@string/connect_with_oyster_bake"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -91,7 +91,7 @@
         android:layout_below="@id/connect_label"
         android:layout_centerHorizontal="true"
         android:backgroundTint="#3B5998"
-        android:text="Like on Facebook!"
+        android:text="@string/like_on_facebook"
         android:textColor="@android:color/white" />
 
     <Button
@@ -101,7 +101,7 @@
         android:layout_below="@id/facebook_button"
         android:layout_centerHorizontal="true"
         android:backgroundTint="#C32AA3"
-        android:text="Follow on Instagram!"
+        android:text="@string/follow_on_instagram"
         android:textColor="@android:color/white" />
 
     <Button
@@ -111,7 +111,7 @@
         android:layout_below="@id/instagram_button"
         android:layout_centerHorizontal="true"
         android:backgroundTint="#00ACED"
-        android:text="Follow on Twitter!"
+        android:text="@string/follow_on_twitter"
         android:textColor="@android:color/white" />
 
     <View
@@ -128,7 +128,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/sponsor_divider"
-        android:text="Oyster Bake would not be possible without our sponsors!"
+        android:text="@string/thanks_sponsors"
         android:textSize="18sp"
         android:textStyle="bold" />
 

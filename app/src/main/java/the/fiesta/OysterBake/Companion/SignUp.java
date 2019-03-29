@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -96,7 +95,6 @@ public class SignUp extends AppCompatActivity {
                                                 Toast.makeText(SignUp.this, "Could not register. Please try again.", Toast.LENGTH_SHORT).show();
                                             }
                                         }
-
                                     }
                                 });
                     }
@@ -110,7 +108,6 @@ public class SignUp extends AppCompatActivity {
                         Toast.makeText(SignUp.this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
                     }
                 }
-
             }
         });
     }

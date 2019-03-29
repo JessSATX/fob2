@@ -11,19 +11,16 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class CreateShowtime extends AppCompatActivity implements AdapterView.OnItemSelectedListener  {
+public class CreateShowtime extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     public static String stage;
+    public String day;
 
     EditText name, start, end;
     Button create;
-
-    public String day;
-
     Spinner daySelect;
 
     private DatabaseReference fb;
@@ -46,7 +43,7 @@ public class CreateShowtime extends AppCompatActivity implements AdapterView.OnI
 
 
         daySelect = findViewById(R.id.sDaySelect);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.day_select, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.day_select, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         daySelect.setAdapter(adapter);
         daySelect.setOnItemSelectedListener(this);
@@ -66,7 +63,7 @@ public class CreateShowtime extends AppCompatActivity implements AdapterView.OnI
                 String startTime = start.getText().toString().trim();
                 String endTime = end.getText().toString().trim();
 
-                if (!Artistname.equals("") && !day.equals("") & !startTime.equals("") && !endTime.equals("")){
+                if (!Artistname.equals("") && !day.equals("") & !startTime.equals("") && !endTime.equals("")) {
 
                     try {
                         String key = fb.child("STAGES").child(stage).child("ARTISTS").push().getKey();
@@ -85,14 +82,11 @@ public class CreateShowtime extends AppCompatActivity implements AdapterView.OnI
                         Toast.makeText(CreateShowtime.this, "Showtime created!", Toast.LENGTH_SHORT).show();
                         Intent gotoList = new Intent(CreateShowtime.this, AdminHomePage.class);
                         startActivity(gotoList);
-                    }
-                    catch (Exception e){
+                    } catch (Exception e) {
                         Toast.makeText(CreateShowtime.this, "Could not create the showtime.", Toast.LENGTH_SHORT).show();
                     }
 
-                }
-
-                else {
+                } else {
                     Toast.makeText(CreateShowtime.this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
                 }
             }
