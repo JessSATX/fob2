@@ -17,7 +17,7 @@
         android:background="@drawable/fobcafireworks"
         android:text="@string/friday_map"
         android:textAlignment="center"
-        android:textColor="#FFFF33"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="36sp" />
 
     <View
@@ -30,7 +30,7 @@
         android:layout_height="208dp"
         android:background="@drawable/fobcasaturdaybackground"
         android:text="@string/saturday_map"
-        android:textColor="#FFFF33"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="36sp" />
 
 </LinearLayout>
