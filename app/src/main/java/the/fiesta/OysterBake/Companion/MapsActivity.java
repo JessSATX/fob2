@@ -81,7 +81,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     //ArrayList of MiItem class, for collecting the references to marker objects. -- Lynntonio
     List<MyItem> markers = new ArrayList<MyItem>();
     //This is used to save the variables in that we use for the markers
-    String markerTitle = "intitial";
+    String markerTitle;
     Double markerLat = 0.0;
     Double markerLang = 0.0;
     Integer imageTag = 1;
@@ -509,7 +509,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public boolean onClusterItemClick(MyItem myItem) {
         clickedItem = myItem;
         for (int x = 0; x < myItem.getTags().size(); x++) {
-            System.out.println(myItem.getTags().get(x));
+            System.out.println(myItem.getTitle());
+            System.out.println(myItem.getSnippet());
         }
         return false;
     }
@@ -708,7 +709,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
             //add all the attributes that we got from above code to a MyItem object
-            currentItem = addAttributesToItem(markerLat, markerLang, markerTitle+"", "\n"+giveDescriptionsToMarkers(boothNumbers), markerTags[0], getImageFromTag(imageTag));
+            currentItem = addAttributesToItem(markerLat, markerLang, markerTitle, giveDescriptionsToMarkers(boothNumbers), markerTags[0], getImageFromTag(imageTag));
             for (int i = 1; i < markerTags.length; i++) {
                 currentItem.addTag(markerTags[i].trim());
             }
@@ -751,7 +752,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
             //add all the attributes that we got from above code to a MyItem object
-            currentItem = new MyItem(markerLat, markerLang, markerTitle+"", "\n"+giveDescriptionsToMarkers(boothNumbers), markerTags[0], getImageFromTag(imageTag));
+            currentItem = new MyItem(markerLat, markerLang, markerTitle, giveDescriptionsToMarkers(boothNumbers), markerTags[0], getImageFromTag(imageTag));
             for (int i = 1; i < markerTags.length; i++) {
                 currentItem.addTag(markerTags[i].trim());
             }
