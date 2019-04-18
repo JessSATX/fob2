@@ -180,19 +180,11 @@ public class MainActivity extends AppCompatActivity {
 
     //this ends the map section! --------------------------------------------
 
-    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        if (checkMapServices()) {
-            if (mLocationPermissionGranted) {
-                getMenuInflater().inflate(R.menu.menu_main, menu);
-            } else {
-                getLocationPermission();
-            }
-
-        }
+        
         return true;
     }
 
@@ -211,7 +203,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    */
 
     private static class MyAdapter extends ArrayAdapter<String> implements ThemedSpinnerAdapter {
         private final ThemedSpinnerAdapter.Helper mDropDownHelper;
