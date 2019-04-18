@@ -1,59 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="8dp"
     tools:context="the.fiesta.OysterBake.Companion.CreateShowtime">
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/etName"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/artist_name"
+        android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/etName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/artist_name"
-            android:inputType="textPersonName" />
+    <EditText
+        android:id="@+id/etStartTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/start_time"
+        android:inputType="time|text" />
 
-        <EditText
-            android:id="@+id/etStartTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/start_time"
-            android:inputType="time" />
+    <EditText
+        android:id="@+id/etEndTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/end_time"
+        android:inputType="time|text" />
 
-        <EditText
-            android:id="@+id/etEndTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/end_time"
-            android:inputType="time" />
+    <Spinner
+        android:id="@+id/sDaySelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-        <Spinner
-            android:id="@+id/sDaySelect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tvDay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/day"
+        android:textColor="#071E46"
+        android:textStyle="italic" />
 
-        <TextView
-            android:id="@+id/tvDay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/day"
-            android:textColor="#071E46"
-            android:textStyle="italic" />
-
-        <Button
-            android:id="@+id/bcreate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/create_showtime" />
-
-    </LinearLayout>
-
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/bcreate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_showtime" />
+</LinearLayout>

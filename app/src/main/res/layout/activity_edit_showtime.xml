@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/start_time"
-            android:inputType="time" />
+            android:inputType="time|text" />
 
         <EditText
             android:id="@+id/etEndTime"
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/end_time"
-            android:inputType="time" />
+            android:inputType="time|text" />
 
         <Spinner
             android:id="@+id/sDay"
