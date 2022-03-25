@@ -7,9 +7,22 @@
     android:nestedScrollingEnabled="true"
     tools:context="the.fiesta.OysterBake.Companion.MainActivity$FAQTab">
 
-    <ExpandableListView
-        android:id="@+id/expandableListView"
+    <ScrollView
         android:layout_width="0dp"
-        android:layout_height="2000dp"
-        android:layout_weight="0.14" />
+        android:layout_height="804dp"
+        android:layout_weight="0.14">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ExpandableListView
+                android:id="@+id/expandableListView"
+                android:layout_width="match_parent"
+                android:layout_height="834dp"
+                android:layout_weight="0.14" />
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

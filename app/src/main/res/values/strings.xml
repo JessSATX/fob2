@@ -23,14 +23,8 @@
     <string name="fiesta_oyster_bake_koozie_5">Fiesta Oyster Bake Koozie $5</string>
     <string name="title_activity_edit_maps">Map</string>
     <string name="fiesta_oyster_bake_medal_12">Fiesta Oyster Bake Medal $12</string>
-    <string name="development_team">Development Team</string>
-    <string name="christine_flores">Christine Flores</string>
-    <string name="nathan_marcos">Nathan Marcos</string>
-    <string name="vincent_nava">Vincent Nava</string>
-    <string name="lynntonio_robinson">Lynntonio Robinson</string>
-    <string name="jose_tanori">Jose Tanori</string>
-    <string name="joe_anthony_suarez">Joe Anthony Suarez</string>
-    <string name="about_text_block">This companion application was made for St. Mary\'s University and Oyster Bake by a team of Computer Science Seniors. In hope of continued support and improved patron experience, please report any bugs or feed back to the following email.</string>
+    <string name="development_team">Development</string>
+    <string name="about_text_block">This companion application was made for St. Mary\'s University and Oyster Bake by Computer Science students. In hope of continued support and improved patron experience, please report any bugs or feed back to the following email.</string>
     <string name="support_email">alumrel@stmarytx.edu</string>
     <string name="thanks_bro">Thank you for your support!</string>
     <string name="about_fob_p1">For a third of San Antonio’s history, the Oyster Bake has been part of the fabric of the community. What started as a St. Mary’s University alumni gathering with a handful of people in 1916 on the banks of the San Antonio River downtown has grown to a premier Fiesta San Antonio event with over 70,000 patrons and more than 7,000 volunteers.</string>

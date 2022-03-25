@@ -10,9 +10,9 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private String[] headerNames = {"Oyster Bake Hours", "Parking", "Park & Ride", "Family Friendly Event", "Safety at Oyster Bake", "Allowed & Prohibited Items", "Security & Entry", "Exit & Re-entry", "Payment Types", "Rain Or Shine?", "Refund & Policy", "Contact Us"};
-    private String[][] childNames = {{"Friday April 12: 5:00-11:00 PM                                                                " +
-            "(Integrity  Roofing and Siding Fireworks Spectacular start at 10:30 PM)                                                 " +
-            "Saturday April 13: 12:00-11:00 PM                                                                                       " +
+    private String[][] childNames = {{"Friday April 1st: 5:00-11:00 PM                                                                " +
+            "(Fireworks Spectacular start at 10:30 PM)                                                 " +
+            "Saturday April 2nd: 12:00-11:00 PM                                                                                       " +
             "For Both Days                                                                                                           " +
             "  - Gates close at 10:30 PM                                                                                             " +
             "  - Ticket sales end at 10:30 PM                                                                                        " +
@@ -21,14 +21,14 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
             "  - Food and Beverage sales end at 10:30 PM                                                                             " +
             "  - Coupon sales end at 10:30 PM                                                                                        "},
             {"We appreciate the patience of our neighbors each year as we conduct the Oyster Bake. Because we are located in a residential area, parking is somewhat congested around the event. We offer limited on-campus parking for $20."},
-            {"We highly encourage everyone to take the VIA Park and Ride located at Crossroads. Each passenger will be charged a $5 roundtrip fee and will receive a coupon for a free soda, water or Red Bull at the Oyster Bake." +
+            {"We highly encourage everyone to take the VIA Park and Ride located at Crossroads. Each passenger will be charged a $5 roundtrip fee and will receive a coupon for a free soda, water or Energy Drink at the Oyster Bake." +
                     " VIA Park and Ride to the Fiesta Oyster Bake will operate the following:                                                                              " +
                     " Hours of Operation:                                                                                                                          " +
-                    "Friday, April 12                                                                                                " +
+                    "Friday, April 1st                                                                                                " +
                     "4:30 to 11:30 PM                                                                                                " +
                     "                                                                                                                                              " +
                     "                                                                                                               " +
-                    "Saturday, April 13                                                                                              " +
+                    "Saturday, April 2nd                                                                                              " +
                     " 11:30 AM  to  11:30 PM                                                                                         "},
             {"The Oyster Bake is a family friendly event. We encourage families to attend Friday evening as we feature entertainment for families and the Integrity Roofing and Siding Fireworks Spectacular at the end of the night. On both days, kids and 'kids at heart' can visit our carnival area known as Shuckie Street, named for our Oyster Bake mascot. We offer rides and games for children of all ages. Also, children 12 years old and younger, receive FREE admission to Oyster Bake."},
             {"Your safety is our NUMBER ONE priority.                                                                                " +
@@ -79,7 +79,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                     "Checks:                                                                                                                   " +
                     "Checks are NOT accepted.                                                                                                  " +
                     "Coupons:                                                                                                                  " +
-                    "All food and beverage items are purchased with coupons. Coupon sales end at 10:30 p.m. Coupons are available in $.50 increments."},
+                    "All food and beverage items are purchased with coupons. Coupon sales end at 10:30 p.m. Coupons are available in $1.00 increments."},
             {"YES! Oyster Bake will still go on rain or shine.                                                                      "},
             {"There will be NO REFUNDS. The Oyster Bake is rain or shine and all bands are subject to change. "},
             {"Fiesta Oyster Bake                                                                                 " +

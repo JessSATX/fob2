@@ -9,7 +9,7 @@ import android.widget.Button;
 public class StageSelect extends AppCompatActivity {
 
     public static String day;
-    Button stage1, stage2, stage3, stage5, stage6;
+    Button stage1, stage2, stage3, stage5;// stage6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class StageSelect extends AppCompatActivity {
         stage2 = findViewById(R.id.Stage2);
         stage3 = findViewById(R.id.Stage3);
         stage5 = findViewById(R.id.Stage5);
-        stage6 = findViewById(R.id.Stage6);
+       // stage6 = findViewById(R.id.Stage6);
 
         // change button names depending on day
 
@@ -36,7 +36,7 @@ public class StageSelect extends AppCompatActivity {
             stage2.setText("Country Stage Presented by Bud Light & Y100");
             stage3.setText("Tejano & Latin Stage Presented By Bud Light & KXTN 107.5");
             stage5.setText("R&B & Hip Hop Stage Presented by Bud Light &The Beat 98.5");
-            stage6.setText("Children’s & Family Stage");
+          //  stage6.setText("Children’s & Family Stage");
 
         } else {
 
@@ -44,7 +44,7 @@ public class StageSelect extends AppCompatActivity {
             stage2.setText("Country Stage Presented by Bud Light & KJ 97");
             stage3.setText("Tejano & Latin Stage Presented By Bud Light & KXTN 107.5");
             stage5.setText("Variety Stage Presented by Bud Light & 96.1 NOW");
-            stage6.setText("Children’s & Family Stage");
+          //  stage6.setText("Children’s & Family Stage");
         }
 
         stage1.setOnClickListener(new View.OnClickListener() {
@@ -98,17 +98,17 @@ public class StageSelect extends AppCompatActivity {
             }
         });
 
-        stage6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent goToSchedule = new Intent(StageSelect.this, ScheduleList.class);
-
-                goToSchedule.putExtra("Stage", "4");
-                goToSchedule.putExtra("day", day);
-
-                startActivity(goToSchedule);
-            }
-        });
+//        stage6.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Intent goToSchedule = new Intent(StageSelect.this, ScheduleList.class);
+//
+//                goToSchedule.putExtra("Stage", "4");
+//                goToSchedule.putExtra("day", day);
+//
+//                startActivity(goToSchedule);
+//            }
+//        });
     }
 }

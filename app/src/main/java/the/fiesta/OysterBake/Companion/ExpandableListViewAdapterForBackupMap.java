@@ -11,7 +11,7 @@ public class ExpandableListViewAdapterForBackupMap extends BaseExpandableListAda
     private Context context;
     private String[] headerNames = {
             "Water",
-            "Red Bull",
+            "Energy Drink",
             "Beer/Flavored Malt Beverages",
             "Soft Drinks",
             "Chicken on a stick",
@@ -23,13 +23,13 @@ public class ExpandableListViewAdapterForBackupMap extends BaseExpandableListAda
             "Medical Trainer",
             "Port-A-Johns/ Hand Sanitizing"};
     private String[][] childNames = {{"Bottled Water, Price: 6 Coupons"},
-            {"Red Bull, Price: 6 Coupons"},
-            {"Beer/Flavored Malt Beverages, Price: 12 Coupons"},
-            {"Soft Drinks, Price: 6 Coupons"},
-            {"Chicken on a stick: Price : 8 Coupons"},
+            {"Energy Drink, Price: 4 Coupons"},
+            {"Beer/Flavored Malt Beverages, Price: 7 Coupons"},
+            {"Soft Drinks, Price: 4 Coupons"},
+            {"Chicken on a stick: Price : 6 Coupons"},
             {"ATM Machine"},
-            {"Coupon Booth: Price .50 cents per coupon"},
-            {"Gate: Entry Tickets available at gate for $30"},
+            {"Coupon Booth: Price $1.00 per coupon"},
+            {"Gate: Entry Tickets available at gate for $25"},
             {"Ambulance: Medical Assistance available"},
             {"First Aid: Medical Assistance available"},
             {"Medical Trainer: Medical Assistance available"},
